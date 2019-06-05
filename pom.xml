@@ -23,6 +23,12 @@
             <version>4.3.1.Final</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>leaflet</artifactId>
+            <version>1.5.1</version>
+        </dependency>
+
 
         <!-- your dependencies here: -->
 

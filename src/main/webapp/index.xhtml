@@ -2,19 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:lmap="http://java.sun.com/jsf/composite/map">
 
 <!--    <ui:composition template="WEB-INF/templates/basicTemplate.xhtml">
       <ui:define name="content"> -->
 
-<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+ <!-- <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
         src="https://www.openstreetmap.org/export/embed.html?bbox=12.09124803543091%2C49.00155533908618%2C12.100206613540651%2C49.004771843405564&amp;layer=mapnik"
         style="border: 1px solid black">
 
-</iframe>
+</iframe> -->
 
 
 
+<lmap:map map="#{mapBean.map}" />
 
         <!--  Zum Servlet geht es <a href="/studmgmt-0.1/Studentenverwaltung">hier</a> lang. -->
 
