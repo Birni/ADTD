@@ -1,9 +1,11 @@
 package services.entity;
 
+import org.hibernate.metamodel.relational.Identifier;
 import services.entity.util.GeneratedIdEntity;
 import services.entity.util.LongIdEntity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,10 +13,11 @@ import java.util.List;
 public class Node extends LongIdEntity
 {
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private Coordinate Coordinate;
-    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    private List<Node> LinkList = new ArrayList<Node>();
+    @ElementCollection
+    private List<Long> LinkList = new ArrayList<Long>();
+    private String IdentifierLocation ="default";
 
     public Node()
     {
@@ -50,13 +53,29 @@ public class Node extends LongIdEntity
         return Coordinate;
     }
 
-    public void addLink(Node node)
+    public void addLink(Long LinkId)
     {
-        this.LinkList.add(node);
+        this.LinkList.add(LinkId);
     }
 
-    public List<Node> getLinkList()
+    public void addLink(Node node)
+    {
+        this.LinkList.add(node.id);
+    }
+
+    public List<Long> getLinkList()
     {
         return LinkList;
     }
+
+    public String GetIdentifierLocation()
+    {
+        return IdentifierLocation;
+    }
+
+    public void SetIdentifierLocation(String LocationId)
+    {
+        this.IdentifierLocation = LocationId;
+    }
+
 }
