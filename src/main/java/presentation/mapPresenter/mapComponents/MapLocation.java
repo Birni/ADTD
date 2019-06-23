@@ -3,10 +3,10 @@ package presentation.mapPresenter.mapComponents;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Location
+public class MapLocation
 {
     private String type = "Feature";
-    private List<Coordinate> coordinateList = new ArrayList<Coordinate>();
+    private List<MapCoordinate> coordinateList = new ArrayList<MapCoordinate>();
     private String GeometryType ="Polygon";
 
 
@@ -15,19 +15,19 @@ public class Location
         return type;
     }
 
-    public Location setType(String type)
+    public MapLocation setType(String type)
     {
         this.type = type;
         return this;
     }
 
-    public List<Coordinate> getCoordinateList()
+    public List<MapCoordinate> getCoordinateList()
     {
         return coordinateList;
     }
 
 
-    public Location addCoordinate(Coordinate Coord)
+    public MapLocation addCoordinate(MapCoordinate Coord)
     {
         this.coordinateList.add(Coord);
         return this;

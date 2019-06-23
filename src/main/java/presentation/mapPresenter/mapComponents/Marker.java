@@ -4,25 +4,25 @@ package presentation.mapPresenter.mapComponents;
 
 public class Marker {
 
-    private Coordinate position;
+    private MapCoordinate position;
     private String popupMsg;
 
-    public Marker(Coordinate position)
+    public Marker(MapCoordinate position)
     {
         this.position = position;
     }
 
-    public Marker(Coordinate position, String popupMsg)
+    public Marker(MapCoordinate position, String popupMsg)
     {
         this.position = position;
         this.popupMsg = popupMsg;
     }
 
-    public Coordinate getPosition() {
+    public MapCoordinate getPosition() {
         return position;
     }
 
-    public Marker setPosition(Coordinate position) {
+    public Marker setPosition(MapCoordinate position) {
         this.position = position;
         return this;
     }

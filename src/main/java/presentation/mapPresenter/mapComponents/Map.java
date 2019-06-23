@@ -7,8 +7,8 @@ import java.util.List;
 public class Map
 {
 
-    private List<Layer> layers = new ArrayList<Layer>();
-    private Coordinate center = new Coordinate("49.00326", "12.09678") ;
+    private List<MapLayer> layers = new ArrayList<MapLayer>();
+    private MapCoordinate center = new MapCoordinate("49.00326", "12.09678") ;
     private String width = "100hh";
     private String height = "100vh";
     private String attribution = "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors,<a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>";
@@ -22,18 +22,18 @@ public class Map
     private String urlTemplate = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
 
 
-    public List<Layer> getLayers()
+    public List<MapLayer> getLayers()
     {
         return layers;
     }
 
-    public Map addLayer(Layer layer) {
+    public Map addLayer(MapLayer layer) {
         this.layers.add(layer);
         return this;
     }
 
 
-    public Coordinate getMapCenter()
+    public MapCoordinate getMapCenter()
     {
         return center;
     }

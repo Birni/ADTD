@@ -3,19 +3,19 @@ package presentation.mapPresenter.mapComponents;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Route
+public class MapRoute
 {
-    private List<Coordinate> coordinateList = new ArrayList<Coordinate>();
+    private List<MapCoordinate> coordinateList = new ArrayList<MapCoordinate>();
     private String type ="LineString";
 
 
-    public List<Coordinate> getCoordinateList()
+    public List<MapCoordinate> getCoordinateList()
     {
         return coordinateList;
     }
 
 
-    public Route addCoordinate(Coordinate Coord)
+    public MapRoute addCoordinate(MapCoordinate Coord)
     {
         this.coordinateList.add(Coord);
         return this;

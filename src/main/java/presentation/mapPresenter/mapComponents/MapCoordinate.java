@@ -1,11 +1,11 @@
 package presentation.mapPresenter.mapComponents;
 
-public class Coordinate
+public class MapCoordinate
 {
     private String Longitude;
     private String Latitude;
 
-    public Coordinate(String Lat, String Long)
+    public MapCoordinate(String Lat, String Long)
     {
         this.Latitude = Lat;
         this.Longitude = Long;
@@ -16,7 +16,7 @@ public class Coordinate
         return Latitude;
     }
 
-    public Coordinate setLatitude(String Lat)
+    public MapCoordinate setLatitude(String Lat)
     {
         this.Latitude = Lat;
         return this;
@@ -27,7 +27,7 @@ public class Coordinate
         return Longitude;
     }
 
-    public Coordinate setLongitude(String Long)
+    public MapCoordinate setLongitude(String Long)
     {
         this.Longitude = Long;
         return this;

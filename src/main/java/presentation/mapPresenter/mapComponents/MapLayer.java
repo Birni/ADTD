@@ -1,16 +1,14 @@
 package presentation.mapPresenter.mapComponents;
 
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Layer
+public class MapLayer
 {
 
     private List<Marker> markers = new ArrayList<Marker>();
-    private List<Location> locations = new ArrayList<Location>();
-    private List<Circle> circles = new ArrayList<Circle>();
-    private List<Route> routes = new ArrayList<Route>();
+    private List<MapLocation> locations = new ArrayList<MapLocation>();
+    private List<MapRoute> routes = new ArrayList<MapRoute>();
 
     private String label;
 
@@ -24,17 +22,12 @@ public class Layer
         return markers;
     }
 
-    public List<Location> getLocations()
+    public List<MapLocation> getLocations()
     {
         return locations;
     }
 
-    public List<Circle> getCircles()
-    {
-        return circles;
-    }
-
-    public List<Route> getRoutes()
+    public List<MapRoute> getRoutes()
     {
         return routes;
     }
@@ -64,25 +57,25 @@ public class Layer
         return label;
     }
 
-    public Layer setLabel(String label)
+    public MapLayer setLabel(String label)
     {
         this.label = label;
         return this;
     }
 
-    public Layer addLocation(Location location)
+    public MapLayer addLocation(MapLocation location)
     {
         this.locations.add(location);
         return this;
     }
 
-    public Layer addMarker(Marker marker)
+    public MapLayer addMarker(Marker marker)
     {
         this.markers.add(marker);
         return this;
     }
 
-    public Layer addRoute(Route route)
+    public MapLayer addRoute(MapRoute route)
     {
         this.routes.add(route);
         return this;
