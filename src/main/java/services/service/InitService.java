@@ -130,9 +130,9 @@ public class InitService
         //////////////////////////////////////////////////////////////////////////
 
         TypedQuery<Node> query = em.createQuery("SELECT node FROM Node AS node", Node.class);
-        Collection<Node> NodeCollection =  query.getResultList();
+        Collection<Node> nodeCollection =  query.getResultList();
 
-        if(NodeCollection.isEmpty())
+        if(nodeCollection.isEmpty())
         {
             Node node1  = new Node(1L, (new Coordinate(49.003150f ,12.096859f))); // Endpoint Garage
             Node node2  = new Node(2L, (new Coordinate(49.003150f ,12.096730f))); // Kreuzung vor Maschienenbau
@@ -309,11 +309,11 @@ public class InitService
             em.persist(node32);
             em.persist(node33);
 
-
-
-
-
+            nodeCollection =  query.getResultList();
         }
+
+        NodeCollection.getInstance().addNodeCollection(nodeCollection);
+
 
 
 
