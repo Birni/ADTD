@@ -17,6 +17,7 @@ public class ADTDMap extends UINamingContainer
             myMap = ((Map) this.getAttributes().get("map"));
 
         return myMap;
+
     }
 
 }

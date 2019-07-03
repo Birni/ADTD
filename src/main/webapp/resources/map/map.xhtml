@@ -14,18 +14,18 @@
 
 <composite:implementation>
 
-    <ui:debug />
+    <!-- <ui:debug />-->
 
     <head>
-    <!--  <link rel="stylesheet" href="" />
-      <script src="#{resource['../../META-INF/resources/webjars/leaflet/1.5.1/leaflet.js']}" type="text/javascript']}"> </script> -->
+        <!--  <link rel="stylesheet" href="" />
+          <script src="#{resource['../../META-INF/resources/webjars/leaflet/1.5.1/leaflet.js']}" type="text/javascript']}"> </script> -->
 
-      <link rel="stylesheet" href="webjars/leaflet/1.5.1/leaflet.css"/>
-      <script type="text/javascript" language="javascript" src="webjars/leaflet/1.5.1/leaflet.js"></script>
-  </head>
+        <link rel="stylesheet" href="webjars/leaflet/1.5.1/leaflet.css"/>
+        <script type="text/javascript" language="javascript" src="webjars/leaflet/1.5.1/leaflet.js"></script>
+    </head>
 
 
- <div id="#{cc.attrs.id}" style="width:#{cc.myMap.width}; height:#{cc.myMap.height};"/>
+    <div id="#{cc.attrs.id}" style="width:#{cc.myMap.width}; height:#{cc.myMap.height};"/>
 
 
     <script type="text/javascript">
@@ -35,38 +35,38 @@
         L.tileLayer('#{cc.myMap.urlTemplate}', {id: 'osm', attribution: '#{cc.myMap.attribution}', maxZoom: #{cc.myMap.maxZoom}, minZoom: #{cc.myMap.minZoom}}).addTo(map_#{cc.attrs.id}).addTo(map_#{cc.attrs.id});
 
 
-
         <ui:repeat value="#{cc.myMap.layers}" var="layer">
 
-            <ui:repeat value="#{layer.markers}" var="marker">
+        <ui:repeat value="#{layer.markers}" var="marker">
 
-            var marker = L.marker([#{marker.position.latitude} ,  #{marker.position.longitude}]).addTo(map_#{cc.attrs.id});
+        var marker = L.marker([#{marker.position.latitude} ,  #{marker.position.longitude}]).addTo(map_#{cc.attrs.id});
 
-            </ui:repeat>
+        </ui:repeat>
 
-           <ui:repeat value="#{layer.locations}" var="location">
-            var myStyle = {
-                "color": "#ff7800",
-                "weight": 5,
-                "opacity": 0.65};
+        <ui:repeat value="#{layer.locations}" var="location">
+        var myStyle = {
+            "color": "#ff7800",
+            "weight": 5,
+            "opacity": 0.65};
 
-                L.geoJSON(#{location.getJsonString()}, myStyle).addTo(map_#{cc.attrs.id});
+        L.geoJSON(#{location.getJsonString()}, myStyle).addTo(map_#{cc.attrs.id});
 
-            </ui:repeat>
+        </ui:repeat>
 
-            <ui:repeat value="#{layer.routes}" var="route">
-             var myStyle = {
-                  "color": "#e659ff",
-                  "weight": 5,
-                  "opacity": 0.65
-                  };
+        <ui:repeat value="#{layer.routes}" var="route">
+        var myStyle = {
+            "color": "#e659ff",
+            "weight": 5,
+            "opacity": 0.65
+        };
 
-             L.geoJSON(#{route.getJsonString()}, {style: myStyle}).addTo(map_#{cc.attrs.id});
+        L.geoJSON(#{route.getJsonString()}, {style: myStyle}).addTo(map_#{cc.attrs.id});
 
-            </ui:repeat>
+        </ui:repeat>
 
 
         </ui:repeat>
+
 
 
         function onMapClick(e) {
@@ -74,6 +74,7 @@
         }
 
         map_#{cc.attrs.id}.on('click', onMapClick);
+
 
     </script>
 

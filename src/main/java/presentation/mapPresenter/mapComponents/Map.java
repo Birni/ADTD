@@ -20,6 +20,7 @@ public class Map
     private boolean draggingEnabled = true;
     private boolean layerControl = true;
     private String urlTemplate = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
+    private boolean reloadAll = true;
 
 
     public List<MapLayer> getLayers()
@@ -94,5 +95,13 @@ public class Map
         return urlTemplate;
     }
 
+    public boolean getmapreloadAll()
+    {
+        return reloadAll;
+    }
 
+    public void setreloadAll(boolean reload)
+    {
+         this.reloadAll = reload;
+    }
 }

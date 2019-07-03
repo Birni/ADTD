@@ -1,9 +1,6 @@
 package services.service;
 
-import services.entity.Location;
-import services.entity.LocatonType;
-import services.entity.Coordinate;
-import services.entity.Node;
+import services.entity.*;
 import services.service.LocationCollection;
 
 
@@ -130,7 +127,7 @@ public class InitService
         //////////////////////////////////////////////////////////////////////////
 
         TypedQuery<Node> query = em.createQuery("SELECT node FROM Node AS node", Node.class);
-        Collection<Node> nodeCollection =  query.getResultList();
+        List<Node> nodeCollection =  query.getResultList();
 
         if(nodeCollection.isEmpty())
         {
@@ -248,8 +245,8 @@ public class InitService
             node23.addLink(node22);
 
             node24.addLink(node2);
-            node23.addLink(node25);
-            node23.addLink(node31);
+            node24.addLink(node25);
+            node24.addLink(node31);
 
             node25.addLink(node24);
             node25.addLink(node26);
@@ -314,7 +311,35 @@ public class InitService
 
         NodeCollection.getInstance().addNodeCollection(nodeCollection);
 
+        //////////////////////////////////////////////////////////////////////////
+        ///                End Initialization Nodes                            ///
+        //////////////////////////////////////////////////////////////////////////
 
+        //////////////////////////////////////////////////////////////////////////
+        ///               Begin Initialization Transporter                     ///
+        //////////////////////////////////////////////////////////////////////////
+
+        TypedQuery<Transporter> queryt = em.createQuery("SELECT transporter FROM Transporter AS transporter", Transporter.class);
+        List<Transporter> transporterCollection =  queryt.getResultList();
+
+        if(transporterCollection.isEmpty())
+        {
+            for(int i=1; i < 11; i++)
+            {
+                Transporter transporter = new Transporter(Long.valueOf(i), (new Coordinate(49.003150f ,12.096859f)));
+
+                em.persist(transporter);
+
+                transporterCollection =  queryt.getResultList();
+            }
+
+        }
+
+        VirtualTransporterManager.getInstance().AddTransporterList(transporterCollection);
+
+        //////////////////////////////////////////////////////////////////////////
+        ///              End Initialization Transporter                        ///
+        //////////////////////////////////////////////////////////////////////////
 
 
     }
