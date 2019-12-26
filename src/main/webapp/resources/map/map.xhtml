@@ -25,60 +25,61 @@
     </head>
 
 
-    <div id="#{cc.attrs.id}" style="width:#{cc.myMap.width}; height:#{cc.myMap.height};"/>
+    <!--  <div id="#{cc.attrs.id}" style="width:#{cc.myMap.width}; height:#{cc.myMap.height};"/> -->
+
+    <div id="#{cc.attrs.id}" style="width:100%; height:100%; position: absolute;"/>
+
+     <script type="text/javascript">
+
+         var map_#{cc.attrs.id} = L.map('#{cc.attrs.id}', {center: [#{cc.myMap.mapCenter.latitude},#{cc.myMap.mapCenter.longitude}], dragging: #{cc.myMap.draggingEnabled}, zoomControl: #{cc.myMap.zoomControl} , zoom: #{cc.myMap.zoom}});
+
+         L.tileLayer('#{cc.myMap.urlTemplate}', {id: 'osm', attribution: '#{cc.myMap.attribution}', maxZoom: #{cc.myMap.maxZoom}, minZoom: #{cc.myMap.minZoom}}).addTo(map_#{cc.attrs.id}).addTo(map_#{cc.attrs.id});
 
 
-    <script type="text/javascript">
+         <ui:repeat value="#{cc.myMap.layers}" var="layer">
 
-        var map_#{cc.attrs.id} = L.map('#{cc.attrs.id}', {center: [#{cc.myMap.mapCenter.latitude},#{cc.myMap.mapCenter.longitude}], dragging: #{cc.myMap.draggingEnabled}, zoomControl: #{cc.myMap.zoomControl} , zoom: #{cc.myMap.zoom}});
+         <ui:repeat value="#{layer.markers}" var="marker">
 
-        L.tileLayer('#{cc.myMap.urlTemplate}', {id: 'osm', attribution: '#{cc.myMap.attribution}', maxZoom: #{cc.myMap.maxZoom}, minZoom: #{cc.myMap.minZoom}}).addTo(map_#{cc.attrs.id}).addTo(map_#{cc.attrs.id});
+         var marker = L.marker([#{marker.position.latitude} ,  #{marker.position.longitude}]).addTo(map_#{cc.attrs.id});
 
+         </ui:repeat>
 
-        <ui:repeat value="#{cc.myMap.layers}" var="layer">
+         <ui:repeat value="#{layer.locations}" var="location">
+         var myStyle = {
+             "color": "#ff7800",
+             "weight": 5,
+             "opacity": 0.65};
 
-        <ui:repeat value="#{layer.markers}" var="marker">
+         L.geoJSON(#{location.getJsonString()}, myStyle).addTo(map_#{cc.attrs.id});
 
-        var marker = L.marker([#{marker.position.latitude} ,  #{marker.position.longitude}]).addTo(map_#{cc.attrs.id});
+         </ui:repeat>
 
-        </ui:repeat>
+         <ui:repeat value="#{layer.routes}" var="route">
+         var myStyle = {
+             "color": "#e659ff",
+             "weight": 5,
+             "opacity": 0.65
+         };
 
-        <ui:repeat value="#{layer.locations}" var="location">
-        var myStyle = {
-            "color": "#ff7800",
-            "weight": 5,
-            "opacity": 0.65};
+         L.geoJSON(#{route.getJsonString()}, {style: myStyle}).addTo(map_#{cc.attrs.id});
 
-        L.geoJSON(#{location.getJsonString()}, myStyle).addTo(map_#{cc.attrs.id});
-
-        </ui:repeat>
-
-        <ui:repeat value="#{layer.routes}" var="route">
-        var myStyle = {
-            "color": "#e659ff",
-            "weight": 5,
-            "opacity": 0.65
-        };
-
-        L.geoJSON(#{route.getJsonString()}, {style: myStyle}).addTo(map_#{cc.attrs.id});
-
-        </ui:repeat>
+         </ui:repeat>
 
 
-        </ui:repeat>
+         </ui:repeat>
 
 
 
-        function onMapClick(e) {
-            alert("You clicked the map at " + e.latlng);
-        }
+         function onMapClick(e) {
+             alert("You clicked the map at " + e.latlng);
+         }
 
-        map_#{cc.attrs.id}.on('click', onMapClick);
-
-
-    </script>
-
-</composite:implementation>
+         map_#{cc.attrs.id}.on('click', onMapClick);
 
 
-</html>
+     </script>
+
+ </composite:implementation>
+
+
+ </html>

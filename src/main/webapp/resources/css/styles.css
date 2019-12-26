@@ -35,3 +35,58 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
+
+.styleWrapper {
+    width: 100%;
+    background-color: #ffffff;
+    position: absolute;
+    margin: 0px auto;
+}
+
+
+.styleLeftUpperPanel {
+    position:relative;
+    float: left;
+    background-color: #0E7DC6;
+    min-width: 33vw;
+    min-height: 66vh;
+}
+
+.styleRightUpperPanel {
+    position:relative;
+    float: left;
+    background-color: #c67d00;
+    min-width: 66vw;
+    min-height: 66vh;
+}
+
+.styleLeftUnderPanel {
+    position:relative;
+    float: left;
+    background-color: #35c613;
+    min-width: 33vw;
+    min-height: 33vh;
+}
+
+.styleMiddleUnderPanel {
+     position:relative;
+     float: left;
+     background-color: #c60005;
+     min-width: 33vw;
+     min-height: 33vh;
+ }
+
+.styleRightUnderPanel {
+    position:relative;
+    float: left;
+    background-color: #bf12c6;
+    min-width: 33vw;
+    min-height: 33vh;
+}
+
+.styleFormMap {
+    position:relative;
+    float: left;
+    min-width: 100%;
+    min-height: 100%;
+}

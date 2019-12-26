@@ -5,17 +5,66 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:lmap="http://java.sun.com/jsf/composite/map" >
+      xmlns:lmap="http://java.sun.com/jsf/composite/map"
+      xmlns:details="http://java.sun.com/jsf/composite/transporterDetails">
+
+<h:outputStylesheet library="css" name="styles.css"/>
 
 <h:head/>
 
 <h:body>
 
+    <h:panelGroup id="wrapper" styleClass="styleWrapper">
 
-<h:form id ="test">
-    <lmap:map id ="MAP" map="#{mapBean.map }" />
-    <p:poll interval="5" listener="#{mapBean.UpdateMap()}" update="test" />
-</h:form>
+        <h:panelGroup id ="leftUpperPanel" styleClass="styleLeftUpperPanel">
+
+            <details:TransporterDetails id="transporterDetails"
+                                        transporterID="#{beanTransporterDetails.ID}"
+                                        transporterPayload="#{beanTransporterDetails.payload}"
+                                        transporterBattery="#{beanTransporterDetails.battery}"
+                                        NextButtonText = "Next"
+                                        NextButtonAction="#{beanTransporterDetails.NextAction()}"
+
+
+
+            />
+
+
+
+
+        </h:panelGroup>
+
+        <h:panelGroup id ="rigthUpperPanel" styleClass="styleRightUpperPanel">
+
+            <!-- <h:form id ="formMap" styleClass="styleFormMap">-->
+                 <lmap:map id ="MAP" map="#{mapBean.map }" />
+                <!-- <p:poll interval="5" listener="#{mapBean.UpdateMap()}" update="formMap" /> -->
+            <!--</h:form>-->
+
+            <!-- right uppder panel -->
+
+        </h:panelGroup>
+
+
+        <h:panelGroup id ="leftUnderPanel" styleClass="styleLeftUnderPanel">
+
+            left under panel
+
+        </h:panelGroup>
+
+        <h:panelGroup id ="middleUnderPanel" styleClass="styleMiddleUnderPanel">
+
+            Middle under panel
+
+        </h:panelGroup>
+
+        <h:panelGroup id ="rightUnderPanel" styleClass="styleRightUnderPanel">
+
+            right under panel
+
+        </h:panelGroup>
+
+    </h:panelGroup>
 
 
 </h:body>

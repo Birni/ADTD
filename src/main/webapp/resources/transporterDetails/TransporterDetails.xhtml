@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+<composite:interface>
+
+    <composite:attribute name="transporterID" />
+    <composite:attribute name="transporterBattery" />
+    <composite:attribute name="transporterPayload" />
+
+    <composite:attribute name="NextButtonText" />
+    <composite:attribute name="NextButtonAction"
+                         method-signature="java.lang.String action()" />
+
+</composite:interface>
+
+
+<composite:implementation>
+
+    <h:form>
+        <h:panelGrid columns="2">
+
+            <h:outputText value="ID:"/>
+            <h:outputText value="#{cc.attrs.transporterID}"/>
+
+            <h:outputText value="Battery:"/>
+            <h:outputText value="#{cc.attrs.transporterBattery}"/>
+
+            <h:outputText value="Payload:"/>
+            <h:outputText value="#{cc.attrs.transporterPayload}"/>
+
+
+        </h:panelGrid>
+
+        <h:commandButton action="#{cc.attrs.NextButtonAction}"
+                         value="#{cc.attrs.NextButtonText}"/>
+
+    </h:form>
+
+</composite:implementation>
+
+</html>

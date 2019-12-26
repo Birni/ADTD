@@ -14,6 +14,7 @@ public class Transporter extends LongIdEntity
 {
 
     float battery;
+    float payload;
     boolean hasJob = false;
 
     @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
@@ -33,6 +34,38 @@ public class Transporter extends LongIdEntity
 
     }
 
+
+
+    public Long getTransporterId()
+    {
+        return getId();
+    }
+
+    public void setTransporterId(Long id)
+    {
+        super.id = id;
+    }
+
+    public void setBattery(float battery)
+    {
+        this.battery = battery;
+    }
+
+    public float getBattery()
+    {
+        return this.battery;
+    }
+
+    public void setPayload(float payload)
+    {
+        this.payload = payload;
+    }
+
+    public float getPayload()
+    {
+        return this.payload;
+    }
+
     public void AddJob(Node target, Route route)
     {
         this.Target = target;
@@ -47,6 +80,12 @@ public class Transporter extends LongIdEntity
         NextNodeToDrive = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive());
 
     }
+
+    public Node getTarget()
+    {
+        return this.Target;
+    }
+
 
     public boolean isHasJob()
     {

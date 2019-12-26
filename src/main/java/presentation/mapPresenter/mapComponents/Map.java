@@ -9,8 +9,8 @@ public class Map
 
     private List<MapLayer> layers = new ArrayList<MapLayer>();
     private MapCoordinate center = new MapCoordinate("49.00326", "12.09678") ;
-    private String width = "100hh";
-    private String height = "100vh";
+    private String width = "100";
+    private String height = "100";
     private String attribution = "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors,<a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>";
     private int zoom = 19;
     private int minZoom = 1;

@@ -2,6 +2,7 @@ package services.service;
 
 import services.entity.Node;
 import services.entity.Transporter;
+import services.VO.ITransporter;
 
 import presentation.mapPresenter.map.MapBean;
 
@@ -18,71 +19,64 @@ import java.util.List;
 
 @Singleton
 @Startup
-public class VirtualTransporterManager
-{
+
+
+
+
+public class VirtualTransporterManager {
 
     private static VirtualTransporterManager instance;
 
     static private List<Transporter> TransporterCollection = new ArrayList<Transporter>();
 
-    private VirtualTransporterManager()
-    {
+    private VirtualTransporterManager() {
 
     }
 
-    public static VirtualTransporterManager getInstance()
-    {
-        if (null == VirtualTransporterManager.instance)
-        {
+    public static VirtualTransporterManager getInstance() {
+        if (null == VirtualTransporterManager.instance) {
             VirtualTransporterManager.instance = new VirtualTransporterManager();
         }
         return VirtualTransporterManager.instance;
     }
 
-    public void  AddJob(Node target)
-    {
+    public void AddJob(Node target) {
         RouteProvider RoutService = new RouteProvider();
-        Route route =RoutService.GetRoute(NodeCollection.getInstance().GetNodeById(1L), NodeCollection.getInstance().GetNodeById(23L));
+        Route route = RoutService.GetRoute(NodeCollection.getInstance().GetNodeById(1L), NodeCollection.getInstance().GetNodeById(23L));
 
         TransporterCollection.get(0).AddJob(target, route);
 
     }
 
 
-    public void AddTransporterList(List<Transporter> transporter)
-    {
+    public void AddTransporterList(List<Transporter> transporter) {
         this.TransporterCollection = transporter;
 
         AddJob(NodeCollection.getInstance().GetNodeById(23L));
     }
 
-    public void UpdateTransporter()
-    {
-        for (Transporter transporter : TransporterCollection)
-        {
+    public void UpdateTransporter() {
+        for (Transporter transporter : TransporterCollection) {
             transporter.PropagateNewPostion(1);
         }
 
     }
 
-    public List<Transporter> GetTransporterWithJob()
-    {
+    public List<Transporter> GetTransporterWithJob() {
         List<Transporter> TransporterWithJob = new ArrayList<>();
 
-        for (Transporter transporter: TransporterCollection)
-        {
-         if(transporter.isHasJob())
-         {
-             TransporterWithJob.add(transporter);
-         }
+        for (Transporter transporter : TransporterCollection) {
+            if (transporter.isHasJob()) {
+                TransporterWithJob.add(transporter);
+            }
 
         }
-        return  TransporterWithJob;
+        return TransporterWithJob;
     }
 
-    @Schedule(second = "*/10", minute = "*", hour = "*", persistent = false)
-    public void atSchedule() throws InterruptedException {
-        UpdateTransporter();
+    // @Schedule(second = "*/10", minute = "*", hour = "*", persistent = false)
+    // public void atSchedule() throws InterruptedException {
+    //    UpdateTransporter();
 
     //   String refreshpage = FacesContext.getCurrentInstance().getViewRoot().getViewId();
     //   ViewHandler handler = FacesContext.getCurrentInstance().getApplication().getViewHandler();
@@ -90,12 +84,39 @@ public class VirtualTransporterManager
     //   root.setViewId(refreshpage);
     //   FacesContext.getCurrentInstance().setViewRoot(root);
 
-     //   FacesContext.getCurrentInstance().getViewRoot().setViewId("map");
-     //   FacesContext.getCurrentInstance().renderResponse();
+    //   FacesContext.getCurrentInstance().getViewRoot().setViewId("map");
+    //   FacesContext.getCurrentInstance().renderResponse();
 
+    // }
+
+
+    public ITransporter GetTransporterFromTransporterList(int index) {
+
+        ITransporter iTransporter;
+
+        if(TransporterCollection.isEmpty())
+        {
+            Transporter dummy = new Transporter();
+             iTransporter = new ITransporter(-1,dummy);
+
+        }
+        else if (TransporterCollection.size() == 1 )
+        {
+              iTransporter = new ITransporter(0,TransporterCollection.get(0));
+        }
+        else
+        {
+            if(index++ >= TransporterCollection.size())
+            {
+                 iTransporter = new ITransporter(index++,TransporterCollection.get(0));
+            }
+            else
+            {
+                  iTransporter = new ITransporter(0,TransporterCollection.get(0));
+            }
+
+        }
+
+        return iTransporter;
     }
-
-
-
-
 }
