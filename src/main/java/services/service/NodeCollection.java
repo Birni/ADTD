@@ -35,7 +35,7 @@ public class NodeCollection
         {
             CollectionOfNodes.putIfAbsent( collection.get(i).getId(), collection.get(i));
 
-            if( "default" == collection.get(i).GetIdentifierLocation())
+            if(!collection.get(i).GetIdentifierLocation().equals("default"))
             {
                 CollectionOfSpecialNodes.putIfAbsent( collection.get(i).getId(), collection.get(i));
             }
@@ -62,6 +62,22 @@ public class NodeCollection
         Node node = new Node();
         node = CollectionOfNodes.get(id);
         return node;
+    }
+
+
+    public Node GetSpecialNodeByName(String name)
+    {
+        for (Node node : CollectionOfSpecialNodes.values()) {
+
+            if(node.GetIdentifierLocation().equals(name))
+            {
+                return node;
+            }
+
+
+        }
+
+        return null;
     }
 
 }

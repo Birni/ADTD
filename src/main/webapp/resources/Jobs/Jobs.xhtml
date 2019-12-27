@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<composite:interface>
+
+    <composite:attribute name="nameTarget" />
+
+
+    <composite:attribute name="SendButtonText" />
+    <composite:attribute name="SendButtonAction"
+                         method-signature="java.lang.String action()" />
+
+
+</composite:interface>
+
+<composite:implementation>
+
+    <h:form>
+
+        #{cc.attrs.nameTarget}:
+
+        <h:selectOneMenu value="#{beanJobs.target}">
+            <f:selectItems value="#{beanJobs.targetList}" var="i"
+                           itemLabel="#{i.targetLabel}" itemValue="#{i.targetValue}"/>
+        </h:selectOneMenu >
+
+        <h:commandButton action="#{cc.attrs.SendButtonAction}"
+                         value="#{cc.attrs.SendButtonText}"
+        />
+
+    </h:form>
+
+</composite:implementation>
+
+</html>

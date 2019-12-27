@@ -7,7 +7,8 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:lmap="http://java.sun.com/jsf/composite/map"
       xmlns:details="http://java.sun.com/jsf/composite/transporterDetails"
-      xmlns:addT="http://java.sun.com/jsf/composite/transporterAdd">
+      xmlns:addT="http://java.sun.com/jsf/composite/transporterAdd"
+      xmlns:JobsPanel="http://java.sun.com/jsf/composite/Jobs">
 
 <h:outputStylesheet library="css" name="styles.css"/>
 
@@ -65,7 +66,16 @@
 
         <h:panelGroup id ="middleUnderPanel" styleClass="styleMiddleUnderPanel">
 
-            Middle under panel
+            <JobsPanel:Jobs
+                    nameTarget="Target"
+                    SendButtonText="Send Transporter"
+                    SendButtonAction="#{beanJobs.SendTransporter()}"
+
+            />
+
+
+
+
 
         </h:panelGroup>
 

@@ -35,4 +35,20 @@ public class LocationCollection
         return getInstance().Collection;
     }
 
+
+
+
+    public Location getLocationByID(String ID)
+    {
+        for(int i = 0; i<Collection.size(); i++)
+        {
+            if(Collection.get(i).getLocationId() == ID)
+            {
+                return Collection.get(i);
+            }
+        }
+
+        return null;
+    }
+
 }

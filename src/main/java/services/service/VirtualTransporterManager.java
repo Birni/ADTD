@@ -140,5 +140,14 @@ public class VirtualTransporterManager {
 
     }
 
+    public void SendTransporter(String NameOfLocation )
+    {
 
+        Node target = NodeCollection.getInstance().GetSpecialNodeByName(NameOfLocation);
+
+        if (null != target)
+        {
+            AddJob(target);
+        }
+    }
 }

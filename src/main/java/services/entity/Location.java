@@ -20,6 +20,7 @@ public class Location extends StringIdEntity
     @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     private List<Coordinate> CoordinateList = new ArrayList<>();
 
+
     public Location()
     {
     }
@@ -88,4 +89,5 @@ public class Location extends StringIdEntity
     {
         this.CoordinateList = list;
     }
+
 }
