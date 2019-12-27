@@ -7,57 +7,38 @@ import services.service.VirtualTransporterManager;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-@ManagedBean(name="beanTransporterDetails")
+@ManagedBean(name="beanTransporterAdd")
 @SessionScoped
-public class TransporterDetailsBean{
+public class TransporterAddBean {
 
-    public long ID;
-    public float payload;
-    public float battery;
+    private String label;
+    private float battery;
 
-    private int lastindex;
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-    public long getID() {
-        return ID;
+    public void setBattery(float battery)
+    {
+        this.battery = battery;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public float getBattery() {
         return battery;
     }
 
-    public float getPayload() {
-        return payload;
-    }
-
-    public TransporterDetailsBean()
-    {
-        ITransporter transporter = VirtualTransporterManager.getInstance().GetTransporterFromTransporterList(0);
-        SetBeanAttributes(transporter);
-    }
 
 
-    public void NextAction() {
+    public void AddAction() {
 
-        ITransporter transporter = VirtualTransporterManager.getInstance().GetTransporterFromTransporterList(lastindex);
-        SetBeanAttributes(transporter);
+        VirtualTransporterManager.getInstance().AddNewTransporter(battery);
+
 
     }
 
-    private void SetBeanAttributes(ITransporter transporter)
-    {
-        if(null != transporter)
-        {
-            ID = ((Transporter) transporter.object).getId();
-            payload = ((Transporter)transporter.object).getPayload();
-            battery = ((Transporter)transporter.object).getBattery();
-
-            lastindex = transporter.index;
-        }
-        else
-        {
-            // TODO: Handle no transporter at all
-        }
-
-    }
 
 }

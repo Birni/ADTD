@@ -10,36 +10,34 @@
 
 <composite:interface>
 
-    <composite:attribute name="transporterID" />
-    <composite:attribute name="transporterBattery" />
-    <composite:attribute name="transporterPayload" />
+    <composite:attribute name="nameLable" />
+    <composite:attribute name="nameValue" />
+    <composite:attribute name="battery" />
+    <composite:attribute name="batteryValue" />
 
-    <composite:attribute name="NextButtonText" />
-    <composite:attribute name="NextButtonAction"
+    <composite:attribute name="addButtonText" />
+    <composite:attribute name="addButtonAction"
                          method-signature="java.lang.String action()" />
 
 </composite:interface>
 
-
 <composite:implementation>
 
     <h:form>
-        <h:panelGrid columns="2">
 
-            <h:outputText value="ID:"/>
-            <h:outputText value="#{cc.attrs.transporterID}"/>
+        <h:panelGrid columns="2" id="textPanel">
 
-            <h:outputText value="Battery:"/>
-            <h:outputText value="#{cc.attrs.transporterBattery}"/>
+            #{cc.attrs.nameLable} :
+            <h:inputText id="label" value="#{cc.attrs.nameValue}" />
 
-            <h:outputText value="Payload:"/>
-            <h:outputText value="#{cc.attrs.transporterPayload}"/>
-
+            #{cc.attrs.battery} :
+            <h:inputText id="battery" value="#{cc.attrs.batteryValue}" />
 
         </h:panelGrid>
 
-        <h:commandButton action="#{cc.attrs.NextButtonAction}"
-                         value="#{cc.attrs.NextButtonText}"/>
+        <h:commandButton action="#{cc.attrs.addButtonAction}"
+                         value="#{cc.attrs.addButtonText}"
+        />
 
     </h:form>
 

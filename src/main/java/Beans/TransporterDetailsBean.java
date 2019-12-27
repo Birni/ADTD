@@ -13,6 +13,7 @@ public class TransporterDetailsBean{
 
     public long ID;
     public float payload;
+
     public float battery;
 
     private int lastindex;

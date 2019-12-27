@@ -12,6 +12,8 @@ import javax.ejb.Singleton;
 import javax.enterprise.inject.spi.Bean;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
 
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ import java.util.List;
 
 
 public class VirtualTransporterManager {
+
+    @PersistenceContext(unitName="adtd_db")
+    private EntityManager em;
 
     private static VirtualTransporterManager instance;
 
@@ -106,9 +111,10 @@ public class VirtualTransporterManager {
         }
         else
         {
-            if(index++ >= TransporterCollection.size())
+            index++;
+            if(index < TransporterCollection.size())
             {
-                 iTransporter = new ITransporter(index++,TransporterCollection.get(0));
+                 iTransporter = new ITransporter(index,TransporterCollection.get(index));
             }
             else
             {
@@ -119,4 +125,20 @@ public class VirtualTransporterManager {
 
         return iTransporter;
     }
+
+
+    public void AddNewTransporter(float battery )
+    {
+        Transporter transporter= new Transporter();
+
+        transporter.setBattery(battery);
+
+
+        TransporterCollection.add(transporter);
+
+      //  em.persist(transporter);
+
+    }
+
+
 }

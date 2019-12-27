@@ -24,7 +24,7 @@
 <composite:implementation>
 
     <h:form>
-        <h:panelGrid columns="2">
+        <h:panelGrid columns="2" id="details">
 
             <h:outputText value="ID:"/>
             <h:outputText value="#{cc.attrs.transporterID}"/>
@@ -39,7 +39,11 @@
         </h:panelGrid>
 
         <h:commandButton action="#{cc.attrs.NextButtonAction}"
-                         value="#{cc.attrs.NextButtonText}"/>
+                         value="#{cc.attrs.NextButtonText}">
+
+        <f:ajax execute="@form" render="details" />
+
+        </h:commandButton>
 
     </h:form>
 

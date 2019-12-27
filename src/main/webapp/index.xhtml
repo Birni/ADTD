@@ -6,7 +6,8 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:lmap="http://java.sun.com/jsf/composite/map"
-      xmlns:details="http://java.sun.com/jsf/composite/transporterDetails">
+      xmlns:details="http://java.sun.com/jsf/composite/transporterDetails"
+      xmlns:addT="http://java.sun.com/jsf/composite/transporterAdd">
 
 <h:outputStylesheet library="css" name="styles.css"/>
 
@@ -48,7 +49,17 @@
 
         <h:panelGroup id ="leftUnderPanel" styleClass="styleLeftUnderPanel">
 
-            left under panel
+            <addT:TransporterAdd
+                    nameLable="Name"
+                    nameValue="#{beanTransporterAdd.label}"
+                    battery="Battery"
+                    batteryValue="#{beanTransporterAdd.battery}"
+
+                    addButtonText="Add"
+                    addButtonAction="#{beanTransporterAdd.AddAction()}"
+            />
+
+
 
         </h:panelGroup>
 
