@@ -8,7 +8,8 @@
       xmlns:lmap="http://java.sun.com/jsf/composite/map"
       xmlns:details="http://java.sun.com/jsf/composite/transporterDetails"
       xmlns:addT="http://java.sun.com/jsf/composite/transporterAdd"
-      xmlns:JobsPanel="http://java.sun.com/jsf/composite/Jobs">
+      xmlns:JobsPanel="http://java.sun.com/jsf/composite/Jobs"
+      xmlns:StatisticPanel="http://java.sun.com/jsf/composite/Statistic">
 
 <h:outputStylesheet library="css" name="styles.css"/>
 
@@ -81,7 +82,14 @@
 
         <h:panelGroup id ="rightUnderPanel" styleClass="styleRightUnderPanel">
 
-            right under panel
+            <StatisticPanel:Statistic
+                    NumberOfTransporter="Number of Transporter"
+                    NumberOfTransporterWithJobs="Number of Transporter with Jobs"
+                    AvailableTransporter="Number of avilable Transporter"
+
+            />
+
+
 
         </h:panelGroup>
 

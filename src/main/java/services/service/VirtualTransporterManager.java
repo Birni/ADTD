@@ -150,4 +150,25 @@ public class VirtualTransporterManager {
             AddJob(target);
         }
     }
+
+    public int getNumOfTransporter(boolean WithJobsOnly)
+    {
+        if(WithJobsOnly)
+        {
+            int count =0;
+            for(Transporter transporter : TransporterCollection)
+            {
+                if(transporter.isHasJob())
+                {
+                    count++;
+                }
+            }
+            return count;
+
+        }
+        else
+        {
+            return TransporterCollection.size();
+        }
+    }
 }
