@@ -1,5 +1,7 @@
 package presentation.mapPresenter.mapComponents;
 
+import services.entity.Location;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,12 +9,14 @@ import java.util.List;
 public class Map
 {
 
-    private List<MapLayer> layers = new ArrayList<MapLayer>();
-    private MapCoordinate center = new MapCoordinate("49.00326", "12.09678") ;
+    private List<Marker> markers = new ArrayList<Marker>();
+    private List<MapLocation> locations = new ArrayList<MapLocation>();
+    private List<MapRoute> routes = new ArrayList<MapRoute>();
+
+    private MapCoordinate center = new MapCoordinate("49.003038", "12.096346") ;
     private String width = "100";
     private String height = "100";
-    private String attribution = "Map data &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors,<a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>";
-    private int zoom = 19;
+    private int zoom = 18;
     private int minZoom = 1;
     private int maxZoom = 19;
     private boolean zoomControl = false;
@@ -23,16 +27,32 @@ public class Map
     private boolean reloadAll = true;
 
 
-    public List<MapLayer> getLayers()
+    public void addLocation(MapLocation location)
     {
-        return layers;
+        this.locations.add(location);
     }
 
-    public Map addLayer(MapLayer layer) {
-        this.layers.add(layer);
-        return this;
+    public List<MapLocation> getLocations()
+    {
+        return this.locations;
     }
 
+    public void addRoute(MapRoute route)
+    {
+        this.routes.add(route);
+    }
+
+    public List<MapRoute> getRoutes(){
+        return this.routes;
+    }
+
+    public void addMarker(Marker marker){
+        this.markers.add(marker);
+    }
+
+    public List<Marker> getMarkers(){
+        return this.markers;
+    }
 
     public MapCoordinate getMapCenter()
     {
@@ -50,10 +70,6 @@ public class Map
         return height;
     }
 
-    public String getAttribution()
-    {
-        return attribution;
-    }
 
     public int getZoom()
     {

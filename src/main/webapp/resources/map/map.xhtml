@@ -8,8 +8,19 @@
       xmlns:composite="http://xmlns.jcp.org/jsf/composite">
 
 
-<composite:interface componentType="adtdMap">
-    <composite:attribute name="map" type="java.lang.Object" />
+<composite:interface>
+    <composite:attribute name="mapCenterLatitude" />
+    <composite:attribute name="mapCenterLongitude" />
+    <composite:attribute name="mapDraggingEnabled" />
+    <composite:attribute name="mapZoomControl" />
+    <composite:attribute name="mapZoom" />
+    <composite:attribute name="mapUrlTemplate" />
+    <composite:attribute name="mapMaxZoom" />
+    <composite:attribute name="mapMinZoom" />
+
+    <composite:attribute name="mapLocations" type="java.lang.Object" />
+    <composite:attribute name="mapMarker" type="java.lang.Object" />
+    <composite:attribute name="mapRoute" type="java.lang.Object" />
 </composite:interface>
 
 <composite:implementation>
@@ -25,59 +36,57 @@
     </head>
 
 
-    <!--  <div id="#{cc.attrs.id}" style="width:#{cc.myMap.width}; height:#{cc.myMap.height};"/> -->
-
     <div id="#{cc.attrs.id}" style="width:100%; height:100%; position: absolute;"/>
 
      <script type="text/javascript">
 
-         var map_#{cc.attrs.id} = L.map('#{cc.attrs.id}', {center: [#{cc.myMap.mapCenter.latitude},#{cc.myMap.mapCenter.longitude}], dragging: #{cc.myMap.draggingEnabled}, zoomControl: #{cc.myMap.zoomControl} , zoom: #{cc.myMap.zoom}});
+         var map_#{cc.attrs.id} = L.map('#{cc.attrs.id}', {center: ["#{cc.attrs.mapCenterLatitude}" ,"#{cc.attrs.mapCenterLongitude}"],
+             dragging:#{cc.attrs.mapDraggingEnabled}, zoomControl:#{cc.attrs.mapZoomControl}, zoom:"#{cc.attrs.mapZoom}"});
 
-         L.tileLayer('#{cc.myMap.urlTemplate}', {id: 'osm', attribution: '#{cc.myMap.attribution}', maxZoom: #{cc.myMap.maxZoom}, minZoom: #{cc.myMap.minZoom}}).addTo(map_#{cc.attrs.id}).addTo(map_#{cc.attrs.id});
+
+         L.tileLayer('#{cc.attrs.mapUrlTemplate}', {id: 'osm', maxZoom:"#{cc.attrs.mapMaxZoom}", minZoom:"#{cc.attrs.mapMinZoom}"}).addTo(map_#{cc.attrs.id});
+
+          <ui:repeat value="#{cc.attrs.mapLocations}" var="location">
+          var myStyle = {
+              "color": "#557A95",
+              "weight": 5,
+              "opacity": 0.90};
+
+          L.geoJSON(#{location.getJsonString()}, {style: myStyle}).addTo(map_#{cc.attrs.id});
+
+          </ui:repeat>
+
+          <ui:repeat value="#{cc.attrs.mapRoute}" var="route">
+          var myStyle = {
+              "color": "#e659ff",
+              "weight": 5,
+              "opacity": 0.65
+          };
+
+          L.geoJSON(#{route.getJsonString()}, {style: myStyle}).addTo(map_#{cc.attrs.id});
+
+          </ui:repeat>
 
 
-         <ui:repeat value="#{cc.myMap.layers}" var="layer">
 
-         <ui:repeat value="#{layer.markers}" var="marker">
+
+         <ui:repeat value="#{cc.attrs.mapMarker}" var="marker">
 
          var marker = L.marker([#{marker.position.latitude} ,  #{marker.position.longitude}]).addTo(map_#{cc.attrs.id});
 
          </ui:repeat>
 
-         <ui:repeat value="#{layer.locations}" var="location">
-         var myStyle = {
-             "color": "#557A95",
-             "weight": 5,
-             "opacity": 0.80};
-
-         L.geoJSON(#{location.getJsonString()}, myStyle).addTo(map_#{cc.attrs.id});
-
-         </ui:repeat>
-
-         <ui:repeat value="#{layer.routes}" var="route">
-         var myStyle = {
-             "color": "#e659ff",
-             "weight": 5,
-             "opacity": 0.65
-         };
-
-         L.geoJSON(#{route.getJsonString()}, {style: myStyle}).addTo(map_#{cc.attrs.id});
-
-         </ui:repeat>
-
-
-         </ui:repeat>
-
-
-
          function onMapClick(e) {
              alert("You clicked the map at " + e.latlng);
          }
-
          map_#{cc.attrs.id}.on('click', onMapClick);
 
 
+
+
      </script>
+
+
 
  </composite:implementation>
 

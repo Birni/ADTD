@@ -13,7 +13,7 @@
 
 <h:outputStylesheet library="css" name="styles.css"/>
 
-<h:head/>
+<h:head></h:head>
 
 <h:body>
 
@@ -53,7 +53,19 @@
         <h:panelGroup id ="rigthUpperPanel" styleClass="styleRightUpperPanel">
 
             <!-- <h:form id ="formMap" styleClass="styleFormMap">-->
-                 <lmap:map id ="MAP" map="#{mapBean.map }" />
+                 <lmap:map id ="MAP"
+                           mapCenterLatitude="#{mapBean.map.mapCenter.latitude}"
+                           mapCenterLongitude="#{mapBean.map.mapCenter.longitude}"
+                           mapDraggingEnabled="#{mapBean.map.draggingEnabled}"
+                           mapZoomControl="#{mapBean.map.zoomControl}"
+                           mapZoom="#{mapBean.map.zoom}"
+                           mapMaxZoom="#{mapBean.map.maxZoom}"
+                           mapMinZoom="#{mapBean.map.minZoom}"
+                           mapUrlTemplate="#{mapBean.map.urlTemplate}"
+                           mapLocations="#{mapBean.map.locations}"
+                           mapRoute="#{mapBean.map.routes}"
+                           mapMarker="#{mapBean.map.markers}"
+                 />
                 <!-- <p:poll interval="5" listener="#{mapBean.UpdateMap()}" update="formMap" /> -->
             <!--</h:form>-->
 

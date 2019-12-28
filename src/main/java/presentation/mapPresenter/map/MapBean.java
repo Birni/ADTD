@@ -39,15 +39,12 @@ public class MapBean implements Serializable
         {
 
             List<Coordinate> CoordsList = location.GetCoordinateList();
-            MapLayer garageLayer = (new MapLayer().setLabel(location.GetName()));
-            MapLocation MapGarage = new MapLocation();
+            MapLocation mapLocation = new MapLocation();
 
             for (Coordinate Coord : CoordsList) {
-                MapGarage.addCoordinate(new MapCoordinate(Coord.GetLatitudeString(), Coord.GetLongitudeString()));
+                mapLocation.addCoordinate(new MapCoordinate(Coord.GetLatitudeString(), Coord.GetLongitudeString()));
             }
-            garageLayer.addLocation(MapGarage);
-            myMapBean.addLayer(garageLayer);
-
+            myMapBean.addLocation(mapLocation);
 
         }
 
@@ -56,7 +53,6 @@ public class MapBean implements Serializable
 
         for(Route street : streets)
         {
-            MapLayer routeLayer = (new MapLayer().setLabel("dummy"));
             MapRoute route = new MapRoute();
 
             for(Node node : street.GetRouteNodes())
@@ -64,19 +60,14 @@ public class MapBean implements Serializable
                 route.addCoordinate(new MapCoordinate(node.GetCoordinate().GetLatitudeString(), node.GetCoordinate().GetLongitudeString()));
             }
 
-            routeLayer.addRoute(route);
-            myMapBean.addLayer(routeLayer);
-
+            myMapBean.addRoute(route);
         }
 
 
         for (Transporter transporter : VirtualTransporterManager.getInstance().GetTransporterWithJob())
         {
-            MapLayer testMarker =(new MapLayer().setLabel("marker"));
             Marker marker = new Marker(new MapCoordinate(transporter.GetPosition().GetLatitudeString(), transporter.GetPosition().GetLongitudeString()));
-            testMarker.addMarker(marker);
-
-            myMapBean.addLayer(testMarker);
+            myMapBean.addMarker(marker);
         }
 
     }
@@ -94,11 +85,9 @@ public class MapBean implements Serializable
 
      //   for (Transporter transporter : VirtualTransporterManager.getInstance().GetTransporterWithJob())
      //   {
-     //       MapLayer testMarker =(new MapLayer().setLabel("marker"));
+     //
      //       Marker marker = new Marker(new MapCoordinate(transporter.GetPosition().GetLatitudeString(), transporter.GetPosition().GetLongitudeString()));
-     //       testMarker.addMarker(marker);
-//
-     //       myMapBean.addLayer(testMarker);
+     //          myMapBean.addMarker(marker);
      //   }
         myMapBean.setreloadAll(false);
         return myMapBean;
