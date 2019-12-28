@@ -1,88 +1,120 @@
 package Beans;
 
-import services.VO.ITransporter;
 import services.entity.Transporter;
 import services.service.VirtualTransporterManager;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean(name="beanTransporterDetails")
 @SessionScoped
 public class TransporterDetailsBean{
 
+    private List<ITransporter> iTransporters = new ArrayList<ITransporter>();
 
-    private float payload;
-    private String label;
-    private float battery;
-    private float maxPayload;
-    private boolean isExecuteJob;
-    private String targetToDrive;
 
-    private int lastindex;
 
-    public String getLabel() {
-        return label;
-    }
 
-    public float getMaxpayload() {
-        return maxPayload;
-    }
-
-    public boolean getIsExecuteJob(){
-        return isExecuteJob;
-    }
-
-    public String getTargetToDrive() {
-        return targetToDrive;
-    }
-
-    public float getBattery() {
-        return battery;
-    }
-
-    public float getPayload() {
-        return payload;
-    }
 
     public TransporterDetailsBean()
     {
-        ITransporter transporter = VirtualTransporterManager.getInstance().GetTransporterFromTransporterList(0);
-        SetBeanAttributes(transporter);
+        List<Transporter> transporters =  VirtualTransporterManager.getInstance().GetAllTransporter();
+
+        for(int i =0; i <transporters.size(); i++)
+        {
+            SetBeanAttributes(transporters.get(i));
+        }
+
     }
 
 
     public void NextAction() {
 
-        ITransporter transporter = VirtualTransporterManager.getInstance().GetTransporterFromTransporterList(lastindex);
-        SetBeanAttributes(transporter);
+    }
+
+    public  List<ITransporter> getiTransporters(){
+        return this.iTransporters;
+    }
+
+    private void SetBeanAttributes(Transporter transporter) {
+
+        ITransporter iTransporter = new ITransporter();
+
+        iTransporter.setLabel(transporter.getLabel());
+        iTransporter.setBattery(transporter.getBattery());
+        iTransporter.setIsExecuteJob(transporter.isHasJob());
+        iTransporter.setMaxPayload(transporter.getMaxPayload());
+        iTransporter.setPayload(transporter.getPayload());
+
+
+        if (transporter.isHasJob())
+        {
+            iTransporter.setTargetToDrive(transporter.getTarget().GetIdentifierLocation());
+        } else {
+            iTransporter.setTargetToDrive("none");
+        }
+
+        iTransporters.add(iTransporter);
 
     }
 
-    private void SetBeanAttributes(ITransporter transporter)
-    {
-        if(null != transporter)
-        {
-            label = ((Transporter) transporter.object).getLabel();
-            payload = ((Transporter)transporter.object).getPayload();
-            battery = ((Transporter)transporter.object).getBattery();
-            maxPayload = ((Transporter)transporter.object).getMaxPayload();
-            isExecuteJob = ((Transporter)transporter.object).isHasJob();
+    public class ITransporter{
 
-            if(((Transporter)transporter.object).isHasJob())
-            {
-                targetToDrive = ((Transporter)transporter.object).getTarget().GetIdentifierLocation();
-            }
-            else
-            {
-                targetToDrive = "none";
-            }
+        private String label;
+        private float payload;
+        private float battery;
+        private float maxPayload;
+        private boolean isExecuteJob;
+        private String targetToDrive;
 
-            lastindex = transporter.index;
+        public String getLabel() {
+            return label;
         }
-        else
-        {
-            // TODO: Handle no transporter at all
+
+        public void setLabel(String label){
+            this.label = label;
+        }
+
+        public float getMaxPayload() {
+            return maxPayload;
+        }
+
+        public void setMaxPayload(float maxPayload){
+            this.maxPayload = maxPayload;
+        }
+
+        public boolean getIsExecuteJob(){
+            return isExecuteJob;
+        }
+
+        public void setIsExecuteJob (boolean isExecuteJob){
+            this.isExecuteJob = isExecuteJob;
+        }
+
+        public String getTargetToDrive() {
+            return targetToDrive;
+        }
+
+        public void setTargetToDrive(String targetToDrive){
+            this.targetToDrive =targetToDrive;
+        }
+
+        public float getBattery() {
+            return battery;
+        }
+
+        public void setBattery(float battery) {
+            this.battery = battery;
+        }
+
+        public float getPayload() {
+            return payload;
+        }
+
+        public void setPayload(float payload){
+            this.payload =payload;
         }
 
     }

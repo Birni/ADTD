@@ -2,19 +2,11 @@ package services.service;
 
 import services.entity.Node;
 import services.entity.Transporter;
-import services.VO.ITransporter;
 
-import presentation.mapPresenter.map.MapBean;
-
-import javax.ejb.Schedule;
 import javax.ejb.Startup;
 import javax.ejb.Singleton;
-import javax.enterprise.inject.spi.Bean;
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.ServletContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +52,10 @@ public class VirtualTransporterManager {
         AddJob(NodeCollection.getInstance().GetNodeById(23L));
     }
 
+    public List<Transporter> GetAllTransporter(){
+        return this.TransporterCollection;
+    }
+
     public void UpdateTransporter() {
         for (Transporter transporter : TransporterCollection) {
             transporter.PropagateNewPostion(1);
@@ -94,37 +90,6 @@ public class VirtualTransporterManager {
 
     // }
 
-
-    public ITransporter GetTransporterFromTransporterList(int index) {
-
-        ITransporter iTransporter;
-
-        if(TransporterCollection.isEmpty())
-        {
-            Transporter dummy = new Transporter();
-             iTransporter = new ITransporter(-1,dummy);
-
-        }
-        else if (TransporterCollection.size() == 1 )
-        {
-              iTransporter = new ITransporter(0,TransporterCollection.get(0));
-        }
-        else
-        {
-            index++;
-            if(index < TransporterCollection.size())
-            {
-                 iTransporter = new ITransporter(index,TransporterCollection.get(index));
-            }
-            else
-            {
-                  iTransporter = new ITransporter(0,TransporterCollection.get(0));
-            }
-
-        }
-
-        return iTransporter;
-    }
 
 
     public void AddNewTransporter(float battery )

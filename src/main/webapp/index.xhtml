@@ -31,12 +31,13 @@
 
 
             <details:TransporterDetails id="transporterDetails"
-                                        transporterLabel="#{beanTransporterDetails.label}"
-                                        transporterPayload="#{beanTransporterDetails.payload}"
-                                        transporterBattery="#{beanTransporterDetails.battery}"
-                                        transporterMaxPayload="#{beanTransporterDetails.maxpayload}"
-                                        transporterHasJob="#{beanTransporterDetails.isExecuteJob}"
-                                        transporterTarget="#{beanTransporterDetails.targetToDrive}"
+                                        transporterLabel="Label"
+                                        transporterPayload="Payload"
+                                        transporterBattery="Battery"
+                                        transporterMaxPayload="Max Payload"
+                                        transporterHasJob="Does execute Job"
+                                        transporterTarget="Destination"
+                                        transporterData="#{beanTransporterDetails.iTransporters}"
 
                                         NextButtonText = "Next"
                                         NextButtonAction="#{beanTransporterDetails.NextAction()}"

@@ -1,7 +1,5 @@
 package Beans;
 
-import services.VO.ITransporter;
-import services.entity.Transporter;
 import services.service.VirtualTransporterManager;
 
 import javax.faces.bean.ManagedBean;
@@ -36,9 +34,9 @@ public class TransporterAddBean {
     public void AddAction() {
 
         VirtualTransporterManager.getInstance().AddNewTransporter(battery);
-
-
     }
+
+
 
 
 }

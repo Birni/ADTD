@@ -17,6 +17,8 @@
     <composite:attribute name="transporterHasJob" />
     <composite:attribute name="transporterTarget" />
 
+    <composite:attribute name="transporterData"  type="java.lang.Object" />
+
     <composite:attribute name="NextButtonText" />
     <composite:attribute name="NextButtonAction"
                          method-signature="java.lang.String action()" />
@@ -27,28 +29,46 @@
 <composite:implementation>
 
     <h:form>
-        <h:panelGrid columns="2" id="details" >
 
-            <h:outputText value="Label:" />
-            <h:outputText value="#{cc.attrs.transporterLabel}"/>
+        <h:dataTable value="#{cc.attrs.transporterData}" var="o"
+                     styleClass="order-table"
+                     headerClass="order-table-header"
+                     rowClasses="order-table-odd-row,order-table-even-row"
+        >
 
-            <h:outputText value="Battery:"/>
-            <h:outputText value="#{cc.attrs.transporterBattery}"/>
+            <h:column>
+                <f:facet name="header">#{cc.attrs.transporterLabel}</f:facet>
+                #{o.label}
+            </h:column>
 
-            <h:outputText value="Current payload:"/>
-            <h:outputText value="#{cc.attrs.transporterPayload}"/>
+            <h:column>
+                <f:facet name="header">#{cc.attrs.transporterBattery}</f:facet>
+                #{o.battery}
+            </h:column>
 
-            <h:outputText value="Max. payload:"/>
-            <h:outputText value="#{cc.attrs.transporterMaxPayload}"/>
+            <h:column>
+                <f:facet name="header">#{cc.attrs.transporterPayload}</f:facet>
+                #{o.payload}
+            </h:column>
 
-            <h:outputText value="Does execute job:"/>
-            <h:outputText value="#{cc.attrs.transporterHasJob}"/>
+            <h:column>
+                <f:facet name="header">#{cc.attrs.transporterMaxPayload}</f:facet>
+                #{o.maxPayload}
+            </h:column>
 
-            <h:outputText value="Destination:"/>
-            <h:outputText value="#{cc.attrs.transporterTarget}"/>
+            <h:column>
+                <f:facet name="header">#{cc.attrs.transporterHasJob}</f:facet>
+                #{o.isExecuteJob}
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">#{cc.attrs.transporterTarget}</f:facet>
+                #{o.targetToDrive}
+            </h:column>
 
 
-        </h:panelGrid>
+        </h:dataTable>
+
 
         <h:commandButton action="#{cc.attrs.NextButtonAction}"
                          value="#{cc.attrs.NextButtonText}">
