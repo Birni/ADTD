@@ -1,5 +1,6 @@
 package services.entity;
 
+import services.entity.util.GeneratedIdEntity;
 import services.entity.util.LongIdEntity;
 import services.service.Route;
 import java.lang.Math;
@@ -10,9 +11,11 @@ import javax.persistence.*;
 
 
 @Entity
-public class Transporter extends LongIdEntity
+public class Transporter extends GeneratedIdEntity
 {
 
+    String Label;
+    float maxPayload;
     float battery;
     float payload;
     boolean hasJob = false;
@@ -34,7 +37,21 @@ public class Transporter extends LongIdEntity
 
     }
 
+    public String getLabel(){
+        return Label;
+    }
 
+    public void setLabel(String label){
+        this.Label = label;
+    }
+
+    public float getMaxPayload(){
+        return maxPayload;
+    }
+
+    public void setMaxPayload(float maxPayload){
+        this.maxPayload = maxPayload;
+    }
 
     public Long getTransporterId()
     {
@@ -97,9 +114,9 @@ public class Transporter extends LongIdEntity
         return this.Position;
     }
 
-    public Transporter(Long id, Coordinate Coordinate)
+    public Transporter(String label, Coordinate Coordinate)
     {
-        super(id);
+        this.Label = label;
         this.Position = Coordinate;
     }
 

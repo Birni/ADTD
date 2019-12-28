@@ -46,9 +46,9 @@
 
          <ui:repeat value="#{layer.locations}" var="location">
          var myStyle = {
-             "color": "#ff7800",
+             "color": "#557A95",
              "weight": 5,
-             "opacity": 0.65};
+             "opacity": 0.80};
 
          L.geoJSON(#{location.getJsonString()}, myStyle).addTo(map_#{cc.attrs.id});
 

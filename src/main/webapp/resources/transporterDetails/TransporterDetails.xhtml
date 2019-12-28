@@ -10,9 +10,12 @@
 
 <composite:interface>
 
-    <composite:attribute name="transporterID" />
+    <composite:attribute name="transporterLabel" />
     <composite:attribute name="transporterBattery" />
     <composite:attribute name="transporterPayload" />
+    <composite:attribute name="transporterMaxPayload" />
+    <composite:attribute name="transporterHasJob" />
+    <composite:attribute name="transporterTarget" />
 
     <composite:attribute name="NextButtonText" />
     <composite:attribute name="NextButtonAction"
@@ -24,16 +27,25 @@
 <composite:implementation>
 
     <h:form>
-        <h:panelGrid columns="2" id="details">
+        <h:panelGrid columns="2" id="details" >
 
-            <h:outputText value="ID:"/>
-            <h:outputText value="#{cc.attrs.transporterID}"/>
+            <h:outputText value="Label:" />
+            <h:outputText value="#{cc.attrs.transporterLabel}"/>
 
             <h:outputText value="Battery:"/>
             <h:outputText value="#{cc.attrs.transporterBattery}"/>
 
-            <h:outputText value="Payload:"/>
+            <h:outputText value="Current payload:"/>
             <h:outputText value="#{cc.attrs.transporterPayload}"/>
+
+            <h:outputText value="Max. payload:"/>
+            <h:outputText value="#{cc.attrs.transporterMaxPayload}"/>
+
+            <h:outputText value="Does execute job:"/>
+            <h:outputText value="#{cc.attrs.transporterHasJob}"/>
+
+            <h:outputText value="Destination:"/>
+            <h:outputText value="#{cc.attrs.transporterTarget}"/>
 
 
         </h:panelGrid>

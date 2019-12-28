@@ -11,15 +11,30 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class TransporterDetailsBean{
 
-    public long ID;
-    public float payload;
 
-    public float battery;
+    private float payload;
+    private String label;
+    private float battery;
+    private float maxPayload;
+    private boolean isExecuteJob;
+    private String targetToDrive;
 
     private int lastindex;
 
-    public long getID() {
-        return ID;
+    public String getLabel() {
+        return label;
+    }
+
+    public float getMaxpayload() {
+        return maxPayload;
+    }
+
+    public boolean getIsExecuteJob(){
+        return isExecuteJob;
+    }
+
+    public String getTargetToDrive() {
+        return targetToDrive;
     }
 
     public float getBattery() {
@@ -48,9 +63,20 @@ public class TransporterDetailsBean{
     {
         if(null != transporter)
         {
-            ID = ((Transporter) transporter.object).getId();
+            label = ((Transporter) transporter.object).getLabel();
             payload = ((Transporter)transporter.object).getPayload();
             battery = ((Transporter)transporter.object).getBattery();
+            maxPayload = ((Transporter)transporter.object).getMaxPayload();
+            isExecuteJob = ((Transporter)transporter.object).isHasJob();
+
+            if(((Transporter)transporter.object).isHasJob())
+            {
+                targetToDrive = ((Transporter)transporter.object).getTarget().GetIdentifierLocation();
+            }
+            else
+            {
+                targetToDrive = "none";
+            }
 
             lastindex = transporter.index;
         }

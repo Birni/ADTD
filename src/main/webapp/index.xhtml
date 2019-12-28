@@ -21,10 +21,23 @@
 
         <h:panelGroup id ="leftUpperPanel" styleClass="styleLeftUpperPanel">
 
+            <h:panelGroup id ="titlePanel" styleClass="styleTitlePanel">
+
+                <h1>ADTD</h1>
+                <h2>Autonomous-Driving-Transportation-Depots</h2>
+
+
+            </h:panelGroup>
+
+
             <details:TransporterDetails id="transporterDetails"
-                                        transporterID="#{beanTransporterDetails.ID}"
+                                        transporterLabel="#{beanTransporterDetails.label}"
                                         transporterPayload="#{beanTransporterDetails.payload}"
                                         transporterBattery="#{beanTransporterDetails.battery}"
+                                        transporterMaxPayload="#{beanTransporterDetails.maxpayload}"
+                                        transporterHasJob="#{beanTransporterDetails.isExecuteJob}"
+                                        transporterTarget="#{beanTransporterDetails.targetToDrive}"
+
                                         NextButtonText = "Next"
                                         NextButtonAction="#{beanTransporterDetails.NextAction()}"
 

@@ -8,21 +8,22 @@ body {
 
 h1 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
-    border-bottom: 1px solid #AFAFAF; 
     font-size:  36px;
     font-weight: bold;
     margin: 0px;
     padding: 0px;
-    color: #036fab;
+    color: #ffffff;
+    text-align: center;
 }
 
 h2 {
-    color: #036fab;
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #ffffff;
+    border-bottom: 1px solid #B1A296;
+    text-align: center;
 }
 
-h3 {
-    color: white;
-}
+
 
 a:link, a:visited {
   color: #045491;
@@ -38,18 +39,20 @@ a:link:hover, a:visited:hover  {
 
 .styleWrapper {
     width: 100%;
-    background-color: #ffffff;
+    background-color: #5D5C61;
     position: absolute;
-    margin: 0px auto;
+    padding: 10px;
 }
 
 
 .styleLeftUpperPanel {
     position:relative;
     float: left;
-    background-color: #0E7DC6;
+    background-color: #938E94;
     min-width: 33vw;
     min-height: 66vh;
+    padding: 5px;
+    box-sizing: border-box;
 }
 
 .styleRightUpperPanel {
@@ -90,3 +93,9 @@ a:link:hover, a:visited:hover  {
     min-width: 100%;
     min-height: 100%;
 }
+
+/* #5D5C61 */
+/* #938E94 */
+/* #7395AE */
+/* #557A95 */
+/* #B1A296 */

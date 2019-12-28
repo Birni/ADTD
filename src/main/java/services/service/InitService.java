@@ -12,6 +12,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 
 @ApplicationScoped
@@ -326,7 +327,13 @@ public class InitService
         {
             for(int i=1; i < 11; i++)
             {
-                Transporter transporter = new Transporter(Long.valueOf(i), (new Coordinate(49.003150f ,12.096859f)));
+                Transporter transporter = new Transporter("R-OTH-"+i, (new Coordinate(49.003150f ,12.096859f)));
+                transporter.setBattery(100);
+
+                Random r = new Random();
+                transporter.setMaxPayload(r.nextInt(40) + 10);
+
+
 
                 em.persist(transporter);
 
