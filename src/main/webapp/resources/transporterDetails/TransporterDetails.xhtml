@@ -8,6 +8,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 >
 
+
 <composite:interface>
 
     <composite:attribute name="transporterLabel" />
@@ -31,10 +32,9 @@
     <h:form>
 
         <h:dataTable value="#{cc.attrs.transporterData}" var="o"
-                     styleClass="order-table"
-                     headerClass="order-table-header"
-                     rowClasses="order-table-odd-row,order-table-even-row"
-        >
+                     styleClass="table-details"
+                     headerClass="table-header"
+                     rowClasses="odd-row,even-row">
 
             <h:column>
                 <f:facet name="header">#{cc.attrs.transporterLabel}</f:facet>
@@ -70,12 +70,12 @@
         </h:dataTable>
 
 
-        <h:commandButton action="#{cc.attrs.NextButtonAction}"
-                         value="#{cc.attrs.NextButtonText}">
+  <!--     <h:commandButton action="#{cc.attrs.NextButtonAction}"
+                        value="#{cc.attrs.NextButtonText}">
 
-        <f:ajax execute="@form" render="details" />
+       <f:ajax execute="@form" render="details" />
 
-        </h:commandButton>
+       </h:commandButton> -->
 
     </h:form>
 

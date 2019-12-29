@@ -1,0 +1,23 @@
+.table-details{
+    color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    text-align: center;
+    border: 2px solid #B1A296;
+}
+
+.odd-row{
+    background-color: #7395AE;
+    border: 2px solid #B1A296;
+}
+
+.even-row{
+    background-color: #557A95;
+    border: 2px solid #B1A296;
+}
+
+.table-header{
+    background-color: #B1A296;
+    border: 2px solid #B1A296;
+}

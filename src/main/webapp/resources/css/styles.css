@@ -6,21 +6,18 @@ body {
     overflow: hidden;
 }
 
-h1 {
+.h1{
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     font-size:  36px;
     font-weight: bold;
     margin: 0px;
     padding: 0px;
     color: #ffffff;
-    text-align: center;
 }
 
-h2 {
+.h2 {
     font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
     color: #ffffff;
-    border-bottom: 1px solid #B1A296;
-    text-align: center;
 }
 
 
@@ -53,6 +50,7 @@ a:link:hover, a:visited:hover  {
     min-width: calc(33% - 5px);
     min-height: calc(66% - 5px);
     margin: 5px;
+
     box-sizing: border-box;
 }
 
@@ -97,6 +95,21 @@ a:link:hover, a:visited:hover  {
     min-width: 100%;
     min-height: 100%;
 }
+
+.styleDetailsPanel{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.styleTitlePanel{
+    margin: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 1px solid #B1A296;
+}
+
+
 
 /* #5D5C61 */
 /* #938E94 */

@@ -12,6 +12,7 @@
       xmlns:StatisticPanel="http://java.sun.com/jsf/composite/Statistic">
 
 <h:outputStylesheet library="css" name="styles.css"/>
+<h:outputStylesheet library="css" name="dataTable.css"/>
 
 <h:head></h:head>
 
@@ -21,14 +22,16 @@
 
         <h:panelGroup id ="leftUpperPanel" styleClass="styleLeftUpperPanel">
 
-            <h:panelGroup id ="titlePanel" styleClass="styleTitlePanel">
+            <h:panelGroup id ="titlePanel" styleClass="styleTitlePanel" layout="block">
 
-                <h1>ADTD</h1>
-                <h2>Autonomous-Driving-Transportation-Depots</h2>
+                <h:outputText styleClass="h1" value = "ADTD" />
+                <br />
+                <h:outputText styleClass="h2" value = "Autonomous-Driving-Transportation-Depots" />
 
 
             </h:panelGroup>
 
+            <h:panelGroup styleClass="styleDetailsPanel" layout="block">
 
             <details:TransporterDetails id="transporterDetails"
                                         transporterLabel="Label"
@@ -46,6 +49,7 @@
 
             />
 
+            </h:panelGroup>
 
 
 
