@@ -73,7 +73,13 @@
 
          <ui:repeat value="#{cc.attrs.mapMarker}" var="marker">
 
-         var marker = L.marker([#{marker.position.latitude} ,  #{marker.position.longitude}]).addTo(map_#{cc.attrs.id});
+         var Icon = L.icon({
+             iconUrl: 'resources/images/iconTransporter.png',
+             iconSize: [24, 24]
+             });
+
+
+         var marker = L.marker([#{marker.position.latitude} ,  #{marker.position.longitude}] ,{icon: Icon}).addTo(map_#{cc.attrs.id});
 
          </ui:repeat>
 

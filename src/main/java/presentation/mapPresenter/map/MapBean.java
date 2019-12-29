@@ -64,7 +64,7 @@ public class MapBean implements Serializable
         }
 
 
-        for (Transporter transporter : VirtualTransporterManager.getInstance().GetTransporterWithJob())
+        for (Transporter transporter : VirtualTransporterManager.getInstance().GetAllTransporter())
         {
             Marker marker = new Marker(new MapCoordinate(transporter.GetPosition().GetLatitudeString(), transporter.GetPosition().GetLongitudeString()));
             myMapBean.addMarker(marker);
