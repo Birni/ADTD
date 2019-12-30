@@ -73,8 +73,6 @@ public class NodeCollection
             {
                 return node;
             }
-
-
         }
 
         return null;

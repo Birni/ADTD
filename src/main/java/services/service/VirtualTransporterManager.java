@@ -3,6 +3,7 @@ package services.service;
 import services.entity.Node;
 import services.entity.Transporter;
 
+import javax.ejb.Schedule;
 import javax.ejb.Startup;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -75,9 +76,9 @@ public class VirtualTransporterManager {
         return TransporterWithJob;
     }
 
-    // @Schedule(second = "*/10", minute = "*", hour = "*", persistent = false)
-    // public void atSchedule() throws InterruptedException {
-    //    UpdateTransporter();
+    @Schedule(second ="*/1" ,minute = "*", hour = "*", persistent = false)
+      public void atSchedule() throws InterruptedException {
+        UpdateTransporter();
 
     //   String refreshpage = FacesContext.getCurrentInstance().getViewRoot().getViewId();
     //   ViewHandler handler = FacesContext.getCurrentInstance().getApplication().getViewHandler();
@@ -88,7 +89,7 @@ public class VirtualTransporterManager {
     //   FacesContext.getCurrentInstance().getViewRoot().setViewId("map");
     //   FacesContext.getCurrentInstance().renderResponse();
 
-    // }
+     }
 
 
 
