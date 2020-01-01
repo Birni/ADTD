@@ -77,7 +77,7 @@ public class VirtualTransporterManager {
     }
 
     @Schedule(second ="*/1" ,minute = "*", hour = "*", persistent = false)
-      public void atSchedule() throws InterruptedException {
+      public void atSchedule(){
         UpdateTransporter();
 
     //   String refreshpage = FacesContext.getCurrentInstance().getViewRoot().getViewId();

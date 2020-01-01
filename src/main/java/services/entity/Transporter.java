@@ -1,7 +1,9 @@
 package services.entity;
 
+import org.jboss.logging.annotations.Pos;
 import services.entity.util.GeneratedIdEntity;
 import services.entity.util.LongIdEntity;
+import services.service.NodeCollection;
 import services.service.Route;
 import java.lang.Math;
 import java.math.BigDecimal;
@@ -168,11 +170,13 @@ public class Transporter extends GeneratedIdEntity
     //   Position.Latitude = BigDecimal.valueOf(lat);
     //   Position.Longitude = BigDecimal.valueOf(lon);
 
-        jobroute.IncrementNextTargetToDrive();
+    //    jobroute.IncrementNextTargetToDrive();
 
-        Position.Latitude = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive()).GetCoordinate().Latitude;
-        Position.Longitude = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive()).GetCoordinate().Longitude;
+    //    Position.Latitude = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive()).GetCoordinate().Latitude;
+    //    Position.Longitude = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive()).GetCoordinate().Longitude;
 
+        Position.Longitude = NodeCollection.getInstance().GetRandomNode().GetCoordinate().GetLongitude();
+        Position.Latitude = NodeCollection.getInstance().GetRandomNode().GetCoordinate().GetLatitude();
 
     }
 }

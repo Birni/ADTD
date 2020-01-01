@@ -78,4 +78,11 @@ public class NodeCollection
         return null;
     }
 
+    public Node GetRandomNode()
+    {
+        Random r = new Random();
+        Long number = Long.valueOf(r.nextInt(32)+1);
+        return this.CollectionOfNodes.get(number);
+    }
+
 }
