@@ -6,8 +6,10 @@ import javax.persistence.*;
 @Entity
 public class NodeLink
 {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long LinkId;
+
     private long NodeId;
 
     public NodeLink()

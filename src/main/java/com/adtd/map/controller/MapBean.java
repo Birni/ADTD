@@ -13,18 +13,14 @@ import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
 import com.adtd.web.repository.TransporterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-
+@Controller
 public class MapBean implements Serializable {
 
-    @Autowired
-    private CoordinateRepository CoordinateRepo;
 
     @Autowired
     private LocationRepository  LocationRepo;
-
-    @Autowired
-    private NodeRepository NodeRepo;
 
     @Autowired
     private TransporterRepository TransporterRepo;

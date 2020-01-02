@@ -2,14 +2,17 @@ package com.adtd.web.entity;
 
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 
 @Entity
 public class Coordinate
 {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     @Column(scale=6, precision = 8)
     BigDecimal Latitude;
     @Column(scale=6, precision = 8)
