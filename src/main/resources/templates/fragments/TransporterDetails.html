@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="../../static/css/styles.css" th:href="@{/css/dataTable.css}" rel="stylesheet" />
+</head>
+
+
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(transporterlist)}">
+        <table class="table-details">
+            <tr>
+                <td class="table-header">Label</td>
+                <td class="table-header">Max Payload</td>
+                <td class="table-header">Battery</td>
+                <td class="table-header">Payload</td>
+                <td class="table-header">Has Job</td>
+                <td class="table-header">Destination</td>
+
+            </tr>
+            <tr th:each="tran : ${transporterlist}">
+                <td th:text="${tran.Label}">Label</td>
+                <td th:text="${tran.maxPayload}">Max Payload</td>
+                <td th:text="${tran.battery}">Battery</td>
+                <td th:text="${tran.payload}">Payload</td>
+                <td th:text="${tran.hasJob}">Has Job</td>
+                <td th:text="${tran.destination}">Destination</td>
+            </tr>
+        </table>
+    </div>
+</div>

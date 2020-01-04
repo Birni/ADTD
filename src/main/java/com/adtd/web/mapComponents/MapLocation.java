@@ -1,8 +1,12 @@
-package com.adtd.map.mapComponents;
+package com.adtd.web.mapComponents;
+
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Component
 public class MapLocation
 {
     private String type = "Feature";

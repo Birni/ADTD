@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link rel="stylesheet" href="webjars/leaflet/1.6.0/leaflet.css"/>
+
+    <script language="JavaScript" src="webjars/leaflet/1.6.0/leaflet.js"></script>
+
+</head>
+
+
+<div id="div_Map" style="width:100%; height:100%; position: absolute;"></div>
+
+    <script>
+        /*<![CDATA[*/
+
+//        private double centerLat = 49.003038;
+//        private double centerLong = 12.096346;
+//        private int zoom = 18;
+//        private int minZoom = 1;
+//        private int maxZoom = 19;
+//        private boolean zoomControl = false;
+//        private boolean zoomEnabled = true;
+//        private boolean draggingEnabled = true;
+//        private String urlTemplate = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
+
+
+        var map = L.map('div_Map', {
+            center: ['[[${Lmap.centerLat}]]', '[[${Lmap.centerLong}]]'],
+            dragging:[[${Lmap.draggingEnabled}]],
+            zoomControl:[[${Lmap.zoom}]],
+            zoom: [[${Lmap.zoom}]]
+        });
+
+
+         L.tileLayer('[[${Lmap.urlTemplate}]]', {
+             id: 'osm',
+             maxZoom:[[${Lmap.maxZoom}]],
+             minZoom:[[${Lmap.minZoom}]]
+         }).addTo(map);
+
+
+        [[${Lmap.jsonLocation}]].forEach(function (element, index) {
+            console.log(element);
+            console.log(index);
+        });
+
+
+
+        /*]]>*/
+    </script>

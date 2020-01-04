@@ -1,4 +1,4 @@
-package com.adtd.map.mapComponents;
+package com.adtd.web.mapComponents;
 
 
 
