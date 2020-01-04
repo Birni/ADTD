@@ -26,25 +26,25 @@
 
 
         var map = L.map('div_Map', {
-            center: ['[[${Lmap.centerLat}]]', '[[${Lmap.centerLong}]]'],
-            dragging:[[${Lmap.draggingEnabled}]],
-            zoomControl:[[${Lmap.zoom}]],
-            zoom: [[${Lmap.zoom}]]
+            center: ['[[${LBasicMapData.centerLat}]]', '[[${LBasicMapData.centerLong}]]'],
+            dragging:[[${LBasicMapData.draggingEnabled}]],
+            zoomControl:[[${LBasicMapData.zoom}]],
+            zoom: [[${LBasicMapData.zoom}]]
         });
 
 
-         L.tileLayer('[[${Lmap.urlTemplate}]]', {
+
+         L.tileLayer('[[${LBasicMapData.urlTemplate}]]', {
              id: 'osm',
-             maxZoom:[[${Lmap.maxZoom}]],
-             minZoom:[[${Lmap.minZoom}]]
+             maxZoom:[[${LBasicMapData.maxZoom}]],
+             minZoom:[[${LBasicMapData.minZoom}]]
          }).addTo(map);
 
 
-        [[${Lmap.jsonLocation}]].forEach(function (element, index) {
-            console.log(element);
-            console.log(index);
-        });
-
+         [[${MapLocations}]].forEach(function (element, index) {
+             console.log(element);
+             console.log(index);
+         });
 
 
         /*]]>*/

@@ -26,7 +26,10 @@ public class HomeController {
         Map<String, Object> map = new HashMap<>();
         Iterable<TransporterDTO> tranList = TransporterDto.getListAllTransporter();
         model.addAttribute("transporterlist", tranList);
-        model.addAttribute("Lmap", Lmap);
+
+        model.addAttribute("LBasicMapData", Lmap.getBasicMapData());
+        model.addAttribute("MapLocations", Lmap.getJsonLocation());
+        //model.addAttribute("Lmap", Lmap);
         model.mergeAttributes(map);
         return "index.html";
     }

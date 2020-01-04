@@ -3,7 +3,7 @@ package com.adtd.web.mapComponents;
 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class MapCoordinate
 {
     private String Longitude;
