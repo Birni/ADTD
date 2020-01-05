@@ -2,16 +2,17 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <link rel="stylesheet" href="webjars/leaflet/1.6.0/leaflet.css"/>
-
-    <script language="JavaScript" src="webjars/leaflet/1.6.0/leaflet.js"></script>
+    <link rel="stylesheet" href="/css/main.css"
+          th:href="@{/webjars/leaflet/1.6.0/leaflet.css}" />
+    <script type="text/javascript" src="/webjars/leaflet/1.6.0/leaflet.js"
+            th:src="@{/webjars/leaflet/1.6.0/leaflet.js}"></script>
 
 </head>
 
 
 <div id="div_Map" style="width:100%; height:100%; position: absolute;"></div>
 
-    <script>
+<script th:inline="javascript">
         /*<![CDATA[*/
 
 //        private double centerLat = 49.003038;
@@ -25,27 +26,35 @@
 //        private String urlTemplate = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
 
 
+
         var map = L.map('div_Map', {
             center: ['[[${LBasicMapData.centerLat}]]', '[[${LBasicMapData.centerLong}]]'],
             dragging:[[${LBasicMapData.draggingEnabled}]],
-            zoomControl:[[${LBasicMapData.zoom}]],
+            zoomControl:[[${LBasicMapData.zoomControl}]],
             zoom: [[${LBasicMapData.zoom}]]
         });
 
 
 
-         L.tileLayer('[[${LBasicMapData.urlTemplate}]]', {
-             id: 'osm',
-             maxZoom:[[${LBasicMapData.maxZoom}]],
-             minZoom:[[${LBasicMapData.minZoom}]]
-         }).addTo(map);
+        L.tileLayer([[${LBasicMapData.urlTemplate}]], {
+            id: 'osm',
+            maxZoom:[[${LBasicMapData.maxZoom}]],
+            minZoom:[[${LBasicMapData.minZoom}]]
+        }).addTo(map);
+
+        var theList = [[${MapLocations}]];
+        for (var i = 0; i < theList.length; i++) {
+
+            var obj = JSON.parse(theList[i]);
+            var myStyle = {"color": "#557A95", "weight": 5, "opacity": 0.90};
+
+            L.geoJSON(obj, {style: myStyle}).addTo(map);
+        }
 
 
-         [[${MapLocations}]].forEach(function (element, index) {
-             console.log(element);
-             console.log(index);
-         });
 
 
         /*]]>*/
     </script>
+
+

@@ -36,34 +36,31 @@ public class LMap {
         return jsonLocation;
     }
 
-//    public List<String> getJsonLocation() {
-//        List<String> jsonLocation = new ArrayList<>();
-//        for (Location location : LocationRepo.findAll()) {
-//            jsonLocation.add(getJsonString("Feature", "Polygon", location.GetCoordinateList()));
-//        }
-//
-//        return jsonLocation;
-//    }
-//
+    public String getSingleJsonLocation() {
+        List<String> jsonLocation = new ArrayList<>();
+        for (Location location : LocationRepo.findAll()) {
+          return getJsonString("Feature", "Polygon", location.GetCoordinateList());
+        }
+        return "";
+    }
+
+
     private String getJsonString(String type, String GeometryType, List<Coordinate> coords)
     {
 
         String jsonString = "{" +
-                "\"type\":\""+ type +"\","                          +
-                "\"geometry\":{"                                    +
+                "\"type\":\""+ type +"\"," +
+                "\"properties\": {\"party\": \"Democrat\"} ," +
+                "\"geometry\":{" +
                 "\"type\":\""+ GeometryType +"\","     +
                 "\"coordinates\": [[";
         for(int i=0; i < coords.size(); i++ )
         {
-            jsonString += "[" + coords.get(i).GetLongitude() +","+ coords.get(i).GetLongitude() +"]";
-
-            if(i < coords.size()-1)
-            {
-                jsonString +=",";
-            }
-
+            jsonString += "[" + coords.get(i).GetLongitude() +","+ coords.get(i).GetLatitude() +"]" +",";
 
         }
+
+        jsonString += "[" + coords.get(0).GetLongitude() +","+ coords.get(0).GetLatitude() +"]";
 
         jsonString += "]]}}";
 
