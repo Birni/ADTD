@@ -54,8 +54,17 @@
              obj = JSON.parse(locations[i]);
              myStyle = {"color": "#557A95", "weight": 5, "opacity": 0.90};
 
-            L.geoJSON(obj, {style: myStyle}).addTo(map);
+            var layer = L.geoJSON(obj, {style: myStyle});
+
+            switch (obj.properties.Location) {
+                case 'GARAGE': layer.bindPopup("Garage"); break;
+                case 'PRODUCTION':   layer.bindPopup("Production Line");
+            }
+
+            map.addLayer(layer);
+
         }
+
 
         var streets = [[${MapRoutes}]];
         for (i = 0; i < streets.length; i++) {
@@ -69,10 +78,7 @@
 
 
         var markerData = [[${MapMarker}]];
-
-
-
-        var MarkerCopllection = new Array;
+        var MarkerCopllection = new Object();
 
         for (i = 0; i < markerData.length; i++) {
             var Icon = L.icon({
@@ -80,45 +86,57 @@
                 iconSize: [24, 24]
             });
 
-            var marker = L.marker([markerData[i].latitude, markerData[i].longitude], {icon: Icon}).addTo(map);
-            MarkerCopllection.push(marker);
+            var marker = L.marker([markerData[i].latitude, markerData[i].longitude], {icon: Icon});
+
+            marker.bindPopup(markerData[i].label);
+            map.addLayer(marker);
+            MarkerCopllection[markerData[i].label] = marker;
         }
 
         var serverContext = [[@{/}]];
-        var olddata;
             (function update() {
             $.ajax({
                 url: serverContext + 'map/update',
                 success: function(data) {
-                    //$('.result').html(data);
-                    console.log("success ajax")
-                    console.log(data);
 
-                    if(data !== olddata) {
-                        for (i = 0; i < MarkerCopllection.length; i++) {
-                            map.removeLayer(MarkerCopllection[i]);
+                    var deleteList = Object.create( MarkerCopllection );
+                    console.log(MarkerCopllection);
+
+                    for (i = 0; i < data.length; i++) {
+                        // case update existing marker
+                        if(MarkerCopllection[data[i].label] != null) {
+
+                            var newLatLng = new L.LatLng(data[i].latitude, data[i].longitude);
+                            MarkerCopllection[data[i].label].setLatLng(newLatLng);
+                            delete deleteList[data[i].label];
+
                         }
-
-
-                        for (i = 0; i < data.length; i++) {
+                        else { // create a new Marker
                             var Icon = L.icon({
                                 iconUrl: '../../images/iconTransporter.png',
                                 iconSize: [24, 24]
                             });
+                            var marker = L.marker([data[i].latitude, data[i].longitude], {icon: Icon});
 
+                            marker.bindPopup(data[i].label);
+                            map.addLayer(marker);
+                            MarkerCopllection[data[i].label] = marker;
 
-                            var marker = L.marker([data[i].latitude, data[i].longitude], {icon: Icon}).addTo(map);
-                            MarkerCopllection.push(marker);
                         }
+                    }
 
-                         olddata = data;
+                    for(i = 0; i< deleteList.length; i++){
+                        map.removeLayer([deleteList[i].label]);
+                        delete MarkerCopllection[deleteList[i].label];
+
+                        //TODO:remove after debug
+                        console.log("deleted" + MarkerCopllection[deleteList[i].label]);
                     }
 
                 },
                 complete: function() {
                     setTimeout(update, 5000);
 
-                    console.log("complete")
                 }
             });
         })();
