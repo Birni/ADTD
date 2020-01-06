@@ -1,17 +1,15 @@
-package com.adtd.web.service;
+package com.adtd.web.route;
 
 
-
-
-import com.adtd.web.entity.Location;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.NodeLink;
 import com.adtd.web.repository.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
+@Service
 public class RouteProvider
 {
     @Autowired
@@ -52,7 +50,7 @@ public class RouteProvider
                                 boolean hasuncheckedNodes = false;
                                 for (int j = 0; j < CrossNode.get().getLinkList().size(); j++)
                                 {
-                                    if (!checkedNodes.containsKey(CrossNode.get().getLinkList().get(j).GetLinkId())) {
+                                    if (!checkedNodes.containsKey(CrossNode.get().getLinkList().get(j).GetLinkedNode())) {
                                         hasuncheckedNodes = true;
                                         break;
                                     }
@@ -83,9 +81,9 @@ public class RouteProvider
 
                     for (int k = 0; k < currentNode.getLinkList().size(); k++)
                     {
-                        if (!checkedNodes.containsKey(currentNode.getLinkList().get(k).GetLinkId()))
+                        if (!checkedNodes.containsKey(currentNode.getLinkList().get(k).GetLinkedNode()))
                         {
-                            Long foundlink = currentNode.getLinkList().get(k).GetLinkId();
+                            Long foundlink = currentNode.getLinkList().get(k).GetLinkedNode();
 
                             if(foundlink != currentNode.GetNodeId())
                             {
@@ -128,11 +126,14 @@ public class RouteProvider
         for (Node node : allNodes) {
             for (NodeLink link : node.getLinkList())
             {
-                if(!doneNodes.contains(link.GetLinkId()))
+                if(!doneNodes.contains(link.GetLinkedNode()))
                 {
                     Route route = new Route();
                     route.addNode(node);
-                    route.addNode(NodeRepo.findById(link.GetLinkId()).get());
+                    Optional<Node> temp = NodeRepo.findById(link.GetLinkedNode());
+                    if(temp.isPresent()){
+                        route.addNode(temp.get());
+                    }
 
                     routes.add(route);
                 }
@@ -142,49 +143,6 @@ public class RouteProvider
         }
         return routes;
     }
-
-
-    public class Route
-    {
-        private int NextTargetToDrive = 0;
-        private List<Node> RouteNodes = new ArrayList<Node>();
-
-        public Route()
-        {
-
-        }
-
-        public int GetNextTargetToDrive()
-        {
-            return this.NextTargetToDrive;
-        }
-        public void SetNextTargetToDrive(int next)
-        {
-            this.NextTargetToDrive = next;
-        }
-
-        public void IncrementNextTargetToDrive( )
-        {
-            this.NextTargetToDrive ++;
-        }
-
-        public List<Node> GetRouteNodes()
-        {
-            return RouteNodes;
-        }
-
-        public void addNode(Node node)
-        {
-            RouteNodes.add(node);
-        }
-
-        public void addNodes(List<Node> nodes)
-        {
-            RouteNodes = nodes;
-        }
-    }
-
-
 
 }
 

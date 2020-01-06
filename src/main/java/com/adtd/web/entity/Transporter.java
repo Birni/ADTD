@@ -12,19 +12,19 @@ public class Transporter
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long transporterId;
 
-    String Label;
-    float maxPayload;
-    float battery;
-    float payload;
-    boolean hasJob = false;
+    private String Label;
+    private float maxPayload;
+    private float battery;
+    private float payload;
+    private boolean hasJob = false;
 
     @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    Coordinate Position;
+    private Coordinate Position;
     @OneToOne
-    Node Target;
+    private Node Target;
     //@OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     @Transient
-    Node NextNodeToDrive;
+    private Node NextNodeToDrive;
 
   //  @Transient
   //  private Route jobroute = new Route();
@@ -74,6 +74,10 @@ public class Transporter
     public void setPayload(float payload)
     {
         this.payload = payload;
+    }
+
+    public void setPosition(Coordinate coordinate){
+        this.Position = coordinate;
     }
 
     public float getPayload()

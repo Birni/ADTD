@@ -11,7 +11,6 @@ import java.util.List;
 public class Node
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @OneToOne(cascade = {CascadeType.ALL})
     private Coordinate Coordinate;
@@ -22,11 +21,6 @@ public class Node
     public Node()
     {
 
-    }
-
-    public Node(Long Id)
-    {
-        this.id = id;
     }
 
     public long getId(){

@@ -22,7 +22,7 @@ public class NodeLink
         NodeId = node.GetNodeId();
     }
 
-    public long GetLinkId()
+    public long GetLinkedNode()
     {
         return NodeId;
     }
