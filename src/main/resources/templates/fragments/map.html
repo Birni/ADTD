@@ -61,7 +61,7 @@
         for (i = 0; i < streets.length; i++) {
 
              obj = JSON.parse(streets[i]);
-             myStyle = {"color": "#e659ff", "weight": 5, "opacity": 0.65};
+             myStyle = {"color": "#B1A296", "weight": 5, "opacity": 0.90};
 
             L.geoJSON(obj, {style: myStyle}).addTo(map);
         }
@@ -116,7 +116,6 @@
 
                 },
                 complete: function() {
-                    // Schedule the next request when the current one's complete
                     setTimeout(update, 5000);
 
                     console.log("complete")

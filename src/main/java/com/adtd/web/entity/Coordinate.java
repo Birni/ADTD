@@ -54,4 +54,9 @@ public class Coordinate
         this.Latitude = BigDecimal.valueOf(latitude);
         this.Longitude = BigDecimal.valueOf(longitude);
     }
+
+    public String GetCoordinatesAsString()
+    {
+        return "["+this.Latitude +","+this.Longitude+"]";
+    }
 }

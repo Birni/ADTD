@@ -11,6 +11,7 @@ import com.adtd.web.route.RouteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.json.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class LMap {
     public List<String> getJsonLocation() {
         List<String> jsonLocation = new ArrayList<>();
         for (Location location : LocationRepo.findAll()) {
-            jsonLocation.add(getJsonString("Feature", "Polygon", location.GetCoordinateList()));
+            jsonLocation.add(getJsonString("Feature", "Polygon",location.GetLocatonType().toString() ,location.GetCoordinateList()));
         }
         return jsonLocation;
     }
@@ -67,52 +68,65 @@ public class LMap {
     }
 
 
+    private String getJsonString(String type, String GeometryType,String LocationType, List<Coordinate> coords){
 
+        JsonBuilderFactory factory = Json.createBuilderFactory(null);
 
-    private String getJsonString(String type, String GeometryType, List<Coordinate> coords)
-    {
-
-        String jsonString = "{" +
-                "\"type\":\""+ type +"\"," +
-                "\"properties\": {\"party\": \"Democrat\"} ," +
-                "\"geometry\":{" +
-                "\"type\":\""+ GeometryType +"\","     +
-                "\"coordinates\": [[";
-        for(int i=0; i < coords.size(); i++ )
-        {
-            jsonString += "[" + coords.get(i).GetLongitude() +","+ coords.get(i).GetLatitude() +"]" +",";
-
+        JsonArrayBuilder coordinates = Json.createArrayBuilder();
+        for(Coordinate coord: coords) {
+            JsonArrayBuilder jsonCord = Json.createArrayBuilder();
+            jsonCord.add(coord.GetLongitude());
+            jsonCord.add(coord.GetLatitude());
+            coordinates.add(jsonCord);
         }
 
-        jsonString += "[" + coords.get(0).GetLongitude() +","+ coords.get(0).GetLatitude() +"]";
 
-        jsonString += "]]}}";
+        JsonArrayBuilder coordinateArray = Json.createArrayBuilder();
+        coordinateArray.add(coordinates);
 
+        JsonObjectBuilder properties = Json.createObjectBuilder();
+        properties.add("Location",LocationType);
 
-        return jsonString;
+        JsonObjectBuilder geometry = Json.createObjectBuilder();
+        geometry.add("type", GeometryType);
+        geometry.add("coordinates", coordinateArray);
+
+        JsonObject value = factory.createObjectBuilder()
+                        .add("type", type)
+                        .add("properties", properties)
+                        .add("geometry", geometry)
+
+                .build();
+
+        return value.toString();
     }
 
-    public String getJsonStringRoutes(String type, List<Node> routeNodes)
-    {
+    public String getJsonStringRoutes(String type, List<Node> routeNodes){
 
-        String jsonString = "{" +
-                "\"type\":\""+ type +"\","                          +
-                "\"coordinates\": [";
-        for(int i=0; i < routeNodes.size(); i++ )
-        {
-            jsonString += "[" + routeNodes.get(i).GetCoordinate().GetLongitude() +","+  routeNodes.get(i).GetCoordinate().GetLatitude() +"]";
+        JsonBuilderFactory factory = Json.createBuilderFactory(null);
 
-            if(i < routeNodes.size()-1)
-            {
-                jsonString +=",";
-            }
+        JsonArrayBuilder coordinates = Json.createArrayBuilder();
+        for (Node node : routeNodes) {
+            JsonArrayBuilder jsonCoord = Json.createArrayBuilder();
+            jsonCoord.add(node.GetCoordinate().GetLongitude());
+            jsonCoord.add(node.GetCoordinate().GetLatitude());
 
-
+            coordinates.add(jsonCoord);
         }
 
-        jsonString += "]}";
-        return jsonString;
+
+        JsonObject value = factory.createObjectBuilder()
+                    .add("type", type )
+                    .add("coordinates", coordinates)
+                .build();
+
+
+        String debug = value.toString();
+
+        return value.toString();
+
     }
+
 
     public class MapMarker{
         private double Latitude;
