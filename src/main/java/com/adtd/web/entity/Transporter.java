@@ -9,9 +9,6 @@ import javax.persistence.*;
 public class Transporter
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long transporterId;
-
     private String Label;
     private float maxPayload;
     private float battery;
@@ -35,6 +32,26 @@ public class Transporter
 
     }
 
+    public Transporter(String label)
+    {
+        this.Label = label;
+    }
+
+    public Transporter(String label, Coordinate Coordinate)
+    {
+        this.Label = label;
+        this.Position = Coordinate;
+    }
+
+    public Transporter(String label, float battery, float maxPayload)
+    {
+        this.Label = label;
+        this.Position = new Coordinate(49.003150f, 12.096859f); // default garage
+        this.battery = battery;
+        this.maxPayload = maxPayload;
+    }
+
+
     public String getLabel(){
         return Label;
     }
@@ -49,16 +66,6 @@ public class Transporter
 
     public void setMaxPayload(float maxPayload){
         this.maxPayload = maxPayload;
-    }
-
-    public Long getTransporterId()
-    {
-        return this.transporterId;
-    }
-
-    public void setTransporterId(long id)
-    {
-        this.transporterId = id;
     }
 
     public void setBattery(float battery)
@@ -113,12 +120,6 @@ public class Transporter
     public Coordinate GetPosition()
     {
         return this.Position;
-    }
-
-    public Transporter(String label, Coordinate Coordinate)
-    {
-        this.Label = label;
-        this.Position = Coordinate;
     }
 
     public void PropagateNewPostion(float deltatime)

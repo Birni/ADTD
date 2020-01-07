@@ -1,8 +1,10 @@
 package com.adtd.web.controller;
 
+import com.adtd.web.dataAccess.NewTransporterDTO;
 import com.adtd.web.mapComponents.LMap;
 import com.adtd.web.dataAccess.TransporterDTO;
 import com.adtd.web.repository.NodeRepository;
+import com.adtd.web.services.LocationIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,8 +22,13 @@ public class HomeController {
     @Autowired
     private LMap Lmap;
 
+    @Autowired
+    private LocationIF locationIF;
+
+
+
     @RequestMapping("/home")
-    public String starten(Model model) {
+    public String getHomePage(Model model) {
 
         Map<String, Object> map = new HashMap<>();
         Iterable<TransporterDTO> tranList = TransporterDto.getListAllTransporter();
@@ -31,7 +38,11 @@ public class HomeController {
         model.addAttribute("MapLocations", Lmap.getJsonLocation());
         model.addAttribute("MapRoutes", Lmap.getAllRoutesMap());
         model.addAttribute("MapMarker", Lmap.getAllMarker());
-        //model.addAttribute("Lmap", Lmap);
+
+        model.addAttribute("newTransporterDTO", new NewTransporterDTO());
+        model.addAttribute("delTransporterDTO",  new NewTransporterDTO());
+
+
         model.mergeAttributes(map);
         return "index.html";
     }

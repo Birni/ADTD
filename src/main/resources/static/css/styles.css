@@ -20,6 +20,12 @@ h2 {
     color: #ffffff;
 }
 
+h3 {
+    font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #ffffff;
+}
+
+
 
 
 a:link, a:visited {
@@ -48,9 +54,8 @@ a:link:hover, a:visited:hover  {
     float: left;
     background-color: #938E94;
     min-width: calc(33% - 5px);
-    min-height: calc(66% - 5px);
+    min-height: calc(100% - 5px);
     margin: 5px;
-
     box-sizing: border-box;
 }
 
@@ -65,12 +70,15 @@ a:link:hover, a:visited:hover  {
     overflow: hidden;
 }
 
-.styleLeftUnderPanel {
+.styleUnderPanel {
     position:relative;
     float: left;
-    background-color: #35c613;
-    min-width: 33vw;
-    min-height: 33vh;
+    background-color: #938E94;
+    min-width: calc(33% - 5px);
+    min-height: calc(33% - 5px);
+    margin: 5px;
+    box-sizing: border-box;
+
 }
 
 .styleMiddleUnderPanel {
@@ -97,8 +105,8 @@ a:link:hover, a:visited:hover  {
 }
 
 .styleDetailsPanel{
-    margin-left: auto;
-    margin-right: auto;
+    padding: 5px 5px 5px 35px;
+    overflow:auto;
 }
 
 .styleTitlePanel{
@@ -108,7 +116,58 @@ a:link:hover, a:visited:hover  {
     text-align: center;
     border-bottom: 1px solid #B1A296;
 }
+.border{
+    border-bottom: 1px solid #B1A296;
+    float: bottom;
+}
 
+.styleFrom{
+    padding: 5px 50px 5px 35px;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.formInput {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    margin: 3px;
+    padding-left: 5px;
+    border:  2px solid #B1A296;
+}
+.formDelete{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    margin: 3px;
+    padding-left: 5px;
+    border:  2px solid #B1A296;
+}
+
+.styleButton{
+    background-color: #B1A296;
+    border: none;
+    color: #ffffff;
+    padding: 12px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 3px;
+    cursor: pointer;
+    float: right;
+}
+
+.styleStatePanel{
+    position:relative;
+    float: left;
+    background-color: #938E94;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    min-width: calc(33%);
+    min-height: calc(33%);
+    box-sizing: border-box;
+}
 
 
 /* #5D5C61 */

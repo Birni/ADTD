@@ -16,21 +16,18 @@
             <h2>Autonomous-Driving-Transportation-Depots</h2>
         </div>
 
-        <div id="detailsPanel" class="styleDetailsPanel" >
-
-            <header th:insert="fragments/TransporterDetails.html"> </header>
-
-        </div>
-
+        <div  id="detailsPanel" class="styleDetailsPanel"  th:insert="fragments/transporterDetails.html"> </div>
+        <hr class="border">
+        <div class="styleFrom" th:insert="fragments/addTransporter.html"> </div>
+        <hr class="border">
+        <div class="styleFrom" th:insert="fragments/deleteTransporter.html"> </div>
     </div>
 
     <div id="rightUpperPanel" class="styleRightUpperPanel">
-
-        <header th:insert="fragments/map.html"> </header>
-
+        <div th:insert="fragments/map.html"> </div>
     </div>
 
-    <div id="leftUnderPanel" class="styleLeftUnderPanel">
+    <div id="leftUnderPanel" class="styleUnderPanel">
 
     </div>
 

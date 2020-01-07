@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<h3>Delete Transporter</h3>
+
+<form  th:action="@{/delTransporter}" th:object="${delTransporterDTO}" method="post">
+     <div class="formDelete">
+         Select Transporter
+         <select th:field="*{label}">
+            <option value=""> -- </option>
+            <option th:each="tran : ${transporterlist}"
+                th:value="${tran.label}"
+                th:utext="${tran.label}"/>
+        </select>
+
+    </div>
+    <div><button class="styleButton" type="submit">Submit</button></div>
+
+</form>
+
+</html>
