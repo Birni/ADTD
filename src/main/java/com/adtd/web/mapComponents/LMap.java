@@ -6,7 +6,7 @@ import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
 import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.TransporterRepository;
-import com.adtd.web.route.Route;
+import com.adtd.web.entity.Route;
 import com.adtd.web.route.RouteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,7 +47,7 @@ public class LMap {
     public List<String> getAllRoutesMap() {
         List<String> jsonRoutNetwork = new ArrayList<>();
         for (Route route : RouteProvider.GetFullsRoadNetwork()){
-            jsonRoutNetwork.add(getJsonStringRoutes("LineString" , route.GetRouteNodes()));
+            jsonRoutNetwork.add(getJsonStringRoutes("LineString" , route.getRouteNodes()));
         }
 
         return jsonRoutNetwork;
@@ -59,8 +59,8 @@ public class LMap {
         {
             MapMarker marker = new MapMarker();
             marker.setLabel(transporter.getLabel());
-            marker.setLatitude(transporter.GetPosition().GetLatitude().doubleValue());
-            marker.setLongitude(transporter.GetPosition().GetLongitude().doubleValue());
+            marker.setLatitude(transporter.GetPosition().GetCoordinate().GetLatitude().doubleValue());
+            marker.setLongitude(transporter.GetPosition().GetCoordinate().GetLongitude().doubleValue());
 
             mapMarker.add(marker);
         }

@@ -16,15 +16,10 @@ public class Transporter
     private boolean hasJob = false;
 
     @OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    private Coordinate Position;
-    @OneToOne
-    private Node Target;
-    //@OneToOne(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
-    @Transient
-    private Node NextNodeToDrive;
+    private Node Position;
 
-  //  @Transient
-  //  private Route jobroute = new Route();
+    @Embedded
+    private Route route = new Route();
 
 
     public Transporter()
@@ -37,16 +32,15 @@ public class Transporter
         this.Label = label;
     }
 
-    public Transporter(String label, Coordinate Coordinate)
+    public Transporter(String label, Node positon)
     {
         this.Label = label;
-        this.Position = Coordinate;
+        this.Position = positon;
     }
 
     public Transporter(String label, float battery, float maxPayload)
     {
         this.Label = label;
-        this.Position = new Coordinate(49.003150f, 12.096859f); // default garage
         this.battery = battery;
         this.maxPayload = maxPayload;
     }
@@ -83,8 +77,8 @@ public class Transporter
         this.payload = payload;
     }
 
-    public void setPosition(Coordinate coordinate){
-        this.Position = coordinate;
+    public void setPosition(Node position){
+        this.Position = position;
     }
 
     public float getPayload()
@@ -92,34 +86,27 @@ public class Transporter
         return this.payload;
     }
 
-  //  public void AddJob(Node target, Route route)
-  //  {
-  //      this.Target = target;
-  //      this.jobroute = route;
-  //      this.hasJob =true;
-  //
-  //      if(Position.Latitude.equals(jobroute.GetRouteNodes().get(0).GetCoordinate().Latitude) &&
-  //              Position.Longitude.equals(jobroute.GetRouteNodes().get(0).GetCoordinate().Longitude))
-  //      {
-  //          jobroute.IncrementNextTargetToDrive();
-  //      }
-  //      NextNodeToDrive = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive());
-  //  }
 
-    public Node getTarget()
-    {
-        return this.Target;
+    public void setRoute(Route route) {
+        this.route = route;
     }
 
+    public Route getRoute() {
+        return route;
+    }
 
     public boolean isHasJob()
     {
         return this.hasJob;
     }
 
-    public Coordinate GetPosition()
+    public Node GetPosition()
     {
         return this.Position;
+    }
+
+    public void setHasJob( boolean isHasJob){
+        this.hasJob = isHasJob;
     }
 
     public void PropagateNewPostion(float deltatime)

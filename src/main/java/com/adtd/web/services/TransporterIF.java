@@ -12,7 +12,7 @@ public class TransporterIF {
     @Autowired
     TransporterRepository TransporterRepo;
 
-    public ErrorType AddTransporterToRepo(NewTransporterDTO transporterDTO) {
+    public ErrorTypeTransporterIf AddTransporterToRepo(NewTransporterDTO transporterDTO) {
         if(!transporterDTO.getLabel().isEmpty()) {
             if (TransporterRepo.findById(transporterDTO.getLabel()).isEmpty()) {
 
@@ -21,40 +21,40 @@ public class TransporterIF {
 
                 TransporterRepo.save(transporter);
 
-                return ErrorType.ERROR_NO_ERROR;
+                return ErrorTypeTransporterIf.ERROR_NO_ERROR;
             }
             else
             {
-                return ErrorType.ERROR_DB;
+                return ErrorTypeTransporterIf.ERROR_DB;
             }
         }
         else {
-            return ErrorType.ERROR_INVALID_DATA;
+            return ErrorTypeTransporterIf.ERROR_INVALID_DATA;
         }
     }
 
 
-    public ErrorType DelTransporterFromRepo(NewTransporterDTO transporterDTO) {
+    public ErrorTypeTransporterIf DelTransporterFromRepo(NewTransporterDTO transporterDTO) {
         if(!transporterDTO.getLabel().isEmpty()) {
             if (TransporterRepo.findById(transporterDTO.getLabel()).isPresent()) {
 
                 Transporter transporter = new Transporter(transporterDTO.getLabel());
                 TransporterRepo.delete(transporter);
 
-                return ErrorType.ERROR_NO_ERROR;
+                return ErrorTypeTransporterIf.ERROR_NO_ERROR;
             }
             else
             {
-                return ErrorType.ERROR_DB;
+                return ErrorTypeTransporterIf.ERROR_DB;
             }
         }
         else {
-            return ErrorType.ERROR_INVALID_DATA;
+            return ErrorTypeTransporterIf.ERROR_INVALID_DATA;
         }
     }
 
 
-    public enum ErrorType {
+    public enum ErrorTypeTransporterIf {
         ERROR_NO_ERROR,
         ERROR_DB,
         ERROR_INVALID_DATA,

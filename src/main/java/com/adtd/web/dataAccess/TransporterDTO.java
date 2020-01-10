@@ -1,18 +1,24 @@
 package com.adtd.web.dataAccess;
 
+import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
+import com.adtd.web.repository.NodeRepository;
 import com.adtd.web.repository.TransporterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TransporterDTO {
 
     @Autowired
     TransporterRepository Transporter;
+
+    @Autowired
+    NodeRepository NodeRepo;
 
     private String Label;
     private float maxPayload;
@@ -84,7 +90,12 @@ public class TransporterDTO {
             dto.setHasJob(transporter.isHasJob());
 
             if(transporter.isHasJob()) {
-                dto.setDestination(transporter.getTarget().GetIdentifierLocation());
+                Optional<Node> targetNode = NodeRepo.findById(transporter.getRoute().getTargetNode());
+                if(targetNode.isPresent())
+                {
+                    dto.setDestination(targetNode.get().GetIdentifierLocation());
+                }
+
             }
             else
             {

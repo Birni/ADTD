@@ -27,10 +27,9 @@ public class InitBean {
 
     @PostConstruct
     public void init() {
-
-        initTransporter();
-        initLocations();
         initNodes();
+        initLocations();
+        initTransporter();
     }
 
 
@@ -114,6 +113,19 @@ public class InitBean {
             Location location = new Location("Mensa","Mensa", LocatonType.PRODUCTION, CoordsList);
 
             LocationRepo.save(location);
+        }
+
+        for(Node node : NodeRepo.findAll()) {
+            if(!node.GetIdentifierLocation().equals("default")){
+                for(Location location :LocationRepo.findAll()){
+                    if (location.getId().equals(node.GetIdentifierLocation())){
+                        location.setRoadConnection(node.getId());
+                        LocationRepo.save(location);
+                        break;
+                    }
+                }
+
+            }
         }
     }
 
@@ -303,8 +315,15 @@ public class InitBean {
     {
         if(0 == TransporterRepo.count() ) {
             for (int i = 1; i < 11; i++) {
-                Transporter transporter = new Transporter("R-OTH-" + i, (new Coordinate(49.003150f, 12.096859f)));
+                Transporter transporter = new Transporter("R-OTH-" + i);
                 transporter.setBattery(100);
+                Optional<Location> location = LocationRepo.findById("Garage");
+                if (location.isPresent()) {
+                    Optional<Node> node = NodeRepo.findById(location.get().getRoadConnection());
+                    if(node.isPresent()){
+                        transporter.setPosition(node.get());
+                    }
+                }
 
                 Random r = new Random();
                 transporter.setMaxPayload(r.nextInt(40) + 10);

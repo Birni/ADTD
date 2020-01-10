@@ -15,6 +15,7 @@ public class Location
     private LocatonType Type;
     @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
     private List<Coordinate> CoordinateList = new ArrayList<>();
+    private long RoadConnection;
 
 
     public Location()
@@ -43,6 +44,14 @@ public class Location
         this.Type = type;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
     public String GetName()
     {
         return Name;
@@ -63,4 +72,11 @@ public class Location
         this.CoordinateList = list;
     }
 
+    public void setRoadConnection(long nodeId){
+        this.RoadConnection = nodeId;
+    }
+
+    public long getRoadConnection() {
+        return RoadConnection;
+    }
 }

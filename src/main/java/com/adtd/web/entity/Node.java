@@ -1,6 +1,9 @@
 package com.adtd.web.entity;
 
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.Entity;
 
 import javax.persistence.*;
@@ -14,7 +17,9 @@ public class Node
     private long id;
     @OneToOne(cascade = {CascadeType.ALL})
     private Coordinate Coordinate;
-    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    //@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.ALL})
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<NodeLink> LinkList = new ArrayList<>();
     private String IdentifierLocation ="default";
 

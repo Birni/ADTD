@@ -16,19 +16,19 @@ public class TransporterController {
 
     @PostMapping("/addTransporter")
     public String addSubmit(@ModelAttribute NewTransporterDTO newTransporterDTO ,Model model) {
-        TransporterIF.ErrorType error = transporterIF.AddTransporterToRepo(newTransporterDTO);
+        TransporterIF.ErrorTypeTransporterIf error = transporterIF.AddTransporterToRepo(newTransporterDTO);
 
-        if(error == TransporterIF.ErrorType.ERROR_NO_ERROR) {
+        if(error == TransporterIF.ErrorTypeTransporterIf.ERROR_NO_ERROR) {
 
             model.addAttribute("state" , "Successfully added");
             model.addAttribute("message" , "Transporter added to System");
         }
-        if(error == TransporterIF.ErrorType.ERROR_DB){
+        if(error == TransporterIF.ErrorTypeTransporterIf.ERROR_DB){
 
             model.addAttribute("state" , "Error");
             model.addAttribute("message" , "Transporter is already in Database");
         }
-        if(error == TransporterIF.ErrorType.ERROR_INVALID_DATA){
+        if(error == TransporterIF.ErrorTypeTransporterIf.ERROR_INVALID_DATA){
             model.addAttribute("state" , "Error");
             model.addAttribute("message" , "Add a Label");
         }
@@ -41,19 +41,19 @@ public class TransporterController {
 
     @PostMapping("/delTransporter")
     public String delSubmit(@ModelAttribute NewTransporterDTO newTransporterDTO ,Model model) {
-        TransporterIF.ErrorType error = transporterIF.DelTransporterFromRepo(newTransporterDTO);
+        TransporterIF.ErrorTypeTransporterIf error = transporterIF.DelTransporterFromRepo(newTransporterDTO);
 
-        if(error == TransporterIF.ErrorType.ERROR_NO_ERROR) {
+        if(error == TransporterIF.ErrorTypeTransporterIf.ERROR_NO_ERROR) {
 
             model.addAttribute("state" , "Successfully deleted");
             model.addAttribute("message" , "Transporter deleted from system");
         }
-        if(error == TransporterIF.ErrorType.ERROR_DB){
+        if(error == TransporterIF.ErrorTypeTransporterIf.ERROR_DB){
 
             model.addAttribute("state" , "Error");
             model.addAttribute("message" , "Looks like it is already deleted");
         }
-        if(error == TransporterIF.ErrorType.ERROR_INVALID_DATA){
+        if(error == TransporterIF.ErrorTypeTransporterIf.ERROR_INVALID_DATA){
             model.addAttribute("state" , "Error");
             model.addAttribute("message" , "Select a transporter ");
         }

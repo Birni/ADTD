@@ -1,8 +1,11 @@
 package com.adtd.web.route;
 
 
+import com.adtd.web.entity.Location;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.NodeLink;
+import com.adtd.web.entity.Route;
+import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +18,42 @@ public class RouteProvider
     @Autowired
     private NodeRepository NodeRepo;
 
+    @Autowired
+    private LocationRepository LocationRepo;
+
 
     public RouteProvider()
     {
 
     }
 
-    public Route GetRoute(Node startingNode, Node endNode )
+    public Route GetRoute(Node NodeTransporterPos, Node StartNode, Node TargetNope)
     {
-        Iterable<Node> tempNodes = NodeRepo.findAll();
+        Route route = new Route();
+
+        route.setNodeStartID(StartNode.getId());
+        route.setNodeTargetID(TargetNope.getId());
+
+        route.setRouteNodes(GetRoutePiece(NodeTransporterPos, StartNode));
+       //route.addRouteNodes(GetRoutePiece(StartNode, TargetNope));
+
+       //Optional<Location> location = LocationRepo.findById("Garage");
+       //if (location.isPresent()) {
+       //    Optional<Node> garage = NodeRepo.findById(location.get().getRoadConnection());
+       //    if(garage.isPresent()){
+       //        route.addRouteNodes(GetRoutePiece(TargetNope, garage.get()));
+       //    }
+       //}
+
+        return route;
+    }
+
+    public List<Node> GetRoutePiece(Node startingNode, Node endNode )
+    {
+        Map<Long, Node> tempNodes =  new HashMap<>();
+        for(Node node : NodeRepo.findAll()) {
+            tempNodes.putIfAbsent(node.getId(), node);
+        }
 
         Map<Long, Node> checkedNodes = new HashMap<>();
         List<Long> CrossNodeId = new ArrayList<>();
@@ -33,7 +63,7 @@ public class RouteProvider
         boolean foundRoute = false;
 
         // repeat until endNode reached
-        long numIteration =  NodeRepo.count();
+        long numIteration =  tempNodes.size();
         for (int i = 0; i < numIteration; i++) {
             if (!checkedNodes.containsKey(currentNode.getId()))
             {
@@ -71,7 +101,7 @@ public class RouteProvider
                             RouteNodes.remove(RouteNodes.size() - 1);
 
                             Node node = NodeRepo.findById(CrossNodeId.get(CrossNodeId.size() - 1)).get();
-                            //tempNodes.putIfAbsent(node.getId(), node);
+                            tempNodes.putIfAbsent(node.getId(), node);
                             currentNode = node;
 
                         }
@@ -93,7 +123,7 @@ public class RouteProvider
                                     CrossNodeId.add(currentNode.getId());
                                 }
                                 checkedNodes.putIfAbsent(currentNode.getId(), currentNode);
-                                //currentNode = tempNodes.get(foundlink);
+                                currentNode = tempNodes.get(foundlink);
                                 break;
                             }
                         }
@@ -110,10 +140,8 @@ public class RouteProvider
         {
             RouteNodes.clear();
         }
-        Route route = new Route();
-        route.addNodes(RouteNodes);
 
-        return  route;
+        return  RouteNodes;
     }
 
 
@@ -129,10 +157,10 @@ public class RouteProvider
                 if(!doneNodes.contains(link.GetLinkedNode()))
                 {
                     Route route = new Route();
-                    route.addNode(node);
+                    route.setSingleNode(node);
                     Optional<Node> temp = NodeRepo.findById(link.GetLinkedNode());
                     if(temp.isPresent()){
-                        route.addNode(temp.get());
+                        route.setSingleNode(temp.get());
                     }
 
                     routes.add(route);

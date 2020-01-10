@@ -4,25 +4,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
-<h3>Add Job </h3>
-<form  th:action="@{/addJob}" th:object="${delTransporterDTO}" method="post">
-    <div class="formDelete">
-        Select Start
-        <select th:field="*{label}">
-            <option value=""> -- </option>
-            <option th:each="tran : ${transporterlist}"
-                    th:value="${tran.label}"
-                    th:utext="${tran.label}"/>
-        </select>
-    </div>
 
-    <div class="formDelete">
-        Select Target
-        <select th:field="*{label}">
-            <option value=""> -- </option>
-            <option th:each="tran : ${transporterlist}"
-                    th:value="${tran.label}"
-                    th:utext="${tran.label}"/>
+<h3>Add Job </h3>
+<form  th:action="@{/addJob}" th:object="${jobRoute}" method="post">
+    <div class="SelectionList">
+        Select Start
+        <select th:field="*{NodeStartID}">
+            <option th:each="prod : ${ProductionLines}" th:value="${prod.roadConnection}" th:utext="${prod.name}"> </option>
+            <!-- <option value="0"> -- </option> -->
+         </select>
+     </div>
+
+     <div class="SelectionList">
+         Select Target
+         <select th:field="*{NodeTargetID}">
+             <option th:each="prod : ${ProductionLines}" th:value="${prod.roadConnection}" th:utext="${prod.name}"> </option>
+           <!--  <option value="0"> -- </option> -->
         </select>
     </div>
 
