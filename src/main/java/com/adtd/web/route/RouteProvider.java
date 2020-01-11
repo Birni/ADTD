@@ -48,101 +48,70 @@ public class RouteProvider
         return route;
     }
 
-    public List<Node> GetRoutePiece(Node startingNode, Node endNode )
-    {
-        Map<Long, Node> tempNodes =  new HashMap<>();
-        for(Node node : NodeRepo.findAll()) {
-            tempNodes.putIfAbsent(node.getId(), node);
+    public List<Node> GetRoutePiece(Node startingNode, Node endNode ) {
+        Map<Long, Node> tempNodes = new HashMap<>();
+        for (Node node : NodeRepo.findAll()) {
+            tempNodes.put(node.getId(), node);
         }
 
-        Map<Long, Node> checkedNodes = new HashMap<>();
-        List<Long> CrossNodeId = new ArrayList<>();
-        List<Node> RouteNodes = new ArrayList<>();
+        List<Node> ResultNodes = new ArrayList<>();
+        List<Node> CrossNode = new ArrayList<>();
+        Map<Long, Node> Visited = new HashMap<>();
 
         Node currentNode = startingNode;
-        boolean foundRoute = false;
+      
+        if(startingNode.getLinkList().size() >=2) {
+            CrossNode.add(startingNode);
+        }
+
+
 
         // repeat until endNode reached
-        long numIteration =  tempNodes.size();
-        for (int i = 0; i < numIteration; i++) {
-            if (!checkedNodes.containsKey(currentNode.getId()))
-            {
-                if (currentNode != endNode)
-                {
-                    if (1 == currentNode.getLinkList().size())
-                    {
-                        if (currentNode != startingNode)
-                        {
-                            Optional<Node> CrossNode;
-                            for (int l = 0; l < CrossNodeId.size(); l++)
-                            {
-                                CrossNode = NodeRepo.findById(CrossNodeId.get(CrossNodeId.size() - 1));
-                                boolean hasuncheckedNodes = false;
-                                for (int j = 0; j < CrossNode.get().getLinkList().size(); j++)
-                                {
-                                    if (!checkedNodes.containsKey(CrossNode.get().getLinkList().get(j).GetLinkedNode())) {
-                                        hasuncheckedNodes = true;
-                                        break;
-                                    }
-                                }
-                                if (true == hasuncheckedNodes) {
-                                    break;
-                                } else
-                                    {
-                                    CrossNodeId.remove(CrossNodeId.size() - 1);
-                                }
-
-                            }
-
-
-                            while (CrossNodeId.get(CrossNodeId.size() - 1) != (RouteNodes.get(RouteNodes.size() - 1).getId())) {
-                                RouteNodes.remove(RouteNodes.size() - 1);
-                            }
-                            RouteNodes.remove(RouteNodes.size() - 1);
-
-                            Node node = NodeRepo.findById(CrossNodeId.get(CrossNodeId.size() - 1)).get();
-                            tempNodes.putIfAbsent(node.getId(), node);
-                            currentNode = node;
-
-                        }
-
-                    }
-
-
-                    for (int k = 0; k < currentNode.getLinkList().size(); k++)
-                    {
-                        if (!checkedNodes.containsKey(currentNode.getLinkList().get(k).GetLinkedNode()))
-                        {
-                            Long foundlink = currentNode.getLinkList().get(k).GetLinkedNode();
-
-                            if(foundlink != currentNode.GetNodeId())
-                            {
-                                RouteNodes.add(currentNode);
-
-                                if (2 < currentNode.getLinkList().size()) {
-                                    CrossNodeId.add(currentNode.getId());
-                                }
-                                checkedNodes.putIfAbsent(currentNode.getId(), currentNode);
-                                currentNode = tempNodes.get(foundlink);
-                                break;
-                            }
-                        }
-                    }
-                } else {
-                    RouteNodes.add(currentNode);
-                    foundRoute = true;
+        while(currentNode != endNode) {
+            ResultNodes.add(currentNode);
+            //Visited.put(currentNode.getId(), currentNode);
+            for(int i=0; i < currentNode.getLinkList().size(); i++) {
+                // never visited node
+                if (!Visited.containsKey(currentNode.getLinkList().get(i).GetLinkedNode())){
+                    // move to this node
+                    currentNode = tempNodes.get(currentNode.getLinkList().get(i).GetLinkedNode());
+                    Visited.put(currentNode.getId(), currentNode);
                     break;
+                }
+                // mabey do loopbrake
+            }
+            // check new node
+            //dead end
+            if(currentNode.getLinkList().size() == 1){
+                if(currentNode == endNode) {
+                    ResultNodes.add(currentNode);
+                    break;
+                }
+                // move back the last crossroad
+                else{
+                    if(!CrossNode.isEmpty()){
+
+                        while (ResultNodes.get(ResultNodes.size()-1) != CrossNode.get(CrossNode.size()-1)){
+                            ResultNodes.remove(ResultNodes.size()-1);
+                        }
+                        currentNode = CrossNode.get(CrossNode.size()-1);
+                        ResultNodes.remove(ResultNodes.size()-1);
+                    }
                 }
             }
 
-        }
-        if (!foundRoute)
-        {
-            RouteNodes.clear();
+            // is crossroad
+            if(currentNode.getLinkList().size() > 2){
+                CrossNode.add(currentNode);
+            }
         }
 
-        return  RouteNodes;
+        return ResultNodes;
     }
+
+
+
+
 
 
     public List<Route> GetFullsRoadNetwork()

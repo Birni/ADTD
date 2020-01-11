@@ -32,7 +32,6 @@ public class Node
         return this.id;
     }
 
-
     public Node(Long id, Coordinate Coordinate)
     {
         this.id = id;
@@ -66,6 +65,10 @@ public class Node
     public List<NodeLink> getLinkList()
     {
         return LinkList;
+    }
+
+    public void setLinkList(List<NodeLink> linkList) {
+        LinkList = linkList;
     }
 
     public String GetIdentifierLocation()
