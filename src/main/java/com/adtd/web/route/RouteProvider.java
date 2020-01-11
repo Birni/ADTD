@@ -35,15 +35,15 @@ public class RouteProvider
         route.setNodeTargetID(TargetNope.getId());
 
         route.setRouteNodes(GetRoutePiece(NodeTransporterPos, StartNode));
-       //route.addRouteNodes(GetRoutePiece(StartNode, TargetNope));
+        route.addRouteNodes(GetRoutePiece(StartNode, TargetNope));
 
-       //Optional<Location> location = LocationRepo.findById("Garage");
-       //if (location.isPresent()) {
-       //    Optional<Node> garage = NodeRepo.findById(location.get().getRoadConnection());
-       //    if(garage.isPresent()){
-       //        route.addRouteNodes(GetRoutePiece(TargetNope, garage.get()));
-       //    }
-       //}
+        Optional<Location> location = LocationRepo.findById("Garage");
+        if (location.isPresent()) {
+            Optional<Node> garage = NodeRepo.findById(location.get().getRoadConnection());
+            if(garage.isPresent()){
+                route.addRouteNodes(GetRoutePiece(TargetNope, garage.get()));
+            }
+        }
 
         return route;
     }

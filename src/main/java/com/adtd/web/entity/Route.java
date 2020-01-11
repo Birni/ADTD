@@ -19,7 +19,7 @@ public class Route
     public long NodeStartID;
     public long NodeTargetID;
     //@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-    @OneToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.ALL})
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Node> RouteNodes = new ArrayList<Node>();
 
