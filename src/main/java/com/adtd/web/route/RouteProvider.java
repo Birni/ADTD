@@ -59,7 +59,7 @@ public class RouteProvider
         Map<Long, Node> Visited = new HashMap<>();
 
         Node currentNode = startingNode;
-      
+
         if(startingNode.getLinkList().size() >=2) {
             CrossNode.add(startingNode);
         }
@@ -69,7 +69,7 @@ public class RouteProvider
         // repeat until endNode reached
         while(currentNode != endNode) {
             ResultNodes.add(currentNode);
-            //Visited.put(currentNode.getId(), currentNode);
+            Visited.put(currentNode.getId(), currentNode);
             for(int i=0; i < currentNode.getLinkList().size(); i++) {
                 // never visited node
                 if (!Visited.containsKey(currentNode.getLinkList().get(i).GetLinkedNode())){
@@ -89,13 +89,29 @@ public class RouteProvider
                 }
                 // move back the last crossroad
                 else{
-                    if(!CrossNode.isEmpty()){
+                    if(!CrossNode.isEmpty()) {
 
-                        while (ResultNodes.get(ResultNodes.size()-1) != CrossNode.get(CrossNode.size()-1)){
-                            ResultNodes.remove(ResultNodes.size()-1);
+                        // crossnode with unchecked side streets
+                        boolean breakloop = false;
+                        while (!CrossNode.isEmpty() && !breakloop) {
+
+                            while (ResultNodes.get(ResultNodes.size() - 1) != CrossNode.get(CrossNode.size() - 1)) {
+                                ResultNodes.remove(ResultNodes.size() - 1);
+                            }
+
+                            for (int i = 0; i < CrossNode.get(CrossNode.size() - 1).getLinkList().size(); i++) {
+                                if (!Visited.containsKey(CrossNode.get(CrossNode.size() - 1).getLinkList().get(i).GetLinkedNode())) {
+                                    currentNode = CrossNode.get(CrossNode.size() - 1);
+                                    //ResultNodes.remove(ResultNodes.size() - 1);
+                                    //CrossNode.remove(CrossNode.size() - 1);
+
+                                    breakloop = true;
+                                    break;
+                                }
+                            }
+                            ResultNodes.remove(ResultNodes.size() - 1);
+                            CrossNode.remove(CrossNode.size() - 1);
                         }
-                        currentNode = CrossNode.get(CrossNode.size()-1);
-                        ResultNodes.remove(ResultNodes.size()-1);
                     }
                 }
             }

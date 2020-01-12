@@ -175,6 +175,7 @@ public class InitBean {
             node16.SetIdentifierLocation("Studierendenhaus");
             node23.SetIdentifierLocation("Musikpavillon");
             node26.SetIdentifierLocation("Mensa");
+            node30.SetIdentifierLocation("IM");
             node33.SetIdentifierLocation("Technik");
 
             node1.addLink(node2);
