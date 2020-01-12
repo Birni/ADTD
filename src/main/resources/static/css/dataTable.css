@@ -13,14 +13,20 @@
 tr:nth-child(even){
     background-color: #7395AE;
     border: 2px solid #B1A296;
+    text-align: center;
+    color: #ffffff;
 }
 
 tr:nth-child(odd){
     background-color: #557A95;
     border: 2px solid #B1A296;
+    text-align: center;
+    color: #ffffff;
 }
 
 .table-header{
     background-color: #B1A296;
     border: 2px solid #B1A296;
+    text-align: center;
+    color: #ffffff;
 }

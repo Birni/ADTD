@@ -4,7 +4,7 @@
 <h3>Delete Transporter</h3>
 
 <form  th:action="@{/delTransporter}" th:object="${delTransporterDTO}" method="post">
-     <div class="SelectionList">
+     <div class="formGrid2to1">
          Select Transporter
          <select th:field="*{label}">
             <option value=""> -- </option>
@@ -17,3 +17,5 @@
 </form>
 
 </html>
+
+

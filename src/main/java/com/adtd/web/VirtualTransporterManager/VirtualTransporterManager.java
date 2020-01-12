@@ -37,26 +37,36 @@ public class VirtualTransporterManager {
                 routeNodes.remove(0);
                 transporter.getRoute().setRouteNodes(routeNodes);
 
+                //simulate battery consumption
+                Random r = new Random();
+                float random = 0.5F + r.nextFloat() * (1.2F - 0.5F);
+                transporter.setBattery(transporter.getBattery() -random);
+
+                //looks like the start is reached
+                if(transporter.GetPosition().getId() == transporter.getRoute().getNodeStartID()) {
+                    transporter.setPayload(transporter.getRoute().getJobPayload());
+                }
 
                 //looks like the target is reached
                 if (transporter.GetPosition().getId() == transporter.getRoute().getTargetNode()) {
                     transporter.setHasJob(false);
+                    transporter.setPayload(0);
                 }
 
                 TransporterRepo.save(transporter);
             }
+            else{
+                if (transporter.GetPosition().GetIdentifierLocation().equals("Garage")){
+                    //simulate battery loading
+                    if(transporter.getBattery() < 100){
+                        Random r = new Random();
+                        float random = 0.5F + r.nextFloat() * (1.2F - 0.5F);
+                        transporter.setBattery(transporter.getBattery() +random);
+                        TransporterRepo.save(transporter);
+                    }
+                }
+            }
         }
-
     }
 
-    private Node GetRandomNode(){
-
-        Random r = new Random();
-
-        int number = r.nextInt(32) +1;
-        Long LNumber = Long.valueOf(number);
-
-         return NodeRepo.findById(LNumber).get();
-
-    }
 }

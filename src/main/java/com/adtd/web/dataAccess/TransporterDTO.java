@@ -1,31 +1,15 @@
 package com.adtd.web.dataAccess;
 
-import com.adtd.web.entity.Node;
-import com.adtd.web.entity.Transporter;
-import com.adtd.web.repository.NodeRepository;
-import com.adtd.web.repository.TransporterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-@Component
 public class TransporterDTO {
-
-    @Autowired
-    TransporterRepository Transporter;
-
-    @Autowired
-    NodeRepository NodeRepo;
 
     private String Label;
     private float maxPayload;
     private float battery;
     private float payload;
     private boolean hasJob;
-    private String destination;
+    private String startDestination;
+    private String targetDestination;
 
     public void setLabel(String label) {
         Label = label;
@@ -36,6 +20,10 @@ public class TransporterDTO {
     }
 
     public void setBattery(float battery) {
+        //round to two decimal
+        battery = battery * 100;
+        battery = Math.round(battery);
+        battery = battery / 100;
         this.battery = battery;
     }
 
@@ -47,8 +35,12 @@ public class TransporterDTO {
         this.hasJob = hasJob;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
+    public void setStartDestination(String startDestination) {
+        this.startDestination = startDestination;
+    }
+
+    public void setTargetDestination(String targetDestination) {
+        this.targetDestination = targetDestination;
     }
 
     public String getLabel() {
@@ -72,39 +64,14 @@ public class TransporterDTO {
     }
 
     public String getDestination() {
-        return destination;
+        return startDestination;
     }
 
+    public String getStartDestination() {
+        return startDestination;
+    }
 
-    public List<TransporterDTO> getListAllTransporter()
-    {
-        List<TransporterDTO> list = new ArrayList<>();
-        for(Transporter transporter : Transporter.findAll())
-        {
-            TransporterDTO dto = new TransporterDTO();
-
-            dto.setLabel(transporter.getLabel());
-            dto.setBattery(transporter.getBattery());
-            dto.setMaxPayload(transporter.getMaxPayload());
-            dto.setPayload(transporter.getPayload());
-            dto.setHasJob(transporter.isHasJob());
-
-            if(transporter.isHasJob()) {
-                Optional<Node> targetNode = NodeRepo.findById(transporter.getRoute().getTargetNode());
-                if(targetNode.isPresent())
-                {
-                    dto.setDestination(targetNode.get().GetIdentifierLocation());
-                }
-
-            }
-            else
-            {
-                dto.setDestination("none");
-            }
-
-            list.add(dto);
-
-        }
-        return list;
+    public String getTargetDestination() {
+        return targetDestination;
     }
 }

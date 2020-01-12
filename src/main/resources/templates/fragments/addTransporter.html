@@ -6,9 +6,9 @@
 
 <h3>Add new Transporter</h3>
 <form class="formAdd" action="#" th:action="@{/addTransporter}" th:object="${newTransporterDTO}" method="post">
-    <div class="formInput" >Label <input type="text" th:field="*{label}" /></div>
-    <div class="formInput" >Max Payload <input type="text" th:field="*{maxPayload}" /></div>
-    <div class="formInput">Battery <input type="text" th:field="*{battery}" /></div>
+    <div class="formGrid1to2" >Label <input type="text" th:field="*{label}" /></div>
+    <div class="formGrid1to2" >Max Payload <input type="text" th:field="*{maxPayload}" /></div>
+    <div class="formGrid1to2">Battery <input type="text" th:field="*{battery}" /></div>
     <div><button class="styleButton" type="submit">Submit</button></div>
 </form>
 

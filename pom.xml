@@ -12,7 +12,7 @@
 	<artifactId>ADTD</artifactId>
 	<version>1</version>
 	<name>ADTD</name>
-	<description>Erstes Projekt in SW</description>
+	<description>Autonomous-Driving-Transportation-Depots</description>
 
 	<packaging>war</packaging>
 
@@ -26,6 +26,18 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>leaflet</artifactId>
 			<version>1.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.3.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>datatables</artifactId>
+			<version>1.10.20</version>
 		</dependency>
 
 		<dependency>

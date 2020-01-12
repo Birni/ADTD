@@ -2,6 +2,13 @@
 <html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <link href="../../static/css/styles.css" th:href="@{/css/dataTable.css}" rel="stylesheet" />
+
+    <script type="text/javascript" src="/webjars/jquery/3.3.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.3.1/jquery.min.js}"></script>
+
+    <script type="text/javascript" src="/webjars/datatables/1.10.20/js/jquery.dataTables.min.js"
+            th:src="@{/webjars/datatables/1.10.20/js/jquery.dataTables.min.js}"></script>
+
 </head>
 
 
@@ -9,24 +16,66 @@
 
 <div id="detailDiv" class="table-div">
     <div th:if="${not #lists.isEmpty(transporterlist)}">
-        <table class="table-details">
-            <tr>
-                <td class="table-header">Label</td>
-                <td class="table-header">Max Payload</td>
-                <td class="table-header">Battery</td>
-                <td class="table-header">Payload</td>
-                <td class="table-header">Has Job</td>
-                <td class="table-header">Destination</td>
-
-            </tr>
-            <tr th:each="tran : ${transporterlist}">
-                <td th:text="${tran.Label}">Label</td>
-                <td th:text="${tran.maxPayload}">Max Payload</td>
-                <td th:text="${tran.battery}">Battery</td>
-                <td th:text="${tran.payload}">Payload</td>
-                <td th:text="${tran.hasJob}">Has Job</td>
-                <td th:text="${tran.destination}">Destination</td>
-            </tr>
+        <table id="Table" class="table-details">
+            <thead>
+                <tr>
+                    <td class="table-header">Label</td>
+                    <td class="table-header">Max-Payload</td>
+                    <td class="table-header">Battery</td>
+                    <td class="table-header">Payload</td>
+                    <td class="table-header">Has-Job</td>
+                    <td class="table-header">Start-Destination</td>
+                    <td class="table-header">Target-Destination</td>
+                </tr>
+            <thead>
+            <tbody>
+                <tr th:each="tran : ${transporterlist}">
+                    <td th:text="${tran.Label}">Label</td>
+                    <td th:text="${tran.maxPayload}">Max Payload</td>
+                    <td th:text="${tran.battery}">Battery</td>
+                    <td th:text="${tran.payload}">Payload</td>
+                    <td th:text="${tran.hasJob}">Has Job</td>
+                    <td th:text="${tran.startDestination}">Destination</td>
+                    <td th:text="${tran.targetDestination}">Destination</td>
+                </tr>
+            <tbody>
         </table>
     </div>
 </div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var serverContext = [[@{/}]];
+    (function update() {
+        $.ajax({
+            url: serverContext + 'table/update',
+            success: function(data) {
+
+                $('#Table tbody').empty();
+
+                for (var i = 0; i < data.length; i++) {
+
+                    $('#Table').append('<tr>' +
+                            '<td>' + data[i].label + '</td>' +
+                            '<td>' + data[i].maxPayload + '</td>' +
+                            '<td>' + data[i].battery + '</td>' +
+                            '<td>' + data[i].payload + '</td>' +
+                            '<td>' + data[i].hasJob + '</td>' +
+                            '<td>' + data[i].startDestination + '</td>'+
+                            '<td>' + data[i].targetDestination + '</td>'+
+                        '</tr>');
+
+                }
+            },
+            complete: function() {
+                setTimeout(update, 1000);
+
+            }
+        });
+    })();
+
+
+
+    /*]]>*/
+</script>

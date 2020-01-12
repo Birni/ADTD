@@ -36,7 +36,7 @@ public class JobController {
             model.addAttribute("state" , "Can not start job");
             model.addAttribute("message" , "No Transporter available");
         }
-        if(error == JobIF.ErrorTypeJobIF.ERROR_NO_TRANSPORTER_AVAILABLE) {
+        if(error == JobIF.ErrorTypeJobIF.ERROR_UNKNOWN) {
             model.addAttribute("state" , "Error");
             model.addAttribute("message" , "Something bad happened");
         }

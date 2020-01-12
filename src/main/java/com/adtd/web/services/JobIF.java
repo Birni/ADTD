@@ -32,7 +32,7 @@ public class JobIF {
         else {
 
             for (Transporter transporter : TransporterRepo.findAll()) {
-                if ((!transporter.isHasJob()) && (transporter.getBattery() > 20) && (transporter.getMaxPayload() >= job.getPayload())) {
+                if ((!transporter.isHasJob()) && (transporter.getBattery() > 50) && (transporter.getMaxPayload() >= job.getPayload())) {
 
                     Optional<Node> StartNode = NodeRepo.findById(job.getNodeStartID());
                     Optional<Node> TargetNode = NodeRepo.findById(job.getNodeTargetID());
@@ -40,6 +40,7 @@ public class JobIF {
                     if(StartNode.isPresent() && TargetNode.isPresent())
                     {
                         Route route = routeProvider.GetRoute(transporter.GetPosition(), StartNode.get(),TargetNode.get());
+                        route.setJobPayload(job.getPayload());
 
                         transporter.setRoute(route);
                         transporter.setHasJob(true);

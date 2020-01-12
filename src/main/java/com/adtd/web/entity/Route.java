@@ -16,8 +16,9 @@ import javax.persistence.*;
 public class Route
 {
 
-    public long NodeStartID;
-    public long NodeTargetID;
+    private long NodeStartID;
+    private long NodeTargetID;
+    private float JobPayload;
     //@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     @ManyToMany(cascade = {CascadeType.ALL})
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -37,16 +38,28 @@ public class Route
         NodeStartID = nodeStartID;
     }
 
+    public void setRouteNodes(List<Node> routeNodes) {
+        RouteNodes = routeNodes;
+    }
+
+    public void setSingleNode(Node node){
+        this.RouteNodes.add(node);
+    }
+
+    public void setJobPayload(float jobPayload) {
+        JobPayload = jobPayload;
+    }
+
+    public void addRouteNodes(List<Node> routeNodes) {
+        this.RouteNodes.addAll(routeNodes);
+    }
+
     public long getNodeTargetID() {
         return NodeTargetID;
     }
 
     public long getNodeStartID() {
         return NodeStartID;
-    }
-
-    public void setRouteNodes(List<Node> routeNodes) {
-        RouteNodes = routeNodes;
     }
 
     public long getTargetNode() {
@@ -57,12 +70,7 @@ public class Route
         return RouteNodes;
     }
 
-    public void setSingleNode(Node node){
-        this.RouteNodes.add(node);
+    public float getJobPayload() {
+        return JobPayload;
     }
-
-    public void addRouteNodes(List<Node> routeNodes) {
-        this.RouteNodes.addAll(routeNodes);
-    }
-
 }

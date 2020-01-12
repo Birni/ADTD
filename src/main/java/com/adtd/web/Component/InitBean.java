@@ -327,7 +327,7 @@ public class InitBean {
                 }
 
                 Random r = new Random();
-                transporter.setMaxPayload(r.nextInt(40) + 10);
+                transporter.setMaxPayload(r.nextInt(50) + 30);
 
                 TransporterRepo.save(transporter);
             }

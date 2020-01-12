@@ -3,6 +3,7 @@ package com.adtd.web.controller;
 import com.adtd.web.dataAccess.*;
 import com.adtd.web.mapComponents.LMap;
 import com.adtd.web.services.LocationIF;
+import com.adtd.web.services.TransporterIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     @Autowired
-    private TransporterDTO TransporterDto;
+    private TransporterIF transporterIF;
 
     @Autowired
     private LMap Lmap;
@@ -24,7 +25,7 @@ public class HomeController {
     @RequestMapping("/home")
     public String getHomePage(Model model) {
 
-        Iterable<TransporterDTO> tranList = TransporterDto.getListAllTransporter();
+        Iterable<TransporterDTO> tranList = transporterIF.getListAllTransporter();
         model.addAttribute("transporterlist", tranList);
 
         model.addAttribute("LBasicMapData", Lmap.getBasicMapData());
