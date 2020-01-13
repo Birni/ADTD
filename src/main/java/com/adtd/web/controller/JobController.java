@@ -1,5 +1,6 @@
 package com.adtd.web.controller;
 
+import com.adtd.web.Messaging.Sender;
 import com.adtd.web.dataAccess.LocationDTO;
 import com.adtd.web.dataAccess.NewTransporterDTO;
 import com.adtd.web.dataAccess.TransporterJob;
@@ -17,6 +18,9 @@ public class JobController {
 
     @Autowired
     JobIF jobIF;
+
+    @Autowired
+    Sender sender;
 
     @PostMapping("/addJob")
     public String addJob(@ModelAttribute TransporterJob job , Model model) {
@@ -43,7 +47,11 @@ public class JobController {
         else{
             // no action planned
         }
+
+
         return "results";
+
+
 
     }
 

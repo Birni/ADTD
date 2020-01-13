@@ -3,7 +3,6 @@ body {
     height: 100%;
     background-color: #5D5C61;
     margin: 0;
-    overflow: hidden;
 }
 
 h1{
@@ -78,23 +77,6 @@ a:link:hover, a:visited:hover  {
     min-height: calc(33% - 5px);
     margin: 5px;
     box-sizing: border-box;
-
-}
-
-.styleMiddleUnderPanel {
-     position:relative;
-     float: left;
-     background-color: #c60005;
-     min-width: 33vw;
-     min-height: 33vh;
- }
-
-.styleRightUnderPanel {
-    position:relative;
-    float: left;
-    background-color: #bf12c6;
-    min-width: 33vw;
-    min-height: 33vh;
 }
 
 .styleFormMap {
