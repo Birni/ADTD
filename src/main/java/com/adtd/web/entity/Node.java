@@ -3,13 +3,17 @@ package com.adtd.web.entity;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.Entity;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity Node
+ * Nodes describe the streets
+ *
+ * @author  Matthias Birnthaler
+ */
 @Entity
 public class Node
 {

@@ -2,7 +2,11 @@ package com.adtd.web.mapComponents;
 import org.springframework.stereotype.Component;
 
 
-
+/**
+ * Component with basic map data for the leaflet/ osm map
+ *
+ * @author  Matthias Birnthaler
+ */
 @Component
 public class BasicMapData {
 

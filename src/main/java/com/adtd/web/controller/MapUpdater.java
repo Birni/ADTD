@@ -7,12 +7,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
 import java.util.List;
 
-@Controller
 
+/**
+ * Controller request to update the map layers
+ *
+ * @author  Matthias Birnthaler
+ */
+@Controller
 public class MapUpdater {
 
     @Autowired
@@ -23,5 +26,4 @@ public class MapUpdater {
     public List<LMap.MapMarker> updateMap (){
         return Map.getAllMarker();
     }
-
 }

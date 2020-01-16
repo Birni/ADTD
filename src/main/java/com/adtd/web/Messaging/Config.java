@@ -2,19 +2,18 @@ package com.adtd.web.Messaging;
 
 
 import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageConverter;
-import org.springframework.jms.support.converter.MessageType;
 
-import javax.jms.Topic;
-
+/**
+ * Configuration for the ActiveMQ Broker
+ *
+ * @author  Matthias Birnthaler
+ */
 @Configuration
 @EnableJms
 public class Config {

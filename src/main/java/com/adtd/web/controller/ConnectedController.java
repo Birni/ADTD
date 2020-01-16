@@ -5,8 +5,6 @@ import com.adtd.web.Messaging.Sender;
 import com.adtd.web.dataAccess.JMSMessage;
 import com.adtd.web.dataAccess.JobDTO;
 import com.adtd.web.dataAccess.LocationDTO;
-import com.adtd.web.dataAccess.NewTransporterDTO;
-import com.adtd.web.services.JobIF;
 import com.adtd.web.services.LocationIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +16,11 @@ import java.util.List;
 import java.util.Random;
 
 
+/**
+ * Controller for the request handling of the connected features
+ *
+ * @author  Matthias Birnthaler
+ */
 @Controller
 public class ConnectedController {
 
@@ -27,6 +30,10 @@ public class ConnectedController {
     @Autowired
     private LocationIF locationIF;
 
+    /**
+     * request handling for the broadcast
+     *
+     */
     @PostMapping("/broadcast")
     public String broadcastForOwnInbound ( Model model){
 
@@ -47,6 +54,10 @@ public class ConnectedController {
         return "results";
     }
 
+    /**
+     * request handling to publish a message to a topc
+     *
+     */
     @PostMapping("/sendJmsMessage")
     public String sendJmsMessage (@ModelAttribute JMSMessage jmsMessage, Model model){
 
@@ -57,5 +68,4 @@ public class ConnectedController {
 
         return "results";
     }
-
 }

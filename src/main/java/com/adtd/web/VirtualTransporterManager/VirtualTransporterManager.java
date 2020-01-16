@@ -1,9 +1,7 @@
 package com.adtd.web.VirtualTransporterManager;
 
 import com.adtd.web.entity.Node;
-import com.adtd.web.entity.Route;
 import com.adtd.web.entity.Transporter;
-import com.adtd.web.repository.NodeRepository;
 import com.adtd.web.repository.TransporterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -13,6 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Virtual transporter manager
+ * simulates the transporter, movement, loading battery, loading payload
+ *
+ * @author  Matthias Birnthaler
+ */
 @Service
 @EnableScheduling
 public class VirtualTransporterManager {
@@ -21,21 +25,18 @@ public class VirtualTransporterManager {
     @Autowired
     private TransporterRepository TransporterRepo;
 
-    @Autowired
-    private NodeRepository NodeRepo;
 
     @Scheduled(fixedDelay = 1000)
     public void scheduleTransporterPositon() {
 
         for(Transporter transporter : TransporterRepo.findAll())
         {
-            List<Node> routeNodes = transporter.getRoute().getRouteNodes();
+            List<Node> routeNodes = transporter.getJob().getRouteNodes();
 
             if(!routeNodes.isEmpty()) {
-                //TODO: rework mabey
                 transporter.setPosition(routeNodes.get(0));
                 routeNodes.remove(0);
-                transporter.getRoute().setRouteNodes(routeNodes);
+                transporter.getJob().setRouteNodes(routeNodes);
 
                 //simulate battery consumption
                 Random r = new Random();
@@ -43,12 +44,12 @@ public class VirtualTransporterManager {
                 transporter.setBattery(transporter.getBattery() -random);
 
                 //looks like the start is reached
-                if(transporter.GetPosition().getId() == transporter.getRoute().getNodeStartID()) {
-                    transporter.setPayload(transporter.getRoute().getJobPayload());
+                if(transporter.GetPosition().getId() == transporter.getJob().getNodeStartID()) {
+                    transporter.setPayload(transporter.getJob().getJobPayload());
                 }
 
                 //looks like the target is reached
-                if (transporter.GetPosition().getId() == transporter.getRoute().getTargetNode()) {
+                if (transporter.GetPosition().getId() == transporter.getJob().getTargetNode()) {
                     transporter.setHasJob(false);
                     transporter.setPayload(0);
                 }
@@ -71,5 +72,4 @@ public class VirtualTransporterManager {
             }
         }
     }
-
 }

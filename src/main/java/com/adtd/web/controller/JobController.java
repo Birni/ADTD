@@ -9,6 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
+/**
+ * Controller request handling to start jobs
+ *
+ * @author  Matthias Birnthaler
+ */
 @Controller
 public class JobController {
 
@@ -41,16 +47,12 @@ public class JobController {
             model.addAttribute("message" , "Something bad happened");
         }
         else{
-            // no action planned
+            /* no action planned*/
         }
-
 
         return "results";
 
-
-
     }
-
 }
 
 

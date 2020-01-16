@@ -9,6 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
+/**
+ * Controller request handling of the home page
+ *
+ * @author  Matthias Birnthaler
+ */
 @Controller
 public class HomeController {
 
@@ -22,7 +28,7 @@ public class HomeController {
     private LocationIF locationIF;
 
 
-    @RequestMapping("/home")
+    @RequestMapping(value = {"", "/", "/home"})
     public String getHomePage(Model model) {
 
         Iterable<TransporterDTO> tranList = transporterIF.getListAllTransporter();
@@ -33,18 +39,14 @@ public class HomeController {
         model.addAttribute("MapRoutes", Lmap.getAllRoutesMap());
         model.addAttribute("MapMarker", Lmap.getAllMarker());
 
-        model.addAttribute("newTransporterDTO", new NewTransporterDTO());
-        model.addAttribute("delTransporterDTO",  new NewTransporterDTO());
+        model.addAttribute("newTransporterDTO", new TransporterDTO());
+        model.addAttribute("delTransporterDTO",  new TransporterDTO());
 
         Iterable<LocationDTO> locationList = locationIF.GetAllProductions();
         model.addAttribute("ProductionLines",  locationList);
         model.addAttribute("jobRoute", new JobDTO());
         model.addAttribute("jmsMessage", new JMSMessage());
 
-
         return "index.html";
     }
-
-
-
 }

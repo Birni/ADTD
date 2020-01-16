@@ -4,14 +4,19 @@ package com.adtd.web.route;
 import com.adtd.web.entity.Location;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.NodeLink;
-import com.adtd.web.entity.Route;
+import com.adtd.web.entity.Job;
 import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
+/**
+ * Routing
+ * Calculates routes
+ *
+ * @author  Matthias Birnthaler
+ */
 @Service
 public class RouteProvider
 {
@@ -27,27 +32,40 @@ public class RouteProvider
 
     }
 
-    public Route GetRoute(Node NodeTransporterPos, Node StartNode, Node TargetNope)
+
+    /**
+     * Calculates a route
+     * @param NodeTransporterPos current position of the transporter
+     * @param StartNode start location
+     * @param TargetNope target location
+     */
+    public Job GetRoute(Node NodeTransporterPos, Node StartNode, Node TargetNope)
     {
-        Route route = new Route();
+        Job job = new Job();
 
-        route.setNodeStartID(StartNode.getId());
-        route.setNodeTargetID(TargetNope.getId());
+        job.setNodeStartID(StartNode.getId());
+        job.setNodeTargetID(TargetNope.getId());
 
-        route.setRouteNodes(GetRoutePiece(NodeTransporterPos, StartNode));
-        route.addRouteNodes(GetRoutePiece(StartNode, TargetNope));
+        job.setRouteNodes(GetRoutePiece(NodeTransporterPos, StartNode));
+        job.addRouteNodes(GetRoutePiece(StartNode, TargetNope));
 
         Optional<Location> location = LocationRepo.findById("Garage");
         if (location.isPresent()) {
             Optional<Node> garage = NodeRepo.findById(location.get().getRoadConnection());
             if(garage.isPresent()){
-                route.addRouteNodes(GetRoutePiece(TargetNope, garage.get()));
+                job.addRouteNodes(GetRoutePiece(TargetNope, garage.get()));
             }
         }
 
-        return route;
+        return job;
     }
 
+
+    /**
+     * Calculates a sub route
+     * @param startingNode start location/node
+     * @param endNode end location/node
+     */
     public List<Node> GetRoutePiece(Node startingNode, Node endNode ) {
         Map<Long, Node> tempNodes = new HashMap<>();
         for (Node node : NodeRepo.findAll()) {
@@ -64,8 +82,6 @@ public class RouteProvider
             CrossNode.add(startingNode);
         }
 
-
-
         // repeat until endNode reached
         while(currentNode != endNode) {
             ResultNodes.add(currentNode);
@@ -80,7 +96,7 @@ public class RouteProvider
                     noMoreToVisit = false;
                     break;
                 }
-                // TODO mabey do loopbrake
+
             }
 
             if(noMoreToVisit && (CrossNode.isEmpty()))
@@ -88,7 +104,6 @@ public class RouteProvider
                 ResultNodes.clear();
                 break;
             }
-
 
             // check new node
             //dead end
@@ -130,22 +145,18 @@ public class RouteProvider
             if(currentNode.getLinkList().size() > 2){
                 CrossNode.add(currentNode);
             }
-
-
-
         }
-
         return ResultNodes;
     }
 
 
-
-
-
-
-    public List<Route> GetFullsRoadNetwork()
+    /**
+     * Calculates all sub route/ streets
+     *
+     */
+    public List<Job> GetFullsRoadNetwork()
     {
-        List<Route> routes = new ArrayList<Route>();
+        List<Job> jobs = new ArrayList<Job>();
         Iterable<Node> allNodes = NodeRepo.findAll();
         List<Long> doneNodes = new ArrayList<Long>();
 
@@ -154,21 +165,20 @@ public class RouteProvider
             {
                 if(!doneNodes.contains(link.GetLinkedNode()))
                 {
-                    Route route = new Route();
-                    route.setSingleNode(node);
+                    Job job = new Job();
+                    job.setSingleNode(node);
                     Optional<Node> temp = NodeRepo.findById(link.GetLinkedNode());
                     if(temp.isPresent()){
-                        route.setSingleNode(temp.get());
+                        job.setSingleNode(temp.get());
                     }
 
-                    routes.add(route);
+                    jobs.add(job);
                 }
                 doneNodes.add(node.GetNodeId());
 
             }
         }
-        return routes;
+        return jobs;
     }
-
 }
 

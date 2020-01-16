@@ -1,11 +1,13 @@
 package com.adtd.web.entity;
 
-
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
+/**
+ * Entity Coordinate that holds a gps coordinate
+ *
+ * @author  Matthias Birnthaler
+ */
 @Entity
 public class Coordinate
 {

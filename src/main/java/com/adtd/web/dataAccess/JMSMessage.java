@@ -1,5 +1,11 @@
 package com.adtd.web.dataAccess;
 
+
+/**
+ * Class for a JMS Message
+ *
+ * @author  Matthias Birnthaler
+ */
 public class JMSMessage {
 
     private String topic;

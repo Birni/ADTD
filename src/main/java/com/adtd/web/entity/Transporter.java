@@ -4,7 +4,11 @@ package com.adtd.web.entity;
 
 import javax.persistence.*;
 
-
+/**
+ * Entity Transporter
+ *
+ * @author  Matthias Birnthaler
+ */
 @Entity
 public class Transporter
 {
@@ -19,7 +23,7 @@ public class Transporter
     private Node Position;
 
     @Embedded
-    private Route route = new Route();
+    private Job job = new Job();
 
 
     public Transporter()
@@ -86,13 +90,12 @@ public class Transporter
         return this.payload;
     }
 
-
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setJob(Job job) {
+        this.job = job;
     }
 
-    public Route getRoute() {
-        return route;
+    public Job getJob() {
+        return job;
     }
 
     public boolean isHasJob()
@@ -109,61 +112,4 @@ public class Transporter
         this.hasJob = isHasJob;
     }
 
-    public void PropagateNewPostion(float deltatime)
-    {
-        //formula: https://www.igismap.com/formula-to-find-bearing-or-heading-angle-between-two-points-latitude-longitude/
-        //formula: https://stackoverflow.com/questions/7222382/get-lat-long-given-current-point-distance-and-bearing
-
-    //   double R = 6378.388 ;
-
-    //   double lat1 = Position.Latitude.doubleValue() *Math.PI / 180;
-    //   double lon1 = Position.Longitude.doubleValue()*Math.PI / 180;
-    //   double lat2 = NextNodeToDrive.GetCoordinate().Latitude.doubleValue()*Math.PI / 180;
-    //   double lon2 = NextNodeToDrive.GetCoordinate().Longitude.doubleValue()*Math.PI / 180;
-    //   double distance =  (deltatime * 2.77778)/1000; // in this simulation transporter always drive 10 km/h
-
-    //   double dist = R * Math.acos(Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon2 - lon1));
-
-    //   if(distance > dist)
-    //   {
-    //       distance -=dist;
-    //
-    //       jobroute.IncrementNextTargetToDrive();
-    //       NextNodeToDrive = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive());
-
-
-    //       lat1 = NextNodeToDrive.GetCoordinate().Latitude.doubleValue()*Math.PI / 180;
-    //       lat2 = NextNodeToDrive.GetCoordinate().Longitude.doubleValue()*Math.PI / 180;
-
-
-    //   }
-
-    //   double X = Math.cos(lat1) * Math.sin(Math.abs((lon2-lon1)));
-    //   double Y = Math.cos(lat2) * Math.sin(lat1) - Math.sin(lat2) * Math.cos(lat1) * Math.cos(Math.abs((lon2-lon1)));
-
-    //   double brng = -Math.atan2(X,Y);
-    //   double lat = lat1;
-    //   double lon = lon1;
-
-
-
-    //   lat = Math.asin(Math.sin(lat) * Math.cos(distance / R) + Math.cos(lat) * Math.sin(distance / R) * Math.cos(brng));
-    //   lon += Math.atan2(Math.sin(brng) * Math.sin(distance / R) * Math.cos(lat), Math.cos(distance / R) - Math.sin(lat) * Math.sin(lat));
-
-
-    //   lat = lat * 180 / Math.PI;
-    //   lon = lon * 180 / Math.PI;
-
-    //   Position.Latitude = BigDecimal.valueOf(lat);
-    //   Position.Longitude = BigDecimal.valueOf(lon);
-
-    //    jobroute.IncrementNextTargetToDrive();
-
-    //    Position.Latitude = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive()).GetCoordinate().Latitude;
-    //    Position.Longitude = jobroute.GetRouteNodes().get(jobroute.GetNextTargetToDrive()).GetCoordinate().Longitude;
-
-    //    Position.Longitude = NodeCollection.getInstance().GetRandomNode().GetCoordinate().GetLongitude();
-    //    Position.Latitude = NodeCollection.getInstance().GetRandomNode().GetCoordinate().GetLatitude();
-
-    }
 }

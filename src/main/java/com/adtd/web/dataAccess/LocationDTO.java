@@ -1,5 +1,11 @@
 package com.adtd.web.dataAccess;
 
+
+/**
+ * Class for with Location information
+ *
+ * @author  Matthias Birnthaler
+ */
 public class LocationDTO {
 
     private String name;

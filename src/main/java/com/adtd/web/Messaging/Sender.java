@@ -1,7 +1,5 @@
 package com.adtd.web.Messaging;
 
-import java.util.Map;
-
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
@@ -17,6 +15,11 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
+/**
+ * Sender to publish messages to the broker
+ *
+ * @author  Matthias Birnthaler
+ */
 @Component
 public class Sender {
 
@@ -45,9 +48,7 @@ public class Sender {
         });
     }
 
-
     public void send(String topicName , String message){
         jmsTemplate.convertAndSend(topicName, message);
     }
-
 }

@@ -1,8 +1,13 @@
 package com.adtd.web.entity;
 
-
 import javax.persistence.*;
 
+/**
+ * Entity NodeLink
+ * NodeLinks combine Nodes
+ *
+ * @author  Matthias Birnthaler
+ */
 @Entity
 public class NodeLink
 {

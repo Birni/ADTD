@@ -1,6 +1,6 @@
 package com.adtd.web.services;
 
-import com.adtd.web.dataAccess.NewTransporterDTO;
+
 import com.adtd.web.dataAccess.TransporterDTO;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
@@ -8,11 +8,20 @@ import com.adtd.web.repository.NodeRepository;
 import com.adtd.web.repository.TransporterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Interface for transporter
+ * adds transporter, delete transporter select transporter information
+ *
+ * @author  Matthias Birnthaler
+ */
 @Service
 public class TransporterIF {
 
@@ -26,7 +35,9 @@ public class TransporterIF {
     NodeRepository NodeRepo;
 
 
-
+    /**
+     * returns a list with all transporter information
+     */
     public List<TransporterDTO> getListAllTransporter()
     {
         List<TransporterDTO> list = new ArrayList<>();
@@ -41,28 +52,31 @@ public class TransporterIF {
             dto.setHasJob(transporter.isHasJob());
 
             if(transporter.isHasJob()) {
-                Optional<Node> startNode = NodeRepo.findById(transporter.getRoute().getNodeStartID());
-                Optional<Node> targetNode = NodeRepo.findById(transporter.getRoute().getNodeTargetID());
+                Optional<Node> startNode = NodeRepo.findById(transporter.getJob().getNodeStartID());
+                Optional<Node> targetNode = NodeRepo.findById(transporter.getJob().getNodeTargetID());
                 if((targetNode.isPresent()) && (startNode.isPresent()))
                 {
                     dto.setStartDestination(startNode.get().GetIdentifierLocation());
                     dto.setTargetDestination(targetNode.get().GetIdentifierLocation());
                 }
-
             }
             else
             {
                 dto.setStartDestination("none");
                 dto.setTargetDestination("none");
             }
-
             list.add(dto);
-
         }
         return list;
     }
 
-    public ErrorTypeTransporterIf AddTransporterToRepo(NewTransporterDTO transporterDTO) {
+
+    /**
+     * adds a new transporter to the Repository
+     * @param transporterDTO attributes of the transporter
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public ErrorTypeTransporterIf AddTransporterToRepo(TransporterDTO transporterDTO) {
         if(!transporterDTO.getLabel().isEmpty()) {
             if (TransporterRepo.findById(transporterDTO.getLabel()).isEmpty()) {
 
@@ -84,7 +98,11 @@ public class TransporterIF {
     }
 
 
-    public ErrorTypeTransporterIf DelTransporterFromRepo(NewTransporterDTO transporterDTO) {
+    /**
+     * deletes a new transporter to the Repository
+     * @param transporterDTO attributes of the transporter
+     */
+    public ErrorTypeTransporterIf DelTransporterFromRepo(TransporterDTO transporterDTO) {
         if(!transporterDTO.getLabel().isEmpty()) {
             if (TransporterRepo.findById(transporterDTO.getLabel()).isPresent()) {
 
@@ -104,11 +122,12 @@ public class TransporterIF {
     }
 
 
+    /**
+     * enum with error types
+     */
     public enum ErrorTypeTransporterIf {
         ERROR_NO_ERROR,
         ERROR_DB,
         ERROR_INVALID_DATA,
     }
-
-
 }

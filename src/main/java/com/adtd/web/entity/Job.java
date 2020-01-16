@@ -11,9 +11,14 @@ import java.util.List;
 import javax.persistence.*;
 
 
-
+/**
+ * Entity NodeLink
+ * NodeLinks link Nodes to a street network
+ *
+ * @author  Matthias Birnthaler
+ */
 @Embeddable
-public class Route
+public class Job
 {
 
     private long NodeStartID;
@@ -24,7 +29,7 @@ public class Route
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Node> RouteNodes = new ArrayList<Node>();
 
-    public Route()
+    public Job()
     {
 
     }

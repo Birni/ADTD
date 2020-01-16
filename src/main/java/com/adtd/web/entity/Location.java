@@ -1,11 +1,14 @@
 package com.adtd.web.entity;
 
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Entity Location
+ *
+ * @author  Matthias Birnthaler
+ */
 @Entity
 public class Location
 {
@@ -31,10 +34,7 @@ public class Location
 
         if(null != list)
         {
-            for(Coordinate coordinate : list)
-            {
-                this.CoordinateList.add(coordinate);
-            }
+            this.CoordinateList.addAll(list);
         }
     }
 

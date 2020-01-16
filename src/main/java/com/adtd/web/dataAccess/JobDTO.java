@@ -2,6 +2,12 @@ package com.adtd.web.dataAccess;
 
 import java.io.Serializable;
 
+
+/**
+ * Class for with Transporter-Job information
+ *
+ * @author  Matthias Birnthaler
+ */
 public class JobDTO implements Serializable {
 
     private String NodeStartID;

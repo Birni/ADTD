@@ -12,12 +12,22 @@ import java.awt.font.ShapeGraphicAttribute;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Interface for locations
+ *
+ * @author  Matthias Birnthaler
+ */
 @Service
 public class LocationIF {
 
     @Autowired
     LocationRepository LocationRepo;
 
+    /**
+     * returns a list with all locations
+     *
+     */
     public List<LocationDTO> GetAllProductions() {
         List<LocationDTO> locationList = new ArrayList<>();
         for (Location location : LocationRepo.findAll()) {

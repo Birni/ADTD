@@ -3,7 +3,7 @@ package com.adtd.web.services;
 import com.adtd.web.dataAccess.JobDTO;
 import com.adtd.web.entity.Location;
 import com.adtd.web.entity.Node;
-import com.adtd.web.entity.Route;
+import com.adtd.web.entity.Job;
 import com.adtd.web.entity.Transporter;
 import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
+/**
+ * Interface to start jobs
+ *
+ * @author  Matthias Birnthaler
+ */
 @Service
 public class JobIF {
 
@@ -30,6 +36,11 @@ public class JobIF {
     LocationRepository LocationRepo;
 
 
+    /**
+     * starts a job
+     * to start a job a transporter is needed without a job, with enough payload and battery power
+     * @param job basic job information
+     */
     public ErrorTypeJobIF startJob(JobDTO job) {
         if (job.getNodeStartID().equals("--") || job.getNodeTargetID().equals("--")) {
             return ErrorTypeJobIF.ERROR_INVALID_DATA;
@@ -50,12 +61,12 @@ public class JobIF {
                 for (Transporter transporter : TransporterRepo.findAll()) {
                     if ((!transporter.isHasJob()) && (transporter.getBattery() > 50) && (transporter.getMaxPayload() >= job.getJobPayload())) {
 
-                        Route route = routeProvider.GetRoute(transporter.GetPosition(), StartNode.get(), TargetNode.get());
+                        Job route = routeProvider.GetRoute(transporter.GetPosition(), StartNode.get(), TargetNode.get());
 
                         if(!route.getRouteNodes().isEmpty()) {
                             route.setJobPayload(job.getJobPayload());
 
-                            transporter.setRoute(route);
+                            transporter.setJob(route);
                             transporter.setHasJob(true);
                             TransporterRepo.save(transporter);
 
@@ -72,10 +83,9 @@ public class JobIF {
     }
 
 
-
-
-
-
+    /**
+     * enum with error types
+     */
     public enum ErrorTypeJobIF {
         ERROR_NO_ERROR,
         ERROR_INVALID_DATA,

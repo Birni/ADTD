@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import javax.json.JsonObject;
-import java.io.Console;
 
-
+/**
+ * Listener to receive messages form the broker
+ *
+ * @author  Matthias Birnthaler
+ */
 @Component
 public class Listener {
 
@@ -39,4 +41,3 @@ public class Listener {
         }
     }
 }
-

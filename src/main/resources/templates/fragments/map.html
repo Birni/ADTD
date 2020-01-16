@@ -19,16 +19,6 @@
 <script th:inline="javascript">
         /*<![CDATA[*/
 
-//        private double centerLat = 49.003038;
-//        private double centerLong = 12.096346;
-//        private int zoom = 18;
-//        private int minZoom = 1;
-//        private int maxZoom = 19;
-//        private boolean zoomControl = false;
-//        private boolean zoomEnabled = true;
-//        private boolean draggingEnabled = true;
-//        private String urlTemplate = "http://{s}.tile.osm.org/{z}/{x}/{y}.png";
-
 
 
         var map = L.map('div_Map', {
@@ -37,7 +27,6 @@
             zoomControl:[[${LBasicMapData.zoomControl}]],
             zoom: [[${LBasicMapData.zoom}]]
         });
-
 
 
         L.tileLayer([[${LBasicMapData.urlTemplate}]], {
@@ -76,8 +65,6 @@
 
             L.geoJSON(obj, {style: myStyle}).addTo(map);
         }
-
-
 
         var markerData = [[${MapMarker}]];
         var MarkerCopllection = new Object();
@@ -142,9 +129,6 @@
                 }
             });
         })();
-
-
-
 
 
         /*]]>*/

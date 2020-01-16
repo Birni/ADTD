@@ -6,7 +6,7 @@ import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
 import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.TransporterRepository;
-import com.adtd.web.entity.Route;
+import com.adtd.web.entity.Job;
 import com.adtd.web.route.RouteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,12 @@ import javax.json.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Component with basic map data for the leaflet/ osm map
+ *
+ * @author  Matthias Birnthaler
+ */
 @Service
 public class LMap {
 
@@ -36,23 +42,42 @@ public class LMap {
 
     }
 
+
+    /**
+     * generates a list with all locations as geo json
+     * leaflet adds the geo json as layer to the map
+     *
+     */
     public List<String> getJsonLocation() {
         List<String> jsonLocation = new ArrayList<>();
         for (Location location : LocationRepo.findAll()) {
-            jsonLocation.add(getJsonString("Feature", "Polygon",location.GetLocatonType().toString() ,location.GetCoordinateList()));
+            jsonLocation.add(getJsonString("Feature", "Polygon",location.GetLocatonType().toString(),
+                    location.GetCoordinateList()));
         }
         return jsonLocation;
     }
 
+
+    /**
+     * generates a list with all streets/routes as geo json
+     * leaflet adds the geo json as layer to the map
+     *
+     */
     public List<String> getAllRoutesMap() {
         List<String> jsonRoutNetwork = new ArrayList<>();
-        for (Route route : RouteProvider.GetFullsRoadNetwork()){
-            jsonRoutNetwork.add(getJsonStringRoutes("LineString" , route.getRouteNodes()));
+        for (Job job : RouteProvider.GetFullsRoadNetwork()){
+            jsonRoutNetwork.add(getJsonStringRoutes("LineString" , job.getRouteNodes()));
         }
 
         return jsonRoutNetwork;
     }
 
+
+    /**
+     * generates a list with all marker i.e. transporter
+     * leaflet adds the maker to the map
+     *
+     */
     public List<MapMarker> getAllMarker() {
         List<MapMarker> mapMarker = new ArrayList<>();
         for(Transporter transporter : TransporterRepo.findAll())
@@ -68,6 +93,13 @@ public class LMap {
     }
 
 
+    /**
+     * generates a geo json string
+     * @param type geo json type
+     * @param GeometryType geo json geometry types
+     * @param LocationType type of the location, garage or production
+     * @param coords list with coordinates
+     */
     private String getJsonString(String type, String GeometryType,String LocationType, List<Coordinate> coords){
 
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
@@ -101,6 +133,12 @@ public class LMap {
         return value.toString();
     }
 
+    /**
+     * generates a geo json string
+     * @param type geo json type
+     * @param routeNodes list with coordinates
+     *
+     */
     public String getJsonStringRoutes(String type, List<Node> routeNodes){
 
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
@@ -127,7 +165,10 @@ public class LMap {
 
     }
 
-
+    /**
+     * class for a Map Marker
+     *
+     */
     public class MapMarker{
         private double Latitude;
         private double Longitude;

@@ -1,6 +1,10 @@
 package com.adtd.web.dataAccess;
 
-
+/**
+ * Class for the Transporter information
+ *
+ * @author  Matthias Birnthaler
+ */
 public class TransporterDTO {
 
     private String Label;

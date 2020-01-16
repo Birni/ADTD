@@ -5,13 +5,18 @@ package com.adtd.web.Component;
 import com.adtd.web.entity.*;
 import com.adtd.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
 import java.util.*;
-import java.util.logging.Logger;
 
+
+/**
+ * component to initialize the database
+ *
+ * @author  Matthias Birnthaler
+ */
 @Component
 public class InitBean {
 
@@ -24,7 +29,10 @@ public class InitBean {
     @Autowired
     private TransporterRepository TransporterRepo;
 
-
+    /**
+     * init function for app data fills the database with initial data
+     *
+     */
     @PostConstruct
     public void init() {
         initNodes();
@@ -33,7 +41,12 @@ public class InitBean {
     }
 
 
-    private void initLocations()
+    /**
+     * init function for location data
+     *
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void initLocations()
     {
         Optional<Location> temp = LocationRepo.findById("garage");
 
@@ -130,9 +143,15 @@ public class InitBean {
     }
 
 
-    private void initNodes()
+    /**
+     * init function for nodes data
+     *
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void initNodes()
     {
         if(0 == NodeRepo.count() ) {
+
             Node node1  = new Node(1L, (new Coordinate(49.003150f ,12.096859f))); // Endpoint Garage
             Node node2  = new Node(2L, (new Coordinate(49.003150f ,12.096730f))); // Kreuzung vor Maschienenbau
             Node node3  = new Node(3L, (new Coordinate(49.003002f ,12.096730f)));
@@ -146,19 +165,26 @@ public class InitBean {
             Node node11 = new Node(11L,(new Coordinate(49.002653f ,12.096387f)));
             Node node12 = new Node(12L,(new Coordinate(49.002636f ,12.096181f)));
             Node node13 = new Node(13L,(new Coordinate(49.002636f ,12.096041f)));
+            Node node35 = new Node(35L,(new Coordinate(49.002636f ,12.095974f)));
+            Node node34 = new Node(34L,(new Coordinate(49.002627f ,12.095792f)));
             Node node14 = new Node(14L,(new Coordinate(49.002622f ,12.095682f))); // Kreuzung StudiHaus - Musikpavillon
             Node node15 = new Node(15L,(new Coordinate(49.002576f ,12.095684f)));
             Node node16 = new Node(16L,(new Coordinate(49.002581f ,12.095553f))); // Endpoint StudiHaus
 
             Node node17 = new Node(17L,(new Coordinate(49.002666f ,12.095682f))); // startet bei Kreuzung StudiHaus - Musikpavillon
+            Node node36 = new Node(36L,(new Coordinate(49.002668f ,12.095561f)));
             Node node18 = new Node(18L,(new Coordinate(49.002666f ,12.095440f)));
             Node node19 = new Node(19L,(new Coordinate(49.002743f ,12.095338f)));
             Node node20 = new Node(20L,(new Coordinate(49.002778f ,12.095443f)));
+            Node node37 = new Node(37L,(new Coordinate(49.002868f ,12.095438f)));
             Node node21 = new Node(21L,(new Coordinate(49.002960f ,12.095440f)));
             Node node22 = new Node(22L,(new Coordinate(49.002967f ,12.095540f)));
             Node node23 = new Node(23L,(new Coordinate(49.003012f ,12.095537f))); // Endpoint Musikpavillon
 
-            Node node24 = new Node(24L,(new Coordinate(49.003354f ,12.096727f))); // startet bei Kreuzung vor Maschienenbau, Kreuzung vor Mensa
+            Node node38 = new Node(38L,(new Coordinate(49.003248f ,12.096728f))); // startet bei Kreuzung vor Maschienenbau, Kreuzung vor Mensa
+            Node node24 = new Node(24L,(new Coordinate(49.003354f ,12.096727f)));
+            Node node40 = new Node(40L,(new Coordinate(49.003357f ,12.096465f)));
+            Node node39 = new Node(39L,(new Coordinate(49.003361f ,12.096149f)));
             Node node25 = new Node(25L,(new Coordinate(49.003360f ,12.095963f)));
             Node node26 = new Node(26L,(new Coordinate(49.003387f ,12.095961f))); // Endpoint Mensa
 
@@ -182,7 +208,7 @@ public class InitBean {
 
             node2.addLink(node1);
             node2.addLink(node3);
-            node2.addLink(node24);
+            node2.addLink(node38);
 
             node3.addLink(node2);
             node3.addLink(node4);
@@ -216,9 +242,9 @@ public class InitBean {
             node12.addLink(node13);
 
             node13.addLink(node12);
-            node13.addLink(node14);
+            node13.addLink(node35);
 
-            node14.addLink(node13);
+            node14.addLink(node34);
             node14.addLink(node15);
             node14.addLink(node17);
 
@@ -228,18 +254,18 @@ public class InitBean {
             node16.addLink(node15);
 
             node17.addLink(node14);
-            node17.addLink(node18);
+            node17.addLink(node36);
 
-            node18.addLink(node17);
+            node18.addLink(node36);
             node18.addLink(node19);
 
             node19.addLink(node18);
             node19.addLink(node20);
 
             node20.addLink(node19);
-            node20.addLink(node21);
+            node20.addLink(node37);
 
-            node21.addLink(node20);
+            node21.addLink(node37);
             node21.addLink(node22);
 
             node22.addLink(node21);
@@ -247,11 +273,11 @@ public class InitBean {
 
             node23.addLink(node22);
 
-            node24.addLink(node2);
-            node24.addLink(node25);
+            node24.addLink(node38);
+            node24.addLink(node40);
             node24.addLink(node31);
 
-            node25.addLink(node24);
+            node25.addLink(node39);
             node25.addLink(node26);
 
             node26.addLink(node25);
@@ -274,6 +300,27 @@ public class InitBean {
             node32.addLink(node33);
 
             node33.addLink(node32);
+
+            node34.addLink(node35);
+            node34.addLink(node14);
+
+            node35.addLink(node13);
+            node35.addLink(node34);
+
+            node36.addLink(node17);
+            node36.addLink(node18);
+
+            node37.addLink(node20);
+            node37.addLink(node21);
+
+            node38.addLink(node2);
+            node38.addLink(node24);
+
+            node39.addLink(node25);
+            node39.addLink(node40);
+
+            node40.addLink(node39);
+            node40.addLink(node24);
 
             NodeRepo.save(node1);
             NodeRepo.save(node2);
@@ -308,11 +355,23 @@ public class InitBean {
             NodeRepo.save(node31);
             NodeRepo.save(node32);
             NodeRepo.save(node33);
+            NodeRepo.save(node34);
+            NodeRepo.save(node35);
+            NodeRepo.save(node36);
+            NodeRepo.save(node37);
+            NodeRepo.save(node38);
+            NodeRepo.save(node39);
+            NodeRepo.save(node40);
         }
     }
 
 
-    private void initTransporter()
+    /**
+     * init function for transporter data
+     *
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void initTransporter()
     {
         if(0 == TransporterRepo.count() ) {
             for (int i = 1; i < 11; i++) {
@@ -333,8 +392,4 @@ public class InitBean {
             }
         }
     }
-
 }
-
-
-
