@@ -10,16 +10,16 @@
     <div class="formGrid1to2">
         Select Start
         <select th:field="*{NodeStartID}">
+            <option th:value="--"> -- </option>
             <option th:each="prod : ${ProductionLines}" th:value="${prod.identifier}" th:utext="${prod.name}"> </option>
-             <option th:value="--"> -- </option>
          </select>
      </div>
 
      <div class="formGrid1to2">
          Select Target
          <select th:field="*{NodeTargetID}">
+             <option th:value="--"> -- </option>
              <option th:each="prod : ${ProductionLines}" th:value="${prod.identifier}" th:utext="${prod.name}"> </option>
-            <option th:value="--"> -- </option>
         </select>
     </div>
     <div class="formGrid1to2">Payload <input type="text" th:field="*{JobPayload}" /></div>

@@ -57,8 +57,8 @@ h3 {
     position:relative;
     float: left;
     background-color: #938E94;
-    min-width: calc(33% - 5px);
-    min-height: calc(33% - 5px);
+    min-width: calc(33% - 7px);
+    min-height: calc(33% - 1px);
     margin: 5px;
     box-sizing: border-box;
 }

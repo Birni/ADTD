@@ -2,8 +2,10 @@ package com.adtd.web.services;
 
 
 import com.adtd.web.dataAccess.TransporterDTO;
+import com.adtd.web.entity.Location;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
+import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
 import com.adtd.web.repository.TransporterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,9 @@ public class TransporterIF {
 
     @Autowired
     NodeRepository NodeRepo;
+
+    @Autowired
+    LocationRepository LocationRepo;
 
 
     /**
@@ -82,6 +87,14 @@ public class TransporterIF {
 
                 Transporter transporter = new Transporter(transporterDTO.getLabel(),
                         transporterDTO.getBattery(), transporterDTO.getMaxPayload());
+
+                Optional<Location> location = LocationRepo.findById("Garage");
+                if (location.isPresent()) {
+                    Optional<Node> garage = NodeRepo.findById(location.get().getRoadConnection());
+                    if(garage.isPresent()){
+                        transporter.setPosition(garage.get());
+                    }
+                }
 
                 TransporterRepo.save(transporter);
 
