@@ -1,12 +1,8 @@
 package com.adtd.web.controller;
 
 import com.adtd.web.Messaging.Sender;
-import com.adtd.web.dataAccess.LocationDTO;
-import com.adtd.web.dataAccess.NewTransporterDTO;
-import com.adtd.web.dataAccess.TransporterJob;
-import com.adtd.web.entity.Route;
+import com.adtd.web.dataAccess.JobDTO;
 import com.adtd.web.services.JobIF;
-import com.adtd.web.services.TransporterIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +19,7 @@ public class JobController {
     Sender sender;
 
     @PostMapping("/addJob")
-    public String addJob(@ModelAttribute TransporterJob job , Model model) {
+    public String addJob(@ModelAttribute JobDTO job , Model model) {
         JobIF.ErrorTypeJobIF error = jobIF.startJob(job);
 
         if(error == JobIF.ErrorTypeJobIF.ERROR_NO_ERROR) {

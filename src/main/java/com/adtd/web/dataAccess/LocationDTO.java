@@ -3,16 +3,16 @@ package com.adtd.web.dataAccess;
 public class LocationDTO {
 
     private String name;
-    private long roadConnection;
+    private String  identifier;
 
     public LocationDTO() {
 
     }
 
-    public LocationDTO (String name, long roadConnection)
+    public LocationDTO (String name, String identifier)
     {
         this.name = name;
-        this.roadConnection = roadConnection;
+        this.identifier = identifier;
     }
 
     public String getName() {
@@ -23,11 +23,11 @@ public class LocationDTO {
         name = name;
     }
 
-    public long getRoadConnection() {
-        return roadConnection;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setRoadConnection(long roadConnection) {
-        roadConnection = roadConnection;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

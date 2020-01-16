@@ -20,7 +20,7 @@ public class Route
     private long NodeTargetID;
     private float JobPayload;
     //@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Node> RouteNodes = new ArrayList<Node>();
 

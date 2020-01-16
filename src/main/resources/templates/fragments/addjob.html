@@ -6,11 +6,12 @@
 
 
 <h3>Add Job </h3>
+
 <form  th:action="@{/addJob}" th:object="${jobRoute}" method="post">
     <div class="formGrid1to2">
         Select Start
         <select th:field="*{NodeStartID}">
-            <option th:each="prod : ${ProductionLines}" th:value="${prod.roadConnection}" th:utext="${prod.name}"> </option>
+            <option th:each="prod : ${ProductionLines}" th:value="${prod.identifier}" th:utext="${prod.name}"> </option>
             <!-- <option value="0"> -- </option> -->
          </select>
      </div>
@@ -18,14 +19,17 @@
      <div class="formGrid1to2">
          Select Target
          <select th:field="*{NodeTargetID}">
-             <option th:each="prod : ${ProductionLines}" th:value="${prod.roadConnection}" th:utext="${prod.name}"> </option>
+             <option th:each="prod : ${ProductionLines}" th:value="${prod.identifier}" th:utext="${prod.name}"> </option>
            <!--  <option value="0"> -- </option> -->
         </select>
     </div>
-    <div class="formGrid1to2">Payload <input type="text" th:field="*{payload}" /></div>
-
+    <div class="formGrid1to2">Payload <input type="text" th:field="*{JobPayload}" /></div>
     <div><button class="styleButton" type="submit">Submit</button></div>
-
 </form>
+
+
+
+
+
 
 </html>

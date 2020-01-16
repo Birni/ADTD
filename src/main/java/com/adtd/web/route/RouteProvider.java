@@ -70,20 +70,30 @@ public class RouteProvider
         while(currentNode != endNode) {
             ResultNodes.add(currentNode);
             Visited.put(currentNode.getId(), currentNode);
+            boolean noMoreToVisit = true;
             for(int i=0; i < currentNode.getLinkList().size(); i++) {
                 // never visited node
                 if (!Visited.containsKey(currentNode.getLinkList().get(i).GetLinkedNode())){
                     // move to this node
                     currentNode = tempNodes.get(currentNode.getLinkList().get(i).GetLinkedNode());
                     Visited.put(currentNode.getId(), currentNode);
+                    noMoreToVisit = false;
                     break;
                 }
                 // TODO mabey do loopbrake
             }
+
+            if(noMoreToVisit && (CrossNode.isEmpty()))
+            {
+                ResultNodes.clear();
+                break;
+            }
+
+
             // check new node
             //dead end
             if(currentNode.getLinkList().size() == 1){
-                if(currentNode == endNode) {
+                if(currentNode.getId() == endNode.getId()) {
                     ResultNodes.add(currentNode);
                     break;
                 }
@@ -120,6 +130,9 @@ public class RouteProvider
             if(currentNode.getLinkList().size() > 2){
                 CrossNode.add(currentNode);
             }
+
+
+
         }
 
         return ResultNodes;

@@ -2,11 +2,20 @@ package com.adtd.web.controller;
 
 
 import com.adtd.web.Messaging.Sender;
+import com.adtd.web.dataAccess.JMSMessage;
 import com.adtd.web.dataAccess.JobDTO;
+import com.adtd.web.dataAccess.LocationDTO;
+import com.adtd.web.dataAccess.NewTransporterDTO;
+import com.adtd.web.services.JobIF;
+import com.adtd.web.services.LocationIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+import java.util.Random;
 
 
 @Controller
@@ -15,19 +24,38 @@ public class ConnectedController {
     @Autowired
     private Sender sender;
 
+    @Autowired
+    private LocationIF locationIF;
 
     @PostMapping("/broadcast")
-    public String broadcastmessage ( Model model){
+    public String broadcastForOwnInbound ( Model model){
 
         JobDTO jobDTO = new JobDTO();
-        jobDTO.setNodeStartID(23L);
-        jobDTO.setNodeTargetID(16L);
+
         jobDTO.setJobPayload(10);
-        sender.sendTestBroadcast("testy.test", jobDTO);
+
+        List<LocationDTO> locationDTOList = locationIF.GetAllProductions();
+        Random r = new Random();
+        jobDTO.setNodeStartID(locationDTOList.get(r.nextInt(locationDTOList.size())).getIdentifier());
+        jobDTO.setNodeTargetID(locationDTOList.get(r.nextInt(locationDTOList.size())).getIdentifier());
+
+        sender.sendTestBroadcastForOwnInbound(jobDTO);
 
         model.addAttribute("state" , "Done");
         model.addAttribute("message" , "done broadcast but have not checked if received ");
 
         return "results";
     }
+
+    @PostMapping("/sendJmsMessage")
+    public String sendJmsMessage (@ModelAttribute JMSMessage jmsMessage, Model model){
+
+        sender.send(jmsMessage.getTopic(), jmsMessage.getMessage());
+
+        model.addAttribute("state" , "Done");
+        model.addAttribute("message" , "done broadcast but have not checked if received ");
+
+        return "results";
+    }
+
 }

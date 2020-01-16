@@ -12,6 +12,7 @@ import javax.json.JsonObject;
 
 import com.adtd.web.dataAccess.JobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
@@ -19,12 +20,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class Sender {
 
+    @Value("${inbound-topic}")
+    private String topicName;
 
     @Autowired
     private JmsTemplate jmsTemplate;
 
 
-    public void sendTestBroadcast(String topicName, JobDTO jobDTO){
+    public void sendTestBroadcastForOwnInbound(JobDTO jobDTO){
 
         JsonBuilderFactory factory = Json.createBuilderFactory(null);
         JsonObject value = factory.createObjectBuilder()
@@ -33,8 +36,6 @@ public class Sender {
                     .add("JobPayload", jobDTO.getJobPayload())
                 .build();
 
-        jmsTemplate.convertAndSend(topicName, "test");
-
         jmsTemplate.send(topicName,new MessageCreator() {
 
             public Message createMessage(Session session) throws JMSException {
@@ -42,6 +43,11 @@ public class Sender {
                 return message;
             }
         });
+    }
+
+
+    public void send(String topicName , String message){
+        jmsTemplate.convertAndSend(topicName, message);
     }
 
 }

@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 public class JobDTO implements Serializable {
 
-    private long NodeStartID;
-    private long NodeTargetID;
+    private String NodeStartID;
+    private String NodeTargetID;
     private float JobPayload;
 
-    public long getNodeStartID() {
+    public String getNodeStartID() {
         return NodeStartID;
     }
 
-    public long getNodeTargetID() {
+    public String getNodeTargetID() {
         return NodeTargetID;
     }
 
@@ -24,11 +24,11 @@ public class JobDTO implements Serializable {
         JobPayload = jobPayload;
     }
 
-    public void setNodeTargetID(long nodeTargetID) {
-        NodeTargetID = nodeTargetID;
+    public void setNodeStartID(String nodeStartID) {
+        NodeStartID = nodeStartID;
     }
 
-    public void setNodeStartID(long nodeStartID) {
-        NodeStartID = nodeStartID;
+    public void setNodeTargetID(String nodeTargetID) {
+        NodeTargetID = nodeTargetID;
     }
 }

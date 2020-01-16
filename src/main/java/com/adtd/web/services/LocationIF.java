@@ -22,7 +22,7 @@ public class LocationIF {
         List<LocationDTO> locationList = new ArrayList<>();
         for (Location location : LocationRepo.findAll()) {
             if(location.GetLocatonType() != LocatonType.GARAGE) {
-                LocationDTO temp = new LocationDTO(location.GetName(), ((int) location.getRoadConnection()));
+                LocationDTO temp = new LocationDTO(location.GetName(), location.getId());
 
                 locationList.add(temp);
             }

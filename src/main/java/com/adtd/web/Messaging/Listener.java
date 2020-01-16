@@ -1,24 +1,42 @@
 package com.adtd.web.Messaging;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.adtd.web.dataAccess.JobDTO;
+
+import com.adtd.web.services.JobIF;
+import com.google.gson.Gson;
+import com.google.gson.JsonParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import javax.json.JsonObject;
+import java.io.Console;
 
 
 @Component
 public class Listener {
 
 
-    private static final Logger LOGGER =
-            LoggerFactory.getLogger(Listener.class);
+    @Autowired
+    JobIF jobIF;
 
-    @JmsListener(destination = "testy.test")
-    public void receive1(String message) {
-        LOGGER.info("'subscriber1' received message='{}'", message);
+    @JmsListener(destination = "testy")
+    public void receiveJobMessage(String message) {
 
+        Gson g = new Gson();
+
+        JobDTO jobDTO = null;
+
+        try {
+             jobDTO = g.fromJson(message, JobDTO.class);
+        }
+        catch (JsonParseException e) {
+        // no action planned
+        }
+
+        if(jobDTO != null) {
+            jobIF.startJob(jobDTO);
+        }
     }
-
 }
 

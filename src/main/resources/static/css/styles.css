@@ -150,8 +150,20 @@ a:link:hover, a:visited:hover  {
     min-width: calc(33%);
     min-height: calc(33%);
     box-sizing: border-box;
+
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+
 }
 
+.textbox{
+    word-wrap:break-word;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
 
 /* #5D5C61 */
 /* #938E94 */

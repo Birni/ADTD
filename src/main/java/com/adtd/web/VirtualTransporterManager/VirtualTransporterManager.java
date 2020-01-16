@@ -62,6 +62,9 @@ public class VirtualTransporterManager {
                         Random r = new Random();
                         float random = 0.5F + r.nextFloat() * (1.2F - 0.5F);
                         transporter.setBattery(transporter.getBattery() +random);
+                        if(transporter.getBattery() > 100 ){
+                            transporter.setBattery(100);
+                        }
                         TransporterRepo.save(transporter);
                     }
                 }

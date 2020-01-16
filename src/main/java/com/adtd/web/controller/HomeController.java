@@ -38,7 +38,8 @@ public class HomeController {
 
         Iterable<LocationDTO> locationList = locationIF.GetAllProductions();
         model.addAttribute("ProductionLines",  locationList);
-        model.addAttribute("jobRoute", new TransporterJob());
+        model.addAttribute("jobRoute", new JobDTO());
+        model.addAttribute("jmsMessage", new JMSMessage());
 
 
         return "index.html";

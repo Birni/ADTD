@@ -24,11 +24,6 @@ public class Config {
     private String brokerUrl;
 
     @Bean
-    public Topic topic() {
-        return new ActiveMQTopic ("TestTopic1");
-    }
-
-    @Bean
     public ActiveMQConnectionFactory connectionFactory() {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
         factory.setBrokerURL(brokerUrl);
