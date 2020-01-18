@@ -44,11 +44,6 @@ public class VirtualTransporterManager {
 
             if(!routeNodes.isEmpty()) {
 
-                //TODO: only for debugging
-                Logger logger = LoggerFactory.getLogger(VirtualTransporterManager.class);
-                logger.info(String.valueOf(routeNodes.get(0).getId()));
-
-
                 transporter.setPosition(routeNodes.get(0));
                 routeNodes.remove(0);
                 transporter.getJob().setRouteNodes(routeNodes);

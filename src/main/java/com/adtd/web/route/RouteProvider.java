@@ -63,13 +63,6 @@ public class RouteProvider
             }
         }
 
-        Logger logger = LoggerFactory.getLogger(RouteProvider.class);
-        //TODO: only for debugging
-        for(Node node : job.getRouteNodes()){
-            logger.info(String.valueOf(node.getId()));
-        }
-
-
         return job;
     }
 

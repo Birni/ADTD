@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @author  Matthias Birnthaler
  */
 @Component
-@Scope("application")
+@Scope("singleton")
 public class Listener {
 
 

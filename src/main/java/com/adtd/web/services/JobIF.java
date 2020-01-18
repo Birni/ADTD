@@ -23,7 +23,7 @@ import java.util.Optional;
  * @author  Matthias Birnthaler
  */
 @Service
-@Scope("session")
+@Scope("singleton")
 public class JobIF {
 
     @Autowired
