@@ -1,14 +1,13 @@
 package com.adtd.web.services;
 
-import com.adtd.web.dataAccess.LocationDTO;
+import com.adtd.web.HelperObjects.LocationDTO;
 import com.adtd.web.entity.Location;
 import com.adtd.web.entity.LocatonType;
 import com.adtd.web.repository.LocationRepository;
-import com.adtd.web.repository.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.font.ShapeGraphicAttribute;
+import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ import java.util.List;
  * @author  Matthias Birnthaler
  */
 @Service
+@SessionScoped
 public class LocationIF {
 
     @Autowired

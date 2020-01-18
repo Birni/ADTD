@@ -1,13 +1,15 @@
 package com.adtd.web.controller;
 
 import com.adtd.web.Messaging.Sender;
-import com.adtd.web.dataAccess.JobDTO;
+import com.adtd.web.HelperObjects.JobDTO;
 import com.adtd.web.services.JobIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.faces.bean.RequestScoped;
 
 
 /**
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author  Matthias Birnthaler
  */
 @Controller
+@RequestScoped
 public class JobController {
 
     @Autowired
@@ -24,6 +27,12 @@ public class JobController {
     @Autowired
     Sender sender;
 
+    /**
+     * request handling to add a transportation job
+     * @param job job data
+     * @param model spring model
+     *
+     */
     @PostMapping("/addJob")
     public String addJob(@ModelAttribute JobDTO job , Model model) {
         JobIF.ErrorTypeJobIF error = jobIF.startJob(job);

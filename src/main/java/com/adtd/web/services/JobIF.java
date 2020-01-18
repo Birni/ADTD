@@ -1,6 +1,6 @@
 package com.adtd.web.services;
 
-import com.adtd.web.dataAccess.JobDTO;
+import com.adtd.web.HelperObjects.JobDTO;
 import com.adtd.web.entity.Location;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Job;
@@ -12,6 +12,7 @@ import com.adtd.web.route.RouteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.faces.bean.SessionScoped;
 import java.util.Optional;
 
 
@@ -21,6 +22,7 @@ import java.util.Optional;
  * @author  Matthias Birnthaler
  */
 @Service
+@SessionScoped
 public class JobIF {
 
     @Autowired

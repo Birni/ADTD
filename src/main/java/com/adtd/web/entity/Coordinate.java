@@ -16,9 +16,10 @@ public class Coordinate
     private long id;
 
     @Column(scale=6, precision = 8)
-    BigDecimal Latitude;
+    private BigDecimal Latitude;
     @Column(scale=6, precision = 8)
-    BigDecimal  Longitude;
+    private BigDecimal  Longitude;
+
 
     public Coordinate()
     {

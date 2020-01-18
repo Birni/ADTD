@@ -2,9 +2,9 @@ package com.adtd.web.controller;
 
 
 import com.adtd.web.Messaging.Sender;
-import com.adtd.web.dataAccess.JMSMessage;
-import com.adtd.web.dataAccess.JobDTO;
-import com.adtd.web.dataAccess.LocationDTO;
+import com.adtd.web.HelperObjects.JMSMessage;
+import com.adtd.web.HelperObjects.JobDTO;
+import com.adtd.web.HelperObjects.LocationDTO;
 import com.adtd.web.services.LocationIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.faces.bean.RequestScoped;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +23,7 @@ import java.util.Random;
  * @author  Matthias Birnthaler
  */
 @Controller
+@RequestScoped
 public class ConnectedController {
 
     @Autowired
@@ -32,6 +34,7 @@ public class ConnectedController {
 
     /**
      * request handling for the broadcast
+     * @param model spring model
      *
      */
     @PostMapping("/broadcast")
@@ -49,13 +52,15 @@ public class ConnectedController {
         sender.sendTestBroadcastForOwnInbound(jobDTO);
 
         model.addAttribute("state" , "Done");
-        model.addAttribute("message" , "done broadcast but have not checked if received ");
+        model.addAttribute("message" , "published message to broker");
 
         return "results";
     }
 
     /**
-     * request handling to publish a message to a topc
+     * request handling to publish a message to a topic
+     * @param jmsMessage message data
+     * @param model spring model
      *
      */
     @PostMapping("/sendJmsMessage")
@@ -64,7 +69,7 @@ public class ConnectedController {
         sender.send(jmsMessage.getTopic(), jmsMessage.getMessage());
 
         model.addAttribute("state" , "Done");
-        model.addAttribute("message" , "done broadcast but have not checked if received ");
+        model.addAttribute("message" , "published message to broker");
 
         return "results";
     }

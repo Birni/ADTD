@@ -11,6 +11,7 @@ import com.adtd.web.route.RouteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.faces.bean.SessionScoped;
 import javax.json.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
  * @author  Matthias Birnthaler
  */
 @Service
+@SessionScoped
 public class LMap {
 
     @Autowired

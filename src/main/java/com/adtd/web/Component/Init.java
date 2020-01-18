@@ -5,20 +5,22 @@ package com.adtd.web.Component;
 import com.adtd.web.entity.*;
 import com.adtd.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import java.util.*;
 
 
 /**
- * component to initialize the database
+ * Service to initialize the database
  *
  * @author  Matthias Birnthaler
  */
-@Component
-public class InitBean {
+@Service
+@ApplicationScoped
+public class Init {
 
     @Autowired
     private LocationRepository LocationRepo;
@@ -30,7 +32,8 @@ public class InitBean {
     private TransporterRepository TransporterRepo;
 
     /**
-     * init function for app data fills the database with initial data
+     * init function for app data
+     * fills the database with initial data
      *
      */
     @PostConstruct

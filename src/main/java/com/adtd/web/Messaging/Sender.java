@@ -1,5 +1,6 @@
 package com.adtd.web.Messaging;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
@@ -8,7 +9,7 @@ import javax.json.Json;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 
-import com.adtd.web.dataAccess.JobDTO;
+import com.adtd.web.HelperObjects.JobDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Component;
  * @author  Matthias Birnthaler
  */
 @Component
+@ApplicationScoped
 public class Sender {
 
     @Value("${inbound-topic}")

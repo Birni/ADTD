@@ -9,6 +9,8 @@ import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.faces.bean.ApplicationScoped;
 import java.util.*;
 
 /**
@@ -18,6 +20,7 @@ import java.util.*;
  * @author  Matthias Birnthaler
  */
 @Service
+@ApplicationScoped
 public class RouteProvider
 {
     @Autowired

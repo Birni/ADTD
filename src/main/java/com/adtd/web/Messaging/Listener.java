@@ -1,6 +1,6 @@
 package com.adtd.web.Messaging;
 
-import com.adtd.web.dataAccess.JobDTO;
+import com.adtd.web.HelperObjects.JobDTO;
 
 import com.adtd.web.services.JobIF;
 import com.google.gson.Gson;
@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import javax.faces.bean.ApplicationScoped;
+
 
 /**
  * Listener to receive messages form the broker
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Component;
  * @author  Matthias Birnthaler
  */
 @Component
+@ApplicationScoped
 public class Listener {
 
 

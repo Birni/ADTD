@@ -1,6 +1,6 @@
 package com.adtd.web.controller;
 
-import com.adtd.web.dataAccess.*;
+import com.adtd.web.HelperObjects.*;
 import com.adtd.web.mapComponents.LMap;
 import com.adtd.web.services.LocationIF;
 import com.adtd.web.services.TransporterIF;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.faces.bean.RequestScoped;
+
 
 /**
  * Controller request handling of the home page
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author  Matthias Birnthaler
  */
 @Controller
+@RequestScoped
 public class HomeController {
 
     @Autowired
@@ -27,7 +30,10 @@ public class HomeController {
     @Autowired
     private LocationIF locationIF;
 
-
+    /**
+     * request handling for the home view
+     *
+     */
     @RequestMapping(value = {"", "/", "/home"})
     public String getHomePage(Model model) {
 

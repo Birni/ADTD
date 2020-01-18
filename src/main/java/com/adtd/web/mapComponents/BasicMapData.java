@@ -1,6 +1,8 @@
 package com.adtd.web.mapComponents;
 import org.springframework.stereotype.Component;
 
+import javax.faces.bean.SessionScoped;
+
 
 /**
  * Component with basic map data for the leaflet/ osm map
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Component;
  * @author  Matthias Birnthaler
  */
 @Component
+@SessionScoped
 public class BasicMapData {
 
     private double centerLat = 49.003038;

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.faces.bean.RequestScoped;
 import java.util.List;
 
 
@@ -16,11 +18,17 @@ import java.util.List;
  * @author  Matthias Birnthaler
  */
 @Controller
+@RequestScoped
 public class MapUpdater {
 
     @Autowired
     LMap Map;
 
+    /**
+     * request handling to update the map
+     *
+     *
+     */
     @RequestMapping(value = "map/update", method = RequestMethod.GET)
     @ResponseBody
     public List<LMap.MapMarker> updateMap (){

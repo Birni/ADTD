@@ -1,4 +1,4 @@
-package com.adtd.web.dataAccess;
+package com.adtd.web.HelperObjects;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
 package com.adtd.web.services;
 
 
-import com.adtd.web.dataAccess.TransporterDTO;
+import com.adtd.web.HelperObjects.TransporterDTO;
 import com.adtd.web.entity.Location;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import java.util.Optional;
  * @author  Matthias Birnthaler
  */
 @Service
+@SessionScoped
 public class TransporterIF {
 
     @Autowired
@@ -115,6 +117,7 @@ public class TransporterIF {
      * deletes a new transporter to the Repository
      * @param transporterDTO attributes of the transporter
      */
+    @Transactional(propagation = Propagation.REQUIRED)
     public ErrorTypeTransporterIf DelTransporterFromRepo(TransporterDTO transporterDTO) {
         if(!transporterDTO.getLabel().isEmpty()) {
             if (TransporterRepo.findById(transporterDTO.getLabel()).isPresent()) {

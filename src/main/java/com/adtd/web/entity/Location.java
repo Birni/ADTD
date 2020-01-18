@@ -16,7 +16,7 @@ public class Location
     private String id;
     private String Name;
     private LocatonType Type;
-    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL}, orphanRemoval=true)
     private List<Coordinate> CoordinateList = new ArrayList<>();
     private long RoadConnection;
 

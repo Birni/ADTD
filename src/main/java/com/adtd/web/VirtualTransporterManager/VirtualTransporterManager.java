@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.faces.bean.ApplicationScoped;
 import java.util.List;
 import java.util.Random;
 
@@ -17,8 +20,9 @@ import java.util.Random;
  *
  * @author  Matthias Birnthaler
  */
-@Service
 @EnableScheduling
+@Service
+@ApplicationScoped
 public class VirtualTransporterManager {
 
 
@@ -27,6 +31,7 @@ public class VirtualTransporterManager {
 
 
     @Scheduled(fixedDelay = 1000)
+    @Transactional(propagation = Propagation.REQUIRED)
     public void scheduleTransporterPositon() {
 
         for(Transporter transporter : TransporterRepo.findAll())
