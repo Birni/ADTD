@@ -23,7 +23,7 @@ import java.util.Random;
  */
 @EnableScheduling
 @Service
-@Scope("application")
+@Scope("singleton")
 public class VirtualTransporterManager {
 
 
