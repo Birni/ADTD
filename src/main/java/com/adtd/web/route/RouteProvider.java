@@ -7,6 +7,8 @@ import com.adtd.web.entity.NodeLink;
 import com.adtd.web.entity.Job;
 import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,13 @@ public class RouteProvider
                 job.addRouteNodes(GetRoutePiece(TargetNope, garage.get()));
             }
         }
+
+        Logger logger = LoggerFactory.getLogger(RouteProvider.class);
+        //TODO: only for debugging
+        for(Node node : job.getRouteNodes()){
+            logger.info(String.valueOf(node.getId()));
+        }
+
 
         return job;
     }

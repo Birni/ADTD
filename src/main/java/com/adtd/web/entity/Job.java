@@ -24,8 +24,8 @@ public class Job
     private long NodeStartID;
     private long NodeTargetID;
     private float JobPayload;
-    //@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     @ManyToMany
+    @OrderColumn
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Node> RouteNodes = new ArrayList<Node>();
 

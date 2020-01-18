@@ -8,13 +8,11 @@
 		<version>2.1.9.RELEASE</version>
 		<relativePath/>
 	</parent>
-	<groupId>de.othr.sw</groupId>
+	<groupId>de.othr.sw.adtd</groupId>
 	<artifactId>ADTD</artifactId>
 	<version>1</version>
 	<name>ADTD</name>
 	<description>Autonomous-Driving-Transportation-Depots</description>
-
-	<packaging>war</packaging>
 
 	<properties>
 		<java.version>11</java.version>
@@ -104,6 +102,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.48</version>
+		</dependency>
 
 </dependencies>
 
@@ -112,8 +115,18 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.adtd.web.ADTDApp</mainClass>
+					<executable>true</executable>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

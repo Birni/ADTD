@@ -26,7 +26,7 @@ public class Listener {
     @Autowired
     JobIF jobIF;
 
-    @JmsListener(destination = "testy")
+    @JmsListener(destination = "sw_matthias_birnthaler_topic_adtdjob")
     public void receiveJobMessage(String message) {
 
         Gson g = new Gson();

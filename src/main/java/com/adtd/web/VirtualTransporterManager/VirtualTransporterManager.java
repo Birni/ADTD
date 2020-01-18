@@ -3,6 +3,8 @@ package com.adtd.web.VirtualTransporterManager;
 import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
 import com.adtd.web.repository.TransporterRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.io.Console;
 import java.util.List;
 import java.util.Random;
 
@@ -32,7 +35,7 @@ public class VirtualTransporterManager {
 
 
     @Scheduled(fixedDelay = 1000)
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void scheduleTransporterPositon() {
 
         for(Transporter transporter : TransporterRepo.findAll())
@@ -40,6 +43,12 @@ public class VirtualTransporterManager {
             List<Node> routeNodes = transporter.getJob().getRouteNodes();
 
             if(!routeNodes.isEmpty()) {
+
+                //TODO: only for debugging
+                Logger logger = LoggerFactory.getLogger(VirtualTransporterManager.class);
+                logger.info(String.valueOf(routeNodes.get(0).getId()));
+
+
                 transporter.setPosition(routeNodes.get(0));
                 routeNodes.remove(0);
                 transporter.getJob().setRouteNodes(routeNodes);
@@ -59,6 +68,7 @@ public class VirtualTransporterManager {
                     transporter.setHasJob(false);
                     transporter.setPayload(0);
                 }
+
 
                 TransporterRepo.save(transporter);
             }
