@@ -1,7 +1,7 @@
 package com.adtd.web.mapComponents;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import javax.faces.bean.SessionScoped;
 
 
 /**
@@ -10,7 +10,7 @@ import javax.faces.bean.SessionScoped;
  * @author  Matthias Birnthaler
  */
 @Component
-@SessionScoped
+@Scope("session")
 public class BasicMapData {
 
     private double centerLat = 49.003038;

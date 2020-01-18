@@ -6,10 +6,11 @@ import com.adtd.web.services.JobIF;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import javax.faces.bean.ApplicationScoped;
+
 
 
 /**
@@ -18,7 +19,7 @@ import javax.faces.bean.ApplicationScoped;
  * @author  Matthias Birnthaler
  */
 @Component
-@ApplicationScoped
+@Scope("application")
 public class Listener {
 
 

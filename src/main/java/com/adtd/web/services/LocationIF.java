@@ -5,9 +5,9 @@ import com.adtd.web.entity.Location;
 import com.adtd.web.entity.LocatonType;
 import com.adtd.web.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @author  Matthias Birnthaler
  */
 @Service
-@SessionScoped
+@Scope("session")
 public class LocationIF {
 
     @Autowired

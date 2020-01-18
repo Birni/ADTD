@@ -5,11 +5,12 @@ package com.adtd.web.Component;
 import com.adtd.web.entity.*;
 import com.adtd.web.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
 import java.util.*;
 
 
@@ -19,7 +20,7 @@ import java.util.*;
  * @author  Matthias Birnthaler
  */
 @Service
-@ApplicationScoped
+@Scope("singleton")
 public class Init {
 
     @Autowired

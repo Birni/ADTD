@@ -4,12 +4,12 @@ import com.adtd.web.Messaging.Sender;
 import com.adtd.web.HelperObjects.JobDTO;
 import com.adtd.web.services.JobIF;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.faces.bean.RequestScoped;
 
 
 /**
@@ -18,7 +18,7 @@ import javax.faces.bean.RequestScoped;
  * @author  Matthias Birnthaler
  */
 @Controller
-@RequestScoped
+@Scope("request")
 public class JobController {
 
     @Autowired

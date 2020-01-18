@@ -9,9 +9,9 @@ import com.adtd.web.repository.TransporterRepository;
 import com.adtd.web.entity.Job;
 import com.adtd.web.route.RouteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.faces.bean.SessionScoped;
 import javax.json.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
  * @author  Matthias Birnthaler
  */
 @Service
-@SessionScoped
+@Scope("session")
 public class LMap {
 
     @Autowired

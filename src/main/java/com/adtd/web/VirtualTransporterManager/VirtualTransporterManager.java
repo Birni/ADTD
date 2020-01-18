@@ -4,13 +4,14 @@ import com.adtd.web.entity.Node;
 import com.adtd.web.entity.Transporter;
 import com.adtd.web.repository.TransporterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.faces.bean.ApplicationScoped;
+
 import java.util.List;
 import java.util.Random;
 
@@ -22,7 +23,7 @@ import java.util.Random;
  */
 @EnableScheduling
 @Service
-@ApplicationScoped
+@Scope("application")
 public class VirtualTransporterManager {
 
 

@@ -10,9 +10,10 @@ import com.adtd.web.repository.NodeRepository;
 import com.adtd.web.repository.TransporterRepository;
 import com.adtd.web.route.RouteProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import javax.faces.bean.SessionScoped;
+
 import java.util.Optional;
 
 
@@ -22,7 +23,7 @@ import java.util.Optional;
  * @author  Matthias Birnthaler
  */
 @Service
-@SessionScoped
+@Scope("session")
 public class JobIF {
 
     @Autowired

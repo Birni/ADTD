@@ -9,11 +9,12 @@ import com.adtd.web.repository.LocationRepository;
 import com.adtd.web.repository.NodeRepository;
 import com.adtd.web.repository.TransporterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.faces.bean.SessionScoped;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ import java.util.Optional;
  * @author  Matthias Birnthaler
  */
 @Service
-@SessionScoped
+@Scope("session")
 public class TransporterIF {
 
     @Autowired

@@ -7,12 +7,13 @@ import com.adtd.web.HelperObjects.JobDTO;
 import com.adtd.web.HelperObjects.LocationDTO;
 import com.adtd.web.services.LocationIF;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.faces.bean.RequestScoped;
+
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +24,7 @@ import java.util.Random;
  * @author  Matthias Birnthaler
  */
 @Controller
-@RequestScoped
+@Scope("request")
 public class ConnectedController {
 
     @Autowired

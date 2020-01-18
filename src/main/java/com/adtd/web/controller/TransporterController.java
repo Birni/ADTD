@@ -3,12 +3,12 @@ package com.adtd.web.controller;
 import com.adtd.web.HelperObjects.TransporterDTO;
 import com.adtd.web.services.TransporterIF;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.faces.bean.RequestScoped;
 
 
 /**
@@ -17,7 +17,7 @@ import javax.faces.bean.RequestScoped;
  * @author  Matthias Birnthaler
  */
 @Controller
-@RequestScoped
+@Scope("request")
 public class TransporterController {
 
     @Autowired
