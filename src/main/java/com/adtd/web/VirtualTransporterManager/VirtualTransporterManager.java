@@ -36,36 +36,39 @@ public class VirtualTransporterManager {
 
     @Scheduled(fixedDelay = 1000)
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void scheduleTransporterPositon() {
+    public void scheduleTransporterUpdate() {
 
         for(Transporter transporter : TransporterRepo.findAll())
         {
             List<Node> routeNodes = transporter.getJob().getRouteNodes();
 
-            if(!routeNodes.isEmpty()) {
+            if(null != routeNodes) {
 
-                transporter.setPosition(routeNodes.get(0));
-                routeNodes.remove(0);
-                transporter.getJob().setRouteNodes(routeNodes);
+                if (!routeNodes.isEmpty()) {
 
-                //simulate battery consumption
-                Random r = new Random();
-                float random = 0.5F + r.nextFloat() * (1.2F - 0.5F);
-                transporter.setBattery(transporter.getBattery() -random);
+                    transporter.setPosition(routeNodes.get(0));
+                    routeNodes.remove(0);
+                    transporter.getJob().setRouteNodes(routeNodes);
 
-                //looks like the start is reached
-                if(transporter.GetPosition().getId() == transporter.getJob().getNodeStartID()) {
-                    transporter.setPayload(transporter.getJob().getJobPayload());
+                    //simulate battery consumption
+                    Random r = new Random();
+                    float random = 0.5F + r.nextFloat() * (1.2F - 0.5F);
+                    transporter.setBattery(transporter.getBattery() - random);
+
+                    //looks like the start is reached
+                    if (transporter.GetPosition().getId() == transporter.getJob().getNodeStartID()) {
+                        transporter.setPayload(transporter.getJob().getJobPayload());
+                    }
+
+                    //looks like the target is reached
+                    if (transporter.GetPosition().getId() == transporter.getJob().getTargetNode()) {
+                        transporter.setHasJob(false);
+                        transporter.setPayload(0);
+                    }
+
+
+                    TransporterRepo.save(transporter);
                 }
-
-                //looks like the target is reached
-                if (transporter.GetPosition().getId() == transporter.getJob().getTargetNode()) {
-                    transporter.setHasJob(false);
-                    transporter.setPayload(0);
-                }
-
-
-                TransporterRepo.save(transporter);
             }
             else{
                 if (transporter.GetPosition().GetIdentifierLocation().equals("Garage")){
