@@ -21,7 +21,6 @@ public class Node
     private long id;
     @OneToOne(cascade = {CascadeType.ALL})
     private Coordinate Coordinate;
-    //@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
     @OneToMany(cascade = {CascadeType.ALL})
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<NodeLink> LinkList = new ArrayList<>();
