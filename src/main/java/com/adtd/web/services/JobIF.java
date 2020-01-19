@@ -62,7 +62,8 @@ public class JobIF {
             if (StartNode.isPresent() && TargetNode.isPresent()) {
 
                 for (Transporter transporter : TransporterRepo.findAll()) {
-                    if ((!transporter.isHasJob()) && (transporter.getBattery() > 50) && (transporter.getMaxPayload() >= job.getJobPayload())) {
+                    if ((transporter.getJob ().getRouteNodes().isEmpty()) && (transporter.getBattery() > 50)
+                            && (transporter.getMaxPayload() >= job.getJobPayload())) {
 
                         Job route = routeProvider.GetRoute(transporter.GetPosition(), StartNode.get(), TargetNode.get());
 
